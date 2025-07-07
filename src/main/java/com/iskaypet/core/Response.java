@@ -21,8 +21,8 @@ public class Response<T> {
     @Override
     public String toString() {
         return "Response{" +
-                "code=" + code +
-                ", data=" + data +
-                '}';
+            "code=" + code +
+            ", data=" + data +
+            '}';
     }
 }
