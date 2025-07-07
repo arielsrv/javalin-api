@@ -40,7 +40,6 @@ public record Server(Javalin javalin) {
         new DiskSpaceMetrics(new File(System.getProperty("user.dir"))).bindTo(
             prometheusMeterRegistry);
 
-        // Configurar el ObjectMapper global de Javalin
         ObjectMapper objectMapper = ContainerRegistry.get(ObjectMapper.class);
 
         return create(config -> {
