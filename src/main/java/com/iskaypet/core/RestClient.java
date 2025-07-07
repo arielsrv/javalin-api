@@ -7,6 +7,8 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import io.reactivex.rxjava3.core.Observable;
+import jakarta.inject.Singleton;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -32,15 +34,15 @@ public class RestClient {
 
     public <T> Observable<Response<T>> getObservable(String apiUrl, Class<T> clazz) {
         return Observable.fromFuture(
-            this.client.sendAsync(HttpRequest.newBuilder().uri(URI.create(apiUrl)).GET().build(),
-                HttpResponse.BodyHandlers.ofString()).thenApply(response -> {
-                try {
-                    T data = objectMapper.readValue(response.body(), clazz);
-                    return new Response<>(response.statusCode(), data);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }));
+                this.client.sendAsync(HttpRequest.newBuilder().uri(URI.create(apiUrl)).GET().build(),
+                        HttpResponse.BodyHandlers.ofString()).thenApply(response -> {
+                    try {
+                        T data = objectMapper.readValue(response.body(), clazz);
+                        return new Response<>(response.statusCode(), data);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }));
     }
 }
 
