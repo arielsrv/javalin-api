@@ -87,7 +87,7 @@ class RestClientTest {
         String url = mockWebServer.url("/user").toString();
         UserFake result = restClient.getObservable(url, UserFake.class)
             .timeout(2, TimeUnit.SECONDS)
-            .blockingFirst().getData();
+            .blockingFirst().data();
         assertThat(result.userId).isEqualTo(1L);
         assertThat(result.name).isEqualTo("Alice");
         assertThat(result.email).isEqualTo("alice@example.com");
@@ -101,8 +101,8 @@ class RestClientTest {
         Response<UserFake> response = restClient.getObservable(url, UserFake.class)
             .timeout(2, TimeUnit.SECONDS)
             .blockingFirst();
-        assertThat(response.getCode()).isEqualTo(404);
-        assertThat(response.getData().userId).isEqualTo(2L);
+        assertThat(response.code()).isEqualTo(404);
+        assertThat(response.data().userId).isEqualTo(2L);
     }
 
     @Test

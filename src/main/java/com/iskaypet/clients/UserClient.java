@@ -17,6 +17,6 @@ public class UserClient {
     public Observable<List<UserResponse>> getUsers() {
         return this.restClient.getObservable("https://gorest.co.in/public/v2/users",
                 UserResponse[].class)
-            .map(response -> Arrays.asList(response.getData()));
+            .map(response -> Arrays.asList(response.data()));
     }
 }

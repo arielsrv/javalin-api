@@ -7,8 +7,10 @@
     <list default="true" id="50bdce1c-48da-44e8-ab82-03962a13e987" name="Changes" comment="fixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/iskaypet/clients/UserClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/iskaypet/clients/UserClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/iskaypet/core/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/iskaypet/core/Response.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/iskaypet/core/ResponseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/iskaypet/core/ResponseTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/iskaypet/core/RestClientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/iskaypet/core/RestClientTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/iskaypet/providers/ObjectMapperProviderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/iskaypet/providers/ObjectMapperProviderTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +102,7 @@
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.test">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.iskaypet.Main" />
       <module name="javalin-api" />
@@ -318,7 +320,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751903395655</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="fixes">
+      <option name="closed" value="true" />
+      <created>1751903660299</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1751903660299</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

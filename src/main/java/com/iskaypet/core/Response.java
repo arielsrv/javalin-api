@@ -1,23 +1,10 @@
 package com.iskaypet.core;
 
-public class Response<T> {
+import org.jetbrains.annotations.NotNull;
 
-    private final int code;
-    private final T data;
+public record Response<T>(int code, T data) {
 
-    public Response(int code, T data) {
-        this.code = code;
-        this.data = data;
-    }
-
-    public T getData() {
-        return this.data;
-    }
-
-    public int getCode() {
-        return this.code;
-    }
-
+    @NotNull
     @Override
     public String toString() {
         return "Response{" +
