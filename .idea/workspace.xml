@@ -5,16 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50bdce1c-48da-44e8-ab82-03962a13e987" name="Changes" comment="fixes">
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/iskaypet/core/ContainerRegistryTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/iskaypet/core/CustomJacksonMapperTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/iskaypet/core/ResponseTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/iskaypet/core/ServerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/iskaypet/core/RestClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/iskaypet/core/RestClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/iskaypet/core/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/iskaypet/core/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/iskaypet/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/iskaypet/dto/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/iskaypet/modules/AppModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/iskaypet/modules/AppModule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/iskaypet/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/iskaypet/services/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/iskaypet/controllers/UserControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/iskaypet/controllers/UserControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/iskaypet/services/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/iskaypet/services/UserServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/iskaypet/core/RestClientTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +67,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.Main.executor": "Run",
+    "Application.Main.executor": "Debug",
     "Docker.Dockerfile.executor": "Run",
     "JUnit.Unnamed.executor": "Run",
     "JUnit.test.executor": "Run",
@@ -103,7 +100,7 @@
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.test">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.iskaypet.Main" />
       <module name="javalin-api" />
@@ -297,7 +294,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751901669878</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="fixes">
+      <option name="closed" value="true" />
+      <created>1751902720387</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1751902720387</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

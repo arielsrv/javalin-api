@@ -26,6 +26,10 @@ public class RestClient {
         objectMapper.registerModule(new JavaTimeModule());
     }
 
+    public RestClient(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
     public <T> Observable<Response<T>> getObservable(String apiUrl, Class<T> clazz) {
         return Observable.fromFuture(
             this.client.sendAsync(HttpRequest.newBuilder().uri(URI.create(apiUrl)).GET().build(),
