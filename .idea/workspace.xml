@@ -6,11 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="50bdce1c-48da-44e8-ab82-03962a13e987" name="Changes" comment="fixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/iskaypet/clients/UserClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/iskaypet/clients/UserClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/iskaypet/core/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/iskaypet/core/Response.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/iskaypet/core/ResponseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/iskaypet/core/ResponseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/iskaypet/core/RestClientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/iskaypet/core/RestClientTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,33 +64,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Debug",
-    "Docker.Dockerfile.executor": "Run",
-    "JUnit.Unnamed.executor": "Run",
-    "JUnit.test.executor": "Coverage",
-    "Maven.javalin-api [clean].executor": "Run",
-    "Maven.javalin-api [install].executor": "Run",
-    "Maven.javalin-api [package].executor": "Run",
-    "Maven.javalin-api [test].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "git-widget-placeholder": "main",
-    "go.import.settings.migrated": "true",
-    "last_opened_file_path": "/Users/ariel.pineiro/projects/personal/iskaypetcom/javalin-api/src/main/resources",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "nx.console.mcp.server.install.notification.hide": "true",
-    "onboarding.tips.debug.path": "/Users/ariel.pineiro/projects/personal/iskaypetcom/javalin-api/src/main/java/com/iskaypet/Main.java",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Debug&quot;,
+    &quot;Docker.Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.test.executor&quot;: &quot;Coverage&quot;,
+    &quot;Maven.javalin-api [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.javalin-api [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.javalin-api [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.javalin-api [test].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/ariel.pineiro/projects/personal/iskaypetcom/javalin-api/src/main/resources&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;nx.console.mcp.server.install.notification.hide&quot;: &quot;true&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;/Users/ariel.pineiro/projects/personal/iskaypetcom/javalin-api/src/main/java/com/iskaypet/Main.java&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.iskaypet" />
@@ -136,7 +133,9 @@
       <method v="2" />
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
-      <deployment type="dockerfile" />
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
       <method v="2" />
     </configuration>
     <list>
