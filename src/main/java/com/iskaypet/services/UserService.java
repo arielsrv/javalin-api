@@ -19,7 +19,7 @@ public class UserService {
             List<UserDTO> users = new ArrayList<>();
             userResponses.forEach(userResponse -> {
                 UserDTO userDTO = new UserDTO();
-                userDTO.id = userResponse.id;
+                userDTO.userId = userResponse.id;
                 userDTO.email = userResponse.email;
                 userDTO.name = userResponse.name;
                 users.add(userDTO);
