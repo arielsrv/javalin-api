@@ -17,8 +17,8 @@ class ObjectMapperProviderTest {
     @Test
     void serializes_snake_case() throws Exception {
         ObjectMapper om = new ObjectMapperProvider().get();
-        class User { public String userId = "x"; }
+        class User { public final String userId = "x"; }
         String json = om.writeValueAsString(new User());
         assertThat(json).contains("user_id");
     }
-} 
+}

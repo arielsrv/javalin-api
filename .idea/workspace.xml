@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50bdce1c-48da-44e8-ab82-03962a13e987" name="Changes" comment="fixes">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/iskaypet/core/ContainerRegistryTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/iskaypet/core/CustomJacksonMapperTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/iskaypet/core/ResponseTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/iskaypet/core/ServerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/iskaypet/core/RestClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/iskaypet/core/RestClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/iskaypet/core/RestClientTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/iskaypet/core/RestClientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/iskaypet/core/RestClientTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/iskaypet/providers/ObjectMapperProviderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/iskaypet/providers/ObjectMapperProviderTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +17,9 @@
   </component>
   <component name="ComposerSettings">
     <execution />
+  </component>
+  <component name="CoverageOptionsProvider">
+    <option name="myAddOrReplace" value="0" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -70,7 +70,7 @@
     "Application.Main.executor": "Debug",
     "Docker.Dockerfile.executor": "Run",
     "JUnit.Unnamed.executor": "Run",
-    "JUnit.test.executor": "Run",
+    "JUnit.test.executor": "Coverage",
     "Maven.javalin-api [clean].executor": "Run",
     "Maven.javalin-api [install].executor": "Run",
     "Maven.javalin-api [package].executor": "Run",
@@ -302,7 +302,23 @@
       <option name="project" value="LOCAL" />
       <updated>1751902720387</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="fixes">
+      <option name="closed" value="true" />
+      <created>1751903389170</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1751903389170</updated>
+    </task>
+    <task id="LOCAL-00019" summary="fixes">
+      <option name="closed" value="true" />
+      <created>1751903395655</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1751903395655</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -328,6 +344,6 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/javalin_api$test.ic" NAME="test Coverage Results" MODIFIED="1751896408997" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/javalin_api$test.ic" NAME="test Coverage Results" MODIFIED="1751903632707" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
   </component>
 </project>
