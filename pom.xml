@@ -104,6 +104,16 @@
       <artifactId>logstash-logback-encoder</artifactId>
       <version>7.4</version>
     </dependency>
+    <dependency>
+      <groupId>io.javalin</groupId>
+      <artifactId>javalin-micrometer</artifactId>
+      <version>6.7.0</version>
+    </dependency>
+    <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-registry-prometheus</artifactId>
+      <version>1.15.1</version>
+    </dependency>
   </dependencies>
   <groupId>com.iskaypet</groupId>
 
