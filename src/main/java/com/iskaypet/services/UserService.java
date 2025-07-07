@@ -3,8 +3,8 @@ package com.iskaypet.services;
 import com.iskaypet.clients.UserClient;
 import com.iskaypet.dto.UserDTO;
 import io.reactivex.rxjava3.core.Observable;
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +13,6 @@ public class UserService {
 
     @Inject
     UserClient userClient;
-
-    @Inject
-    public UserService(UserClient userClient) {
-        this.userClient = userClient;
-    }
 
     public Observable<List<UserDTO>> getUsers() {
         return this.userClient.getUsers().map(userResponses -> {
