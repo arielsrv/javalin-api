@@ -16,14 +16,11 @@ public class RestClient {
 
     public <T> Observable<Response<T>> getObservable(String apiUrl, Class<T> clazz) {
         return Observable.fromFuture(
-            client.sendAsync(
-                HttpRequest.newBuilder().uri(URI.create(apiUrl)).GET().build(),
-                HttpResponse.BodyHandlers.ofString()
-            ).thenApply(response -> {
+            this.client.sendAsync(HttpRequest.newBuilder().uri(URI.create(apiUrl)).GET().build(),
+                HttpResponse.BodyHandlers.ofString()).thenApply(response -> {
                 T data = gson.fromJson(response.body(), clazz);
                 return new Response<>(response.statusCode(), data);
-            })
-        );
+            }));
     }
 }
 
