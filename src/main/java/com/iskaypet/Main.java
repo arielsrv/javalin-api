@@ -15,6 +15,6 @@ public class Main {
 
         server.get("/users", injector.getInstance(UserController.class)::getUsers);
 
-        server.start(7070);
+        server.start(8081);
     }
 }

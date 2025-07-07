@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "Content-Type"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, DELETE, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+  labels:
+    app: javalin-api
+  name: ingress
+  namespace: iskaypet
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: javalin-api.127.0.0.1.nip.io
+      http:
+        paths:
+          - backend:
+              service:
+                name: javalin-api--service
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - javalin-api.127.0.0.1.nip.io
+      secretName: javalin-api--secret

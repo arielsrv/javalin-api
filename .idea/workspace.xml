@@ -5,8 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50bdce1c-48da-44e8-ab82-03962a13e987" name="Changes" comment="fixes">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/kubernetes/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/kubernetes/base/config.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/kubernetes/base/deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/kubernetes/base/hpa.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/kubernetes/base/ingress.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/kubernetes/base/kustomization.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/kubernetes/base/namespace.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/kubernetes/base/pdb.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/kubernetes/base/service.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Taskfile.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Taskfile.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/iskaypet/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/iskaypet/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/iskaypet/core/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/iskaypet/core/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -74,6 +85,7 @@
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
     "git-widget-placeholder": "main",
     "go.import.settings.migrated": "true",
+    "last_opened_file_path": "/Users/ariel.pineiro/projects/personal/iskaypetcom/javalin-api/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -87,6 +99,9 @@
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.iskaypet" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">
@@ -138,7 +153,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1751872438470</updated>
-      <workItem from="1751872440765" duration="13888000" />
+      <workItem from="1751872440765" duration="17828000" />
     </task>
     <task id="LOCAL-00001" summary="fixes">
       <option name="closed" value="true" />
@@ -188,7 +203,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751884890932</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="fixes">
+      <option name="closed" value="true" />
+      <created>1751886660655</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1751886660655</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

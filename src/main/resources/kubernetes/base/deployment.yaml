@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rolling-update
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: javalin-api
+  template:
+    metadata:
+      annotations:
+        prometheus.io/port: http
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
+      labels:
+        app: javalin-api
+    spec:
+      containers:
+        - ports:
+            - containerPort: 8081
+              name: http
+          name: javalin-api
+          image: javalin-api:latest
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: config
+          resources: # If resources.limits.cpu < (2000m || 2) so GOMAXPROCS=1, using minimum allowed GOMAXPROCS. Delete resources tag if you don't want limits.
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: http
+              scheme: HTTP
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: http
+              scheme: HTTP
+      restartPolicy: Always
+  strategy:
+    type: RollingUpdate

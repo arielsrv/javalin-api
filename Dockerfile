@@ -10,4 +10,5 @@ RUN mvn clean install
 FROM eclipse-temurin:${JAVA_VERSION}-jre-alpine AS runtime
 WORKDIR /app
 COPY --from=build /app/target/app.jar app.jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
+COPY src/main/resources/opentelemetry-javaagent_v2.17.0.jar opentelemetry-javaagent.jar
+ENTRYPOINT ["java", "-javaagent:/app/opentelemetry-javaagent.jar", "-Dotel.resource.attributes=service.name=mi-javalin", "-Dotel.traces.exporter=otlp", "-Dotel.exporter.otlp.endpoint=tempo.monitoring.svc.cluster.local:4317", "-jar", "app.jar"]
