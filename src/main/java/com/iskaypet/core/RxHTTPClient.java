@@ -1,1 +1,0 @@
-package com.iskaypet.core;import io.reactivex.rxjava3.core.Observable;public class RxHTTPClient {    public <T> Observable<T> get(String apiUrl, Class<T> aClass) {        return null;    }}

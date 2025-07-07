@@ -1,1 +1,21 @@
-package com.iskaypet.clients;import com.iskaypet.clients.responses.UserResponse;import com.iskaypet.core.RxHTTPClient;import io.reactivex.rxjava3.core.Observable;import jakarta.inject.Inject;import jakarta.inject.Singleton;import java.util.List;@Singletonpublic class UserClient {    @Inject    UserClient userClient;    @Inject    RxHTTPClient httpClient;    public Observable<List<UserResponse>> getUsers() {        return this.httpClient.get("https://gorest.co.in/public/v2/users", UserResponse[].class);    }}
+package com.iskaypet.clients;
+
+import com.iskaypet.clients.responses.UserResponse;
+import com.iskaypet.core.RestClient;
+import io.reactivex.rxjava3.core.Observable;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
+import java.util.Arrays;
+import java.util.List;
+
+@Singleton
+public class UserClient {
+
+    @Inject
+    RestClient restClient;
+
+    public Observable<List<UserResponse>> getUsers() {
+        return this.restClient.getObservable("https://gorest.co.in/public/v2/users", UserResponse[].class)
+            .map(response -> Arrays.asList(response.getData()));
+    }
+}
