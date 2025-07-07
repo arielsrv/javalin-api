@@ -29,11 +29,11 @@ spec:
                 name: config
           resources: # If resources.limits.cpu < (2000m || 2) so GOMAXPROCS=1, using minimum allowed GOMAXPROCS. Delete resources tag if you don't want limits.
             limits:
-              cpu: 200m
-              memory: 256Mi
+              cpu: 2000m
+              memory: 512Mi
             requests:
-              cpu: 100m
-              memory: 128Mi
+              cpu: 1000m
+              memory: 256Mi
           livenessProbe:
             httpGet:
               path: /ping
