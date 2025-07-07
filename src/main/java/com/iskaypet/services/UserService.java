@@ -1,1 +1,35 @@
-package com.iskaypet.services;import com.iskaypet.clients.UserClient;import com.iskaypet.dto.UserDTO;import io.reactivex.rxjava3.core.Observable;import jakarta.inject.Inject;import jakarta.inject.Singleton;import java.util.ArrayList;import java.util.List;@Singletonpublic class UserService {    @Inject    UserClient userClient;    public Observable<List<UserDTO>> getUsers() {        return this.userClient.getUsers().map(userResponses -> {            List<UserDTO> users = new ArrayList<>();            userResponses.forEach(userResponse -> {                UserDTO userDTO = new UserDTO();                userDTO.id = userResponse.id;                userDTO.email = userResponse.email;                userDTO.name = userResponse.name;                users.add(userDTO);            });            return users;        });    }}
+package com.iskaypet.services;
+
+import com.iskaypet.clients.UserClient;
+import com.iskaypet.dto.UserDTO;
+import io.reactivex.rxjava3.core.Observable;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.util.ArrayList;
+import java.util.List;
+
+@Singleton
+public class UserService {
+
+    @Inject
+    UserClient userClient;
+
+    @Inject
+    public UserService(UserClient userClient) {
+        this.userClient = userClient;
+    }
+
+    public Observable<List<UserDTO>> getUsers() {
+        return this.userClient.getUsers().map(userResponses -> {
+            List<UserDTO> users = new ArrayList<>();
+            userResponses.forEach(userResponse -> {
+                UserDTO userDTO = new UserDTO();
+                userDTO.id = userResponse.id;
+                userDTO.email = userResponse.email;
+                userDTO.name = userResponse.name;
+                users.add(userDTO);
+            });
+            return users;
+        });
+    }
+}
