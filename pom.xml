@@ -49,11 +49,6 @@
       <version>6.7.0</version>
     </dependency>
     <dependency>
-      <artifactId>slf4j-simple</artifactId>
-      <groupId>org.slf4j</groupId>
-      <version>2.0.17</version>
-    </dependency>
-    <dependency>
       <artifactId>guice</artifactId>
       <groupId>com.google.inject</groupId>
       <version>7.0.0</version>
@@ -98,6 +93,16 @@
       <groupId>org.assertj</groupId>
       <scope>test</scope>
       <version>3.27.3</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.5.13</version>
+    </dependency>
+    <dependency>
+      <groupId>net.logstash.logback</groupId>
+      <artifactId>logstash-logback-encoder</artifactId>
+      <version>7.4</version>
     </dependency>
   </dependencies>
   <groupId>com.iskaypet</groupId>
