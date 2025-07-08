@@ -46,7 +46,7 @@ class UserClientTest {
         List<UserResponse> result = userClient.getUsers().blockingFirst();
 
         assertThat(result).hasSize(2);
-        assertThat(result.get(0).id).isEqualTo(1L);
+        assertThat(result.getFirst().id).isEqualTo(1L);
         assertThat(result.get(0).name).isEqualTo("Alice");
         assertThat(result.get(0).email).isEqualTo("alice@example.com");
         assertThat(result.get(1).id).isEqualTo(2L);

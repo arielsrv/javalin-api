@@ -45,7 +45,7 @@ class UserControllerTest {
         List<UserDTO> result = userController.getUsers(context).blockingFirst();
 
         assertThat(result).hasSize(2);
-        assertThat(result.get(0).userId).isEqualTo(1L);
+        assertThat(result.getFirst().userId).isEqualTo(1L);
         assertThat(result.get(0).name).isEqualTo("Alice");
         assertThat(result.get(0).email).isEqualTo("alice@example.com");
         assertThat(result.get(1).userId).isEqualTo(2L);
