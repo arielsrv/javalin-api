@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50bdce1c-48da-44e8-ab82-03962a13e987" name="Changes" comment="fixes">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/config/config.dev.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/config/config.local.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/config/config.prod.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/config/config.localstack.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/iskaypet/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/iskaypet/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/iskaypet/core/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/iskaypet/core/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/iskaypet/modules/AppModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/iskaypet/modules/AppModule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +69,7 @@
     "Application.Main.executor": "Run",
     "Docker.Dockerfile.executor": "Run",
     "JUnit.Unnamed.executor": "Run",
-    "JUnit.test.executor": "Coverage",
+    "JUnit.test.executor": "Run",
     "Maven.javalin-api [clean].executor": "Run",
     "Maven.javalin-api [install].executor": "Run",
     "Maven.javalin-api [package].executor": "Run",
