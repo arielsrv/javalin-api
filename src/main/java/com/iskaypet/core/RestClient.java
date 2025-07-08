@@ -18,7 +18,7 @@ public class RestClient {
     private final ObjectMapper objectMapper;
     private String baseUrl;
 
-    public RestClient(String baseUrl) {
+    private RestClient(String baseUrl) {
         objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
@@ -30,6 +30,10 @@ public class RestClient {
 
     public RestClient(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
+    }
+
+    public static RestClient createRestClient(String baseUrl) {
+        return new RestClient(baseUrl);
     }
 
     public <T> Observable<Response<T>> getObservable(String apiUrl, Class<T> clazz) {

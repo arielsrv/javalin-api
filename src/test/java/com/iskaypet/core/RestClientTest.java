@@ -33,7 +33,7 @@ class RestClientTest {
         mockWebServer = new MockWebServer();
         mockWebServer.start();
         String baseUrl = mockWebServer.url("/").toString();
-        restClient = new RestClient(baseUrl);
+        restClient = RestClient.createRestClient(baseUrl);
     }
 
     @AfterEach
