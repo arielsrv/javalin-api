@@ -1,5 +1,6 @@
 package com.iskaypet.core;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
@@ -17,10 +18,6 @@ import io.reactivex.rxjava3.core.Observable;
 import java.io.File;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.iskaypet.core.ContainerRegistry;
-import io.javalin.json.JavalinJackson;
-import com.iskaypet.core.CustomJacksonMapper;
 
 public record Server(Javalin javalin) {
 
@@ -67,6 +64,6 @@ public record Server(Javalin javalin) {
             ctx -> ctx.contentType("text/plain; version=0.0.4; charset=utf-8")
                 .result("pong"));
 
-        this.javalin.start("0.0.0.0", port);
+        this.javalin.start(Config.getStringValue("app.host"), port);
     }
 }
