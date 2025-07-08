@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class ConfigLoader {
+
     private static final String DEFAULT_ENV = "local";
     private static final String CONFIG_PATH_FORMAT = "/config/config.%s.properties";
 
@@ -25,4 +26,4 @@ public class ConfigLoader {
         }
         return props;
     }
-} 
+}

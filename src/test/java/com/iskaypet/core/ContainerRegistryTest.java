@@ -1,15 +1,16 @@
 package com.iskaypet.core;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 class ContainerRegistryTest {
+
     @AfterEach
     void cleanup() {
         // Reset el injector para no afectar otros tests
@@ -36,4 +37,4 @@ class ContainerRegistryTest {
             .isInstanceOf(IllegalStateException.class)
             .hasMessageContaining("Injector not set");
     }
-} 
+}

@@ -7,6 +7,7 @@ import java.util.Properties;
 
 @Singleton
 public class ConfigProvider implements Provider<Properties> {
+
     private final Properties config;
 
     public ConfigProvider() {
@@ -17,4 +18,4 @@ public class ConfigProvider implements Provider<Properties> {
     public Properties get() {
         return config;
     }
-} 
+}

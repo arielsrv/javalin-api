@@ -5,14 +5,14 @@ namePrefix: javalin-api--
 generatorOptions:
   disableNameSuffixHash: true
 resources:
-- config.yaml
-- deployment.yaml
-- hpa.yaml
-- ingress.yaml
-- namespace.yaml
-- pdb.yaml
-- service.yaml
+  - config.yaml
+  - deployment.yaml
+  - hpa.yaml
+  - ingress.yaml
+  - namespace.yaml
+  - pdb.yaml
+  - service.yaml
 labels:
-- includeSelectors: true
-  pairs:
-    app: javalin-api
+  - includeSelectors: true
+    pairs:
+      app: javalin-api

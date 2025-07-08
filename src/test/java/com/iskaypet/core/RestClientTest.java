@@ -19,13 +19,6 @@ import org.junit.jupiter.api.Test;
 
 class RestClientTest {
 
-    static class UserFake {
-
-        public Long userId;
-        public String name;
-        public String email;
-    }
-
     ObjectMapper objectMapper;
     RestClient restClient;
     MockWebServer mockWebServer;
@@ -113,5 +106,12 @@ class RestClientTest {
             .timeout(2, TimeUnit.SECONDS)
             .blockingFirst())
             .isInstanceOf(RuntimeException.class);
+    }
+
+    static class UserFake {
+
+        public Long userId;
+        public String name;
+        public String email;
     }
 }

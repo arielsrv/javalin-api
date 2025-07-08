@@ -1,9 +1,11 @@
 package com.iskaypet.core;
 
-import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.jupiter.api.Test;
+
 class ResponseTest {
+
     @Test
     void constructor_and_getters_work() {
         Response<String> response = new Response<>(200, "ok");
@@ -33,7 +35,8 @@ class ResponseTest {
 
     @Test
     void supports_generic_types() {
-        Response<java.util.List<String>> response = new Response<>(201, java.util.List.of("a", "b"));
+        Response<java.util.List<String>> response = new Response<>(201,
+            java.util.List.of("a", "b"));
         assertThat(response.code()).isEqualTo(201);
         assertThat(response.data()).containsExactly("a", "b");
     }
