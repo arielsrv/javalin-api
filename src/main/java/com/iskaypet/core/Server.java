@@ -18,8 +18,12 @@ import io.reactivex.rxjava3.core.Observable;
 import java.io.File;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public record Server(Javalin javalin) {
+
+    static final Logger logger = LoggerFactory.getLogger(Server.class);
 
     static PrometheusMeterRegistry prometheusMeterRegistry = new PrometheusMeterRegistry(
         PrometheusConfig.DEFAULT);
@@ -64,6 +68,7 @@ public record Server(Javalin javalin) {
             ctx -> ctx.contentType("text/plain; version=0.0.4; charset=utf-8")
                 .result("pong"));
 
+        logger.info("Starting app ... {}", Config.getStringValue("app.name"));
         this.javalin.start(Config.getStringValue("app.host"), port);
     }
 }
