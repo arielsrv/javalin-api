@@ -35,7 +35,7 @@ tasks:
     vars:
       DOCKERFILE: Dockerfile
     cmds:
-      - docker build --secret id=netrc,src={{.HOME}}/.netrc -t {{.DOCKER_IMAGE}} . -f {{.DOCKERFILE}} --build-arg=JAVA_VERSION={{.JAVA_VERSION}}
+      - docker buildx build --secret id=netrc,src={{.HOME}}/.netrc -t {{.DOCKER_IMAGE}} . -f {{.DOCKERFILE}} --build-arg=JAVA_VERSION={{.JAVA_VERSION}}
 
   docker:run:
     vars:
