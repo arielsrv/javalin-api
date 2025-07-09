@@ -13,6 +13,7 @@ This project is a Java REST API built with [Javalin](https://javalin.io/) and us
 - OpenTelemetry agent integration (for distributed tracing)
 - Docker-ready (multi-stage build)
 - **Kubernetes-ready: manifests and automated deployment tasks included**
+- Efficient concurrency with Java Virtual Threads (Project Loom)
 
 ## Requirements
 - Java 21 (for local build and runtime)
