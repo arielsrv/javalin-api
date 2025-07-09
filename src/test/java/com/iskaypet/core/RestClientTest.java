@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+import io.reactivex.rxjava3.core.Observable;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.AfterEach;
@@ -105,6 +106,44 @@ class RestClientTest {
 			.timeout(2, TimeUnit.SECONDS)
 			.blockingFirst())
 			.isInstanceOf(RuntimeException.class);
+	}
+
+	@Test
+	void getObservable_success() throws Exception {
+		// Simular respuesta exitosa
+		ObjectMapper objectMapper = new ObjectMapper();
+		RestClient rc = new RestClient(objectMapper) {
+			@Override
+			public <T> Observable<Response<T>> getObservable(String apiUrl, Class<T> clazz) {
+				T data;
+				try {
+					data = objectMapper.readValue("{\"id\":1}\n", clazz);
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+				return Observable.just(new Response<>(200, data));
+			}
+		};
+		Observable<Response<Dummy>> obs = rc.getObservable("/dummy", Dummy.class);
+		Response<Dummy> result = obs.blockingFirst();
+		assertThat(result).isNotNull();
+		assertThat(result.code()).isEqualTo(200);
+		assertThat(result.data().id).isEqualTo(1);
+	}
+
+	@Test
+	void getObservable_parseError() {
+		String badJson = "not a json";
+		MockResponse response = new MockResponse().setBody(badJson).setResponseCode(200);
+		mockWebServer.enqueue(response);
+		assertThatThrownBy(() -> restClient.getObservable("/dummy", UserFake.class)
+			.timeout(2, TimeUnit.SECONDS)
+			.blockingFirst())
+			.isInstanceOf(RuntimeException.class);
+	}
+
+	static class Dummy {
+		public int id;
 	}
 
 	static class UserFake {

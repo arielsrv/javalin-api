@@ -40,4 +40,12 @@ class ResponseTest {
 		assertThat(response.code()).isEqualTo(201);
 		assertThat(response.data()).containsExactly("a", "b");
 	}
+
+	@Test
+	void response_fieldsAndToString() {
+		Response<String> r = new Response<>(200, "ok");
+		assertThat(r.code()).isEqualTo(200);
+		assertThat(r.data()).isEqualTo("ok");
+		assertThat(r.toString()).contains("code=200").contains("data=ok");
+	}
 }

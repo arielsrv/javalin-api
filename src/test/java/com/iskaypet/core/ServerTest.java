@@ -4,10 +4,10 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.iskaypet.modules.AppModule;
 import io.javalin.Javalin;
-import io.javalin.config.JavalinConfig;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
-import java.util.function.Consumer;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -26,10 +26,10 @@ class ServerTest {
 	void create_with_config_applies_config() {
 		Injector injector = Guice.createInjector(new AppModule());
 		com.iskaypet.core.ContainerRegistry.setInjector(injector);
-		Consumer<JavalinConfig> configConsumer = mock(Consumer.class);
-		Server server = Server.create(configConsumer);
+		AtomicBoolean called = new AtomicBoolean(false);
+		Server server = Server.create(cfg -> called.set(true));
+		assertThat(called).isTrue();
 		assertThat(server).isNotNull();
-		verify(configConsumer, atLeast(0)).accept(any());
 	}
 
 	@Test
@@ -38,5 +38,14 @@ class ServerTest {
 		Server server = new Server(javalin);
 		server.get("/test", ctx -> null);
 		verify(javalin).get(eq("/test"), any());
+	}
+
+	@Test
+	void start_registersEndpoints() {
+		Javalin mockJavalin = Mockito.mock(Javalin.class);
+		Server server = new Server(mockJavalin);
+		server.start(8081);
+		Mockito.verify(mockJavalin, Mockito.atLeastOnce()).get(Mockito.anyString(), Mockito.any());
+		Mockito.verify(mockJavalin).start(Mockito.anyString(), Mockito.eq(8081));
 	}
 }

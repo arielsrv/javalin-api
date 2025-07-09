@@ -1,14 +1,12 @@
 package com.iskaypet.services;
 
-import com.iskaypet.clients.UserClient;
 import com.iskaypet.clients.PostClient;
 import com.iskaypet.clients.TodoClient;
-import com.iskaypet.clients.responses.UserResponse;
+import com.iskaypet.clients.UserClient;
 import com.iskaypet.clients.responses.PostResponse;
 import com.iskaypet.clients.responses.TodoResponse;
+import com.iskaypet.clients.responses.UserResponse;
 import com.iskaypet.dto.UserDTO;
-import com.iskaypet.dto.PostDTO;
-import com.iskaypet.dto.TodoDTO;
 import io.reactivex.rxjava3.core.Observable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +19,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
-import static org.mockito.ArgumentMatchers.anyLong;
 
 class UserServiceTest {
 
