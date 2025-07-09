@@ -11,7 +11,7 @@ RUN mvn dependency:go-offline
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-FROM eclipse-temurin:${JAVA_VERSION}-jre-alpine AS runtime
+FROM gcr.io/distroless/java${JAVA_VERSION}-debian12 AS runtime
 WORKDIR /app
 
 COPY --from=build /app/target/app.jar app.jar
