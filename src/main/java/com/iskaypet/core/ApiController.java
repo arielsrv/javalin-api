@@ -1,1 +1,5 @@
-package com.iskaypet.core;public class ApiController {}
+package com.iskaypet.core;
+
+public class ApiController {
+
+}

@@ -1,1 +1,9 @@
-apiVersion: policy/v1kind: PodDisruptionBudgetmetadata:  name: budgetspec:  minAvailable: 1  selector:    matchLabels:      app: javalin-api
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: budget
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: javalin-api
