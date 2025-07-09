@@ -26,9 +26,9 @@ public record Server(Javalin javalin) {
 
 	static final Logger logger = LoggerFactory.getLogger(Server.class);
 
-	static PrometheusMeterRegistry prometheusMeterRegistry = new PrometheusMeterRegistry(
+	static final PrometheusMeterRegistry prometheusMeterRegistry = new PrometheusMeterRegistry(
 		PrometheusConfig.DEFAULT);
-	static MicrometerPlugin micrometerPlugin = new MicrometerPlugin(
+	static final MicrometerPlugin micrometerPlugin = new MicrometerPlugin(
 		micrometerPluginConfig -> micrometerPluginConfig.registry = prometheusMeterRegistry);
 
 
