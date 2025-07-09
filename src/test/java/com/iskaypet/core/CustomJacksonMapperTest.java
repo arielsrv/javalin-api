@@ -1,25 +1,19 @@
 package com.iskaypet.core;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
+import org.junit.jupiter.api.Test;
+
 class CustomJacksonMapperTest {
-    static class User {
-        public Long userId;
-        public String name;
-        public String email;
-    }
 
     @Test
     void serializes_to_snake_case() {
         ObjectMapper om = new ObjectMapper();
-        om.setPropertyNamingStrategy(com.fasterxml.jackson.databind.PropertyNamingStrategies.SNAKE_CASE);
+        om.setPropertyNamingStrategy(
+            com.fasterxml.jackson.databind.PropertyNamingStrategies.SNAKE_CASE);
         CustomJacksonMapper mapper = new CustomJacksonMapper(om);
         User user = new User();
         user.userId = 42L;
@@ -32,7 +26,8 @@ class CustomJacksonMapperTest {
     @Test
     void deserializes_from_snake_case() {
         ObjectMapper om = new ObjectMapper();
-        om.setPropertyNamingStrategy(com.fasterxml.jackson.databind.PropertyNamingStrategies.SNAKE_CASE);
+        om.setPropertyNamingStrategy(
+            com.fasterxml.jackson.databind.PropertyNamingStrategies.SNAKE_CASE);
         CustomJacksonMapper mapper = new CustomJacksonMapper(om);
         String json = "{\"user_id\":99,\"name\":\"B\",\"email\":\"b@b.com\"}";
         User user = mapper.fromJsonString(json, User.class);
@@ -44,7 +39,8 @@ class CustomJacksonMapperTest {
     @Test
     void serializes_nulls() {
         ObjectMapper om = new ObjectMapper();
-        om.setPropertyNamingStrategy(com.fasterxml.jackson.databind.PropertyNamingStrategies.SNAKE_CASE);
+        om.setPropertyNamingStrategy(
+            com.fasterxml.jackson.databind.PropertyNamingStrategies.SNAKE_CASE);
         CustomJacksonMapper mapper = new CustomJacksonMapper(om);
         User user = new User();
         user.userId = null;
@@ -71,4 +67,11 @@ class CustomJacksonMapperTest {
         List result = mapper.fromJsonString(json, List.class);
         assertThat(result).isInstanceOf(List.class);
     }
-} 
+
+    static class User {
+
+        public Long userId;
+        public String name;
+        public String email;
+    }
+}

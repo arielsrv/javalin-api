@@ -1,22 +1,22 @@
 package com.iskaypet.services;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
+
 import com.iskaypet.clients.UserClient;
 import com.iskaypet.clients.responses.UserResponse;
 import com.iskaypet.dto.UserDTO;
 import io.reactivex.rxjava3.core.Observable;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Arrays;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
-
 class UserServiceTest {
+
     @Mock
     UserClient userClient;
 
@@ -44,7 +44,7 @@ class UserServiceTest {
         List<UserDTO> result = userService.getUsers().blockingFirst();
 
         assertThat(result).hasSize(2);
-        assertThat(result.get(0).userId).isEqualTo(1L);
+        assertThat(result.getFirst().userId).isEqualTo(1L);
         assertThat(result.get(0).name).isEqualTo("Alice");
         assertThat(result.get(0).email).isEqualTo("alice@example.com");
         assertThat(result.get(1).userId).isEqualTo(2L);

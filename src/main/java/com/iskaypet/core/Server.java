@@ -1,5 +1,6 @@
 package com.iskaypet.core;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
@@ -17,12 +18,12 @@ import io.reactivex.rxjava3.core.Observable;
 import java.io.File;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.iskaypet.core.ContainerRegistry;
-import io.javalin.json.JavalinJackson;
-import com.iskaypet.core.CustomJacksonMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public record Server(Javalin javalin) {
+
+    static final Logger logger = LoggerFactory.getLogger(Server.class);
 
     static PrometheusMeterRegistry prometheusMeterRegistry = new PrometheusMeterRegistry(
         PrometheusConfig.DEFAULT);
@@ -67,6 +68,7 @@ public record Server(Javalin javalin) {
             ctx -> ctx.contentType("text/plain; version=0.0.4; charset=utf-8")
                 .result("pong"));
 
-        this.javalin.start("0.0.0.0", port);
+        logger.info("Starting app ... {}", Config.getStringValue("app.name"));
+        this.javalin.start(Config.getStringValue("app.host"), port);
     }
 }

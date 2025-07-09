@@ -1,10 +1,10 @@
 package com.iskaypet.services;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.iskaypet.clients.UserClient;
 import com.iskaypet.dto.UserDTO;
 import io.reactivex.rxjava3.core.Observable;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
 

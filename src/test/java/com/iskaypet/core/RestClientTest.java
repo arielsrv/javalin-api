@@ -19,13 +19,6 @@ import org.junit.jupiter.api.Test;
 
 class RestClientTest {
 
-    static class UserFake {
-
-        public Long userId;
-        public String name;
-        public String email;
-    }
-
     ObjectMapper objectMapper;
     RestClient restClient;
     MockWebServer mockWebServer;
@@ -37,9 +30,10 @@ class RestClientTest {
         objectMapper.registerModule(new ParameterNamesModule());
         objectMapper.registerModule(new Jdk8Module());
         objectMapper.registerModule(new JavaTimeModule());
-        restClient = new RestClient(objectMapper);
         mockWebServer = new MockWebServer();
         mockWebServer.start();
+        String baseUrl = mockWebServer.url("/").toString();
+        restClient = RestClient.createRestClient(baseUrl);
     }
 
     @AfterEach
@@ -84,8 +78,7 @@ class RestClientTest {
     void getObservable_parses_valid_json_response() {
         String json = "{\"user_id\":1,\"name\":\"Alice\",\"email\":\"alice@example.com\"}";
         mockWebServer.enqueue(new MockResponse().setBody(json).setResponseCode(200));
-        String url = mockWebServer.url("/user").toString();
-        UserFake result = restClient.getObservable(url, UserFake.class)
+        UserFake result = restClient.getObservable("/user", UserFake.class)
             .timeout(2, TimeUnit.SECONDS)
             .blockingFirst().data();
         assertThat(result.userId).isEqualTo(1L);
@@ -97,8 +90,7 @@ class RestClientTest {
     void getObservable_propagates_http_status_code() {
         String json = "{\"user_id\":2,\"name\":\"Bob\",\"email\":\"bob@example.com\"}";
         mockWebServer.enqueue(new MockResponse().setBody(json).setResponseCode(404));
-        String url = mockWebServer.url("/user").toString();
-        Response<UserFake> response = restClient.getObservable(url, UserFake.class)
+        Response<UserFake> response = restClient.getObservable("/user", UserFake.class)
             .timeout(2, TimeUnit.SECONDS)
             .blockingFirst();
         assertThat(response.code()).isEqualTo(404);
@@ -108,10 +100,16 @@ class RestClientTest {
     @Test
     void getObservable_throws_on_invalid_json() {
         mockWebServer.enqueue(new MockResponse().setBody("not-json").setResponseCode(200));
-        String url = mockWebServer.url("/user").toString();
-        assertThatThrownBy(() -> restClient.getObservable(url, UserFake.class)
+        assertThatThrownBy(() -> restClient.getObservable("/user", UserFake.class)
             .timeout(2, TimeUnit.SECONDS)
             .blockingFirst())
             .isInstanceOf(RuntimeException.class);
+    }
+
+    static class UserFake {
+
+        public Long userId;
+        public String name;
+        public String email;
     }
 }

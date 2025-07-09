@@ -1,18 +1,22 @@
 package com.iskaypet.core;
 
-import io.javalin.Javalin;
-import io.javalin.config.JavalinConfig;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import java.util.function.Consumer;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.iskaypet.modules.AppModule;
+import io.javalin.Javalin;
+import io.javalin.config.JavalinConfig;
+import java.util.function.Consumer;
+import org.junit.jupiter.api.Test;
 
 class ServerTest {
+
     @Test
     void create_returns_server_instance() {
         Injector injector = Guice.createInjector(new AppModule());
@@ -38,4 +42,4 @@ class ServerTest {
         server.get("/test", ctx -> null);
         verify(javalin).get(eq("/test"), any());
     }
-} 
+}

@@ -16,6 +16,6 @@ WORKDIR /app
 
 COPY --from=build /app/target/app.jar app.jar
 COPY src/main/resources/opentelemetry-javaagent_v2.17.0.jar opentelemetry-javaagent.jar
+COPY src/main/resources/config/*.properties /config/
 
-# Puedes parametrizar los flags de otel si lo deseas
 ENTRYPOINT ["java","-javaagent:/app/opentelemetry-javaagent.jar","-Dotel.resource.attributes=service.name=javalin-api","-Dotel.traces.exporter=otlp","-Dotel.metrics.exporter=none","-Dotel.logs.exporter=none","-Dotel.exporter.otlp.endpoint=http://tempo.monitoring.svc.cluster.local:4317","-Dotel.exporter.otlp.protocol=grpc","-jar","app.jar"]
