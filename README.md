@@ -6,7 +6,8 @@ This project is a Java REST API built with [Javalin](https://javalin.io/) and us
 - REST endpoints with Javalin
 - Dependency injection with Guice
 - Reactive programming with RxJava 3
-- HTTP client abstraction (`RestClient`)
+- HTTP client abstraction (`RestClient` and `RestClientFactory`)
+- Centralized configuration via properties files
 - Logging with Logback
 - Metrics with Micrometer and Prometheus
 - OpenTelemetry agent integration (for distributed tracing)
@@ -42,16 +43,44 @@ docker run -p 8081:8081 javalin-api:latest
 
 ## Configuration
 
-### Base URL for RestClient
-By default, the `RestClient` is designed to allow injection of a base URL (see commented code in `RestClient.java` and `AppModule.java`). To enable this:
-1. Add a constructor to `RestClient` that accepts a `@Named("BaseUrl") String baseUrl`.
-2. Bind the base URL in your Guice module:
-   ```java
-   bind(String.class)
-     .annotatedWith(Names.named("BaseUrl"))
-     .toInstance("https://gorest.co.in/public/v2");
-   ```
-3. Use relative paths in your client code.
+### Centralized Properties
+Configuration is loaded from files in `src/main/resources/config/config.{env}.properties` based on the `ENV` environment variable (default: `local`).
+
+Example:
+```properties
+app.name=javalin-api
+app.port=8081
+app.host=127.0.0.1
+rest.client.user.base.url=https://gorest.co.in
+rest.client.other.base.url=https://api.example.com
+```
+
+### Defining REST Clients
+You can define multiple REST clients by adding properties with the pattern:
+```
+rest.client.{name}.base.url=https://example.com
+```
+
+### Using RestClientFactory
+To obtain a `RestClient` for a specific service:
+```java
+import com.iskaypet.core.RestClientFactory;
+
+RestClientFactory factory = ... // injected by Guice
+RestClient userClient = factory.get("user");
+```
+This will use the base URL defined as `rest.client.user.base.url` in your properties file.
+
+### Base Client Class
+You can create your own clients by extending the abstract `Client` class:
+```java
+public class UserApiClient extends Client {
+    public UserApiClient(RestClient restClient) {
+        super(restClient);
+    }
+    // ... your methods
+}
+```
 
 ## Observability
 The Docker image includes the OpenTelemetry Java agent. You can configure the OTEL endpoint and service name via environment variables or by editing the `ENTRYPOINT` in the Dockerfile.
