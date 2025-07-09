@@ -6,3 +6,4 @@ public class UserResponse {
 	public String name;
 	public String email;
 }
+
