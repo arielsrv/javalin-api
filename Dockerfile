@@ -9,7 +9,7 @@ RUN mvn dependency:go-offline
 
 # Copy source and build
 COPY src ./src
-RUN mvn clean package -DskipTests
+RUN mvn clean package -Dmaven.test.skip=true
 
 FROM gcr.io/distroless/java${JAVA_VERSION}-debian12 AS runtime
 WORKDIR /app
