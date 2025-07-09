@@ -12,11 +12,13 @@ This project is a Java REST API built with [Javalin](https://javalin.io/) and us
 - Metrics with Micrometer and Prometheus
 - OpenTelemetry agent integration (for distributed tracing)
 - Docker-ready (multi-stage build)
+- **Kubernetes-ready: manifests and automated deployment tasks included**
 
 ## Requirements
 - Java 21 (for local build and runtime)
 - Maven 3.9+
 - Docker (for containerized builds and deployment)
+- (For Kubernetes) kubectl, kustomize, mkcert, and access to a Kubernetes cluster
 
 ## Build & Run
 
@@ -35,6 +37,50 @@ Run the container:
 ```sh
 docker run -p 8081:8081 javalin-api:latest
 ```
+
+## Kubernetes Support
+
+This project includes first-class support for deployment on Kubernetes, with all necessary manifests and automation tasks.
+
+### Manifests
+- All Kubernetes manifests are located in `src/main/resources/kubernetes/base/` and managed via [Kustomize](https://kustomize.io/).
+- Includes:
+  - Deployment, Service, Ingress, HPA, PodDisruptionBudget, Namespace, and Config resources.
+- The main kustomization file is `kustomization.yaml`.
+
+### Automated Tasks
+- The `Taskfile.yml` provides tasks to build, deploy, and manage the application on Kubernetes.
+- Key tasks:
+  - `task k:build`: Builds the Kustomize manifests.
+  - `task k:apply`: Applies the manifests to your cluster and restarts the deployment.
+  - `task k:run`: Full workflow: builds Docker image, builds manifests, applies them, checks pod status, and pings the ingress.
+  - `task k:tls`: Generates and applies TLS secrets for ingress using mkcert.
+  - `task k:ping`: Pings the `/ping` endpoint via the Kubernetes ingress.
+
+#### Example: Deploy to Kubernetes
+```sh
+# Build Docker image, manifests, apply to cluster, and verify
+task k:run
+```
+
+#### Example: Apply manifests manually
+```sh
+task k:build
+task k:apply
+```
+
+#### Example: Generate TLS secrets for Ingress
+```sh
+task k:tls
+```
+
+### Requirements for Kubernetes
+- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [kustomize](https://kubectl.docs.kubernetes.io/installation/kustomize/)
+- [mkcert](https://github.com/FiloSottile/mkcert) (for local TLS)
+- Access to a Kubernetes cluster (local or remote)
+
+---
 
 ### Endpoints
 - `GET /ping` — Health check
