@@ -7,15 +7,16 @@ import com.iskaypet.dto.UserDTO;
 import com.iskaypet.services.UserService;
 import io.javalin.http.Context;
 import io.reactivex.rxjava3.core.Observable;
+
 import java.util.List;
 
 @Singleton
 public class UserController extends ApiController {
 
-    @Inject
-    UserService userService;
+	@Inject
+	UserService userService;
 
-    public Observable<List<UserDTO>> getUsers(Context context) {
-        return this.userService.getUsers();
-    }
+	public Observable<List<UserDTO>> getUsers(Context context) {
+		return this.userService.getUsers();
+	}
 }

@@ -10,12 +10,12 @@ import com.iskaypet.modules.AppModule;
 
 public class Main {
 
-    public static void main(String[] args) {
-        Injector injector = Guice.createInjector(new AppModule());
-        ContainerRegistry.setInjector(injector);
+	public static void main(String[] args) {
+		Injector injector = Guice.createInjector(new AppModule());
+		ContainerRegistry.setInjector(injector);
 
-        Server server = Server.create();
-        server.get("/users", ctx -> ContainerRegistry.get(UserController.class).getUsers(ctx));
-        server.start(Config.getIntValue("app.port"));
-    }
+		Server server = Server.create();
+		server.get("/users", ctx -> ContainerRegistry.get(UserController.class).getUsers(ctx));
+		server.start(Config.getIntValue("app.port"));
+	}
 }
