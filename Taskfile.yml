@@ -1,1 +1,118 @@
-# yaml-language-server: $schema=https://json.schemastore.org/taskfile.jsonversion: '3'vars:  # app  JAVA_VERSION: 21  APP_NAME: javalin-api  SRC_DIR: src  BUILD_DIR: target  DOCKER_IMAGE: '{{.APP_NAME}}:latest'  HOST: 127.0.0.1  PORT: 8081  # kubernetes  KUBERNETES_APP_NAMESPACE: iskaypet  KUBERNETES_MANIFESTS_DIR: '{{.SRC_DIR}}/main/resources/kubernetes'  KUBERNETES_APP_DEPLOYMENT_NAME: deployment.v1.apps/{{.APP_NAME}}--rolling-update  KUBERNETES_OUTPUT_DIR: '{{.BUILD_DIR}}/kubernetes'  KUBERNETES_INGRESS: '{{.APP_NAME}}.127.0.0.1.nip.io'  KUBERNETES_CERT: '{{.BUILD_DIR}}/certs'tasks:  update:    silent: true    cmds:      - mvn versions:display-dependency-updates  build:    silent: true    cmds:      - mvn clean package -DskipTests  docker:debug:    vars:      DOCKERFILE: Dockerfile    cmds:      - docker build --secret id=netrc,src={{.HOME}}/.netrc -t {{.DOCKER_IMAGE}} . -f {{.DOCKERFILE}} --build-arg=JAVA_VERSION={{.JAVA_VERSION}}  docker:run:    vars:      ENV: localstack      AWS_ACCESS_KEY_ID: test      AWS_SECRET_ACCESS_KEY: test    cmds:      - docker stop {{.APP_NAME}} || true && docker rm {{.APP_NAME}} || true      - echo http://{{.HOST}}:{{.PORT}}/ping      - |        docker run -p {{.PORT}}:{{.PORT}} --name {{.APP_NAME}} \          -e APP_NAME={{.APP_NAME}} \          -e ENV={{.ENV}} \          -e AWS_ACCESS_KEY_ID={{.AWS_ACCESS_KEY_ID}} \          -e AWS_SECRET_ACCESS_KEY={{.AWS_SECRET_ACCESS_KEY}} \          {{.DOCKER_IMAGE}}  docker:stop:    silent: true    cmds:      - |        docker stop {{.APP_NAME}} || true && docker rm {{.APP_NAME}} || true  cert:mkdir:    cmds:      - mkdir -p {{.KUBERNETES_CERT}}  cert:install:    cmds:      - (cd "{{.KUBERNETES_CERT}}" ||exit ; mkcert --install {{.KUBERNETES_INGRESS}})  k:tls:    cmds:      - task: cert:mkdir      - task: cert:install      - |        kubectl apply -f {{.KUBERNETES_MANIFESTS_DIR}}/base/namespace.yaml        kubectl create secret tls {{.APP_NAME}}--secret \          --cert {{.KUBERNETES_CERT}}/{{.KUBERNETES_INGRESS}}.pem \          --key  {{.KUBERNETES_CERT}}/{{.KUBERNETES_INGRESS}}-key.pem \          -n {{.KUBERNETES_APP_NAMESPACE}}  k:run:    desc: Run relevant kubernetes tasks.    cmds:      - task: docker:debug      - task: k:build      - task: k:apply      - task: k:pod      - task: k:ping    preconditions:      - kubectl get namespace {{.KUBERNETES_APP_NAMESPACE}}      - kubectl get secret {{.APP_NAME}}--secret -n {{.KUBERNETES_APP_NAMESPACE}}  k:mkdir:    cmds:      - mkdir -p {{.KUBERNETES_OUTPUT_DIR}}  k:build:    cmds:      - task: k:mkdir      - |        kustomize build {{.KUBERNETES_MANIFESTS_DIR}}/base \        --output {{.KUBERNETES_OUTPUT_DIR}}/release.yaml \        --load-restrictor LoadRestrictionsNone  k:apply:    cmds:      - kubectl apply -f {{.KUBERNETES_OUTPUT_DIR}}/release.yaml      - kubectl rollout restart {{.KUBERNETES_APP_DEPLOYMENT_NAME}} -n {{.KUBERNETES_APP_NAMESPACE}}      - kubectl rollout status {{.KUBERNETES_APP_DEPLOYMENT_NAME}} -n {{.KUBERNETES_APP_NAMESPACE}}  k:pod:    cmds:      - kubectl get pods -n {{.KUBERNETES_APP_NAMESPACE}} -l app={{.APP_NAME}}  k:ping:    desc: k8s ingress ping    cmds:      - curl -i -X GET 'https://{{.KUBERNETES_INGRESS}}/ping' ; echo
+# yaml-language-server: $schema=https://json.schemastore.org/taskfile.json
+version: '3'
+
+vars:
+  # app
+  JAVA_VERSION: 21
+  APP_NAME: javalin-api
+  SRC_DIR: src
+  BUILD_DIR: target
+  DOCKER_IMAGE: '{{.APP_NAME}}:latest'
+  HOST: 127.0.0.1
+  PORT: 8081
+
+  # kubernetes
+  KUBERNETES_APP_NAMESPACE: iskaypet
+  KUBERNETES_MANIFESTS_DIR: '{{.SRC_DIR}}/main/resources/kubernetes'
+  KUBERNETES_APP_DEPLOYMENT_NAME: deployment.v1.apps/{{.APP_NAME}}--rolling-update
+  KUBERNETES_OUTPUT_DIR: '{{.BUILD_DIR}}/kubernetes'
+  KUBERNETES_INGRESS: '{{.APP_NAME}}.127.0.0.1.nip.io'
+  KUBERNETES_CERT: '{{.BUILD_DIR}}/certs'
+
+tasks:
+
+  update:
+    silent: true
+    cmds:
+      - mvn versions:display-dependency-updates
+
+  build:
+    silent: true
+    cmds:
+      - mvn clean package -DskipTests
+
+  docker:debug:
+    vars:
+      DOCKERFILE: Dockerfile
+    cmds:
+      - docker build --secret id=netrc,src={{.HOME}}/.netrc -t {{.DOCKER_IMAGE}} . -f {{.DOCKERFILE}} --build-arg=JAVA_VERSION={{.JAVA_VERSION}}
+
+  docker:run:
+    vars:
+      ENV: localstack
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+    cmds:
+      - docker stop {{.APP_NAME}} || true && docker rm {{.APP_NAME}} || true
+      - echo http://{{.HOST}}:{{.PORT}}/ping
+      - |
+        docker run -p {{.PORT}}:{{.PORT}} --name {{.APP_NAME}} \
+          -e APP_NAME={{.APP_NAME}} \
+          -e ENV={{.ENV}} \
+          -e AWS_ACCESS_KEY_ID={{.AWS_ACCESS_KEY_ID}} \
+          -e AWS_SECRET_ACCESS_KEY={{.AWS_SECRET_ACCESS_KEY}} \
+          {{.DOCKER_IMAGE}}
+
+  docker:stop:
+    silent: true
+    cmds:
+      - |
+        docker stop {{.APP_NAME}} || true && docker rm {{.APP_NAME}} || true
+
+  cert:mkdir:
+    cmds:
+      - mkdir -p {{.KUBERNETES_CERT}}
+
+  cert:install:
+    cmds:
+      - (cd "{{.KUBERNETES_CERT}}" ||exit ; mkcert --install {{.KUBERNETES_INGRESS}})
+
+  k:tls:
+    cmds:
+      - task: cert:mkdir
+      - task: cert:install
+      - |
+        kubectl apply -f {{.KUBERNETES_MANIFESTS_DIR}}/base/namespace.yaml
+        kubectl create secret tls {{.APP_NAME}}--secret \
+          --cert {{.KUBERNETES_CERT}}/{{.KUBERNETES_INGRESS}}.pem \
+          --key  {{.KUBERNETES_CERT}}/{{.KUBERNETES_INGRESS}}-key.pem \
+          -n {{.KUBERNETES_APP_NAMESPACE}}
+
+  k:run:
+    desc: Run relevant kubernetes tasks.
+    cmds:
+      - task: docker:debug
+      - task: k:build
+      - task: k:apply
+      - task: k:pod
+      - task: k:ping
+    preconditions:
+      - kubectl get namespace {{.KUBERNETES_APP_NAMESPACE}}
+      - kubectl get secret {{.APP_NAME}}--secret -n {{.KUBERNETES_APP_NAMESPACE}}
+
+  k:mkdir:
+    cmds:
+      - mkdir -p {{.KUBERNETES_OUTPUT_DIR}}
+
+  k:build:
+    cmds:
+      - task: k:mkdir
+      - |
+        kustomize build {{.KUBERNETES_MANIFESTS_DIR}}/base \
+        --output {{.KUBERNETES_OUTPUT_DIR}}/release.yaml \
+        --load-restrictor LoadRestrictionsNone
+
+  k:apply:
+    cmds:
+      - kubectl apply -f {{.KUBERNETES_OUTPUT_DIR}}/release.yaml
+      - kubectl rollout restart {{.KUBERNETES_APP_DEPLOYMENT_NAME}} -n {{.KUBERNETES_APP_NAMESPACE}}
+      - kubectl rollout status {{.KUBERNETES_APP_DEPLOYMENT_NAME}} -n {{.KUBERNETES_APP_NAMESPACE}}
+
+  k:pod:
+    cmds:
+      - kubectl get pods -n {{.KUBERNETES_APP_NAMESPACE}} -l app={{.APP_NAME}}
+
+  k:ping:
+    desc: k8s ingress ping
+    cmds:
+      - curl -i -X GET 'https://{{.KUBERNETES_INGRESS}}/ping' ; echo
