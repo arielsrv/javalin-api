@@ -18,11 +18,11 @@ public class ConfigLoader {
         Properties props = new Properties();
         try (InputStream is = ConfigLoader.class.getResourceAsStream(path)) {
             if (is == null) {
-                throw new RuntimeException("No se encontró el archivo de configuración: " + path);
+                throw new RuntimeException("config file not found: " + path);
             }
             props.load(is);
         } catch (IOException e) {
-            throw new RuntimeException("Error cargando configuración: " + path, e);
+            throw new RuntimeException("error loading config: " + path, e);
         }
         return props;
     }

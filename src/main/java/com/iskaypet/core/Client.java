@@ -1,1 +1,0 @@
-package com.iskaypet.core;public abstract class Client {    protected RestClient restClient;    public Client(RestClient restClient) {        this.restClient = restClient;    }}
