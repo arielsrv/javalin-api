@@ -7,7 +7,6 @@ import com.iskaypet.dto.UserDTO;
 import com.iskaypet.services.UserService;
 import io.javalin.http.Context;
 import io.reactivex.rxjava3.core.Observable;
-
 import java.util.List;
 
 @Singleton

@@ -8,7 +8,6 @@ import com.iskaypet.core.RestClient;
 import com.iskaypet.providers.ConfigProvider;
 import com.iskaypet.providers.ObjectMapperProvider;
 import jakarta.inject.Singleton;
-
 import java.util.Properties;
 
 public class AppModule extends AbstractModule {
