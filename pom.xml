@@ -171,7 +171,7 @@
             <artifactId>mockwebserver</artifactId>
             <groupId>com.squareup.okhttp3</groupId>
             <scope>test</scope>
-            <version>5.0.0</version>
+            <version>5.1.0</version>
         </dependency>
     </dependencies>
     <groupId>com.iskaypet</groupId>
