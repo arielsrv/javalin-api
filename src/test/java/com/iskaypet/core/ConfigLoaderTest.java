@@ -10,11 +10,8 @@ import org.junit.jupiter.api.Test;
 
 class ConfigLoaderTest {
 
-	private String originalEnv;
-
 	@BeforeEach
 	void setup() {
-		originalEnv = System.getenv("ENV");
 	}
 
 	@AfterEach

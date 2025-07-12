@@ -31,6 +31,7 @@ public record Server(Javalin javalin) {
 		micrometerPluginConfig -> micrometerPluginConfig.registry = prometheusMeterRegistry);
 
 
+	@SuppressWarnings("resource")
 	public static Server create() {
 		new ClassLoaderMetrics().bindTo(prometheusMeterRegistry);
 		new JvmMemoryMetrics().bindTo(prometheusMeterRegistry);
