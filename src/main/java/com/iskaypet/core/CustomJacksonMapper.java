@@ -2,9 +2,8 @@ package com.iskaypet.core;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.json.JsonMapper;
-import org.jetbrains.annotations.NotNull;
-
 import java.lang.reflect.Type;
+import org.jetbrains.annotations.NotNull;
 
 public class CustomJacksonMapper implements JsonMapper {
 

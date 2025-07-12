@@ -6,7 +6,6 @@ import com.iskaypet.core.RestClient;
 import io.reactivex.rxjava3.core.Observable;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-
 import java.util.Arrays;
 import java.util.List;
 

@@ -1,8 +1,8 @@
 <configuration>
-    <appender class="ch.qos.logback.core.ConsoleAppender" name="STDOUT">
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
-    </appender>
-    <root level="INFO">
-        <appender-ref ref="STDOUT"/>
-    </root>
+  <appender class="ch.qos.logback.core.ConsoleAppender" name="STDOUT">
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+  </appender>
+  <root level="INFO">
+    <appender-ref ref="STDOUT"/>
+  </root>
 </configuration>

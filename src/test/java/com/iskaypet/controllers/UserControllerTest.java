@@ -1,20 +1,19 @@
 package com.iskaypet.controllers;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
+
 import com.iskaypet.dto.UserDTO;
 import com.iskaypet.services.UserService;
 import io.javalin.http.Context;
 import io.reactivex.rxjava3.core.Observable;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
 
 class UserControllerTest {
 

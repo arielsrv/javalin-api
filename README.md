@@ -1,7 +1,9 @@
 # Javalin API
 
-This project is a Java REST API built with [Javalin](https://javalin.io/) and uses modern Java features, dependency
-injection with Guice, and RxJava for reactive programming. It is designed for easy deployment in containerized
+This project is a Java REST API built with [Javalin](https://javalin.io/) and uses modern Java
+features, dependency
+injection with Guice, and RxJava for reactive programming. It is designed for easy deployment in
+containerized
 environments and includes observability via OpenTelemetry.
 
 ## Features
@@ -50,7 +52,8 @@ docker run -p 8081:8081 javalin-api:latest
 
 ## Kubernetes Support
 
-This project includes first-class support for deployment on Kubernetes, with all necessary manifests and automation
+This project includes first-class support for deployment on Kubernetes, with all necessary manifests
+and automation
 tasks.
 
 ### Manifests
@@ -67,7 +70,8 @@ tasks.
 - Key tasks:
     - `task k:build`: Builds the Kustomize manifests.
     - `task k:apply`: Applies the manifests to your cluster and restarts the deployment.
-    - `task k:run`: Full workflow: builds Docker image, builds manifests, applies them, checks pod status, and pings the
+    - `task k:run`: Full workflow: builds Docker image, builds manifests, applies them, checks pod
+      status, and pings the
       ingress.
     - `task k:tls`: Generates and applies TLS secrets for ingress using mkcert.
     - `task k:ping`: Pings the `/ping` endpoint via the Kubernetes ingress.
@@ -111,7 +115,8 @@ task k:tls
 
 ### Centralized Properties
 
-Configuration is loaded from files in `src/main/resources/config/config.{env}.properties` based on the `ENV` environment
+Configuration is loaded from files in `src/main/resources/config/config.{env}.properties` based on
+the `ENV` environment
 variable (default: `local`).
 
 Example:
@@ -160,7 +165,8 @@ public class UserApiClient extends Client {
 
 ## Observability
 
-The Docker image includes the OpenTelemetry Java agent. You can configure the OTEL endpoint and service name via
+The Docker image includes the OpenTelemetry Java agent. You can configure the OTEL endpoint and
+service name via
 environment variables or by editing the `ENTRYPOINT` in the Dockerfile.
 
 ## Testing
