@@ -135,7 +135,7 @@
     <dependency>
       <artifactId>micrometer-registry-prometheus</artifactId>
       <groupId>io.micrometer</groupId>
-      <version>1.15.1</version>
+      <version>1.15.2</version>
     </dependency>
     <dependency>
       <artifactId>jackson-core</artifactId>
