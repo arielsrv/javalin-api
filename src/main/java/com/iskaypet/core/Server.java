@@ -5,6 +5,9 @@ import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
 import io.javalin.micrometer.MicrometerPlugin;
+import io.javalin.openapi.plugin.OpenApiPlugin;
+import io.javalin.openapi.plugin.redoc.ReDocPlugin;
+import io.javalin.openapi.plugin.swagger.SwaggerPlugin;
 import io.micrometer.core.instrument.binder.jvm.ClassLoaderMetrics;
 import io.micrometer.core.instrument.binder.jvm.JvmGcMetrics;
 import io.micrometer.core.instrument.binder.jvm.JvmMemoryMetrics;
@@ -15,11 +18,12 @@ import io.micrometer.core.instrument.binder.system.UptimeMetrics;
 import io.micrometer.prometheusmetrics.PrometheusConfig;
 import io.micrometer.prometheusmetrics.PrometheusMeterRegistry;
 import io.reactivex.rxjava3.core.Observable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public record Server(Javalin javalin) {
 
@@ -49,6 +53,27 @@ public record Server(Javalin javalin) {
 			config.showJavalinBanner = false;
 			config.registerPlugin(micrometerPlugin);
 			config.jsonMapper(new CustomJacksonMapper(objectMapper));
+
+			config.registerPlugin(new OpenApiPlugin(pluginConfig -> {
+				pluginConfig.withDefinitionConfiguration((version, definition) -> {
+					definition.withOpenApiInfo(info -> {
+						info.title("Javalin API");
+						info.version("1.0.0");
+						info.description("Documentación OpenAPI generada automáticamente");
+					});
+				});
+				pluginConfig.withDocumentationPath("/openapi");
+			}));
+
+			config.registerPlugin(new SwaggerPlugin(pluginConfig -> {
+				pluginConfig.setUiPath("/swagger");
+				pluginConfig.setDocumentationPath("/openapi");
+			}));
+
+			config.registerPlugin(new ReDocPlugin(pluginConfig -> {
+				pluginConfig.setUiPath("/redoc");
+				pluginConfig.setDocumentationPath("/openapi");
+			}));
 		});
 	}
 
