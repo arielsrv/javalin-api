@@ -4,6 +4,7 @@ import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import io.javalin.http.HttpStatus;
 import io.reactivex.rxjava3.core.Observable;
+
 import java.util.Map;
 import java.util.function.Function;
 

@@ -1,17 +1,15 @@
 package com.iskaypet.core;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.argThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import io.reactivex.rxjava3.core.Observable;
+import org.junit.jupiter.api.Test;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
-import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
 class RxHttpHandlerTest {
 
