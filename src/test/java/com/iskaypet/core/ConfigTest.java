@@ -1,13 +1,14 @@
 package com.iskaypet.core;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import java.util.Properties;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Properties;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ConfigTest {
 

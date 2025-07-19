@@ -6,8 +6,12 @@ import com.iskaypet.core.ApiController;
 import com.iskaypet.dto.UserDTO;
 import com.iskaypet.services.UserService;
 import io.javalin.http.Context;
-import io.javalin.openapi.*;
+import io.javalin.openapi.HttpMethod;
+import io.javalin.openapi.OpenApi;
+import io.javalin.openapi.OpenApiContent;
+import io.javalin.openapi.OpenApiResponse;
 import io.reactivex.rxjava3.core.Observable;
+
 import java.util.List;
 
 @Singleton
