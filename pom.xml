@@ -219,7 +219,6 @@
     </properties>
 
     <repositories>
-        <!-- Snapshots -->
         <repository>
             <id>reposilite-repository</id>
             <url>https://maven.reposilite.com/snapshots</url>
