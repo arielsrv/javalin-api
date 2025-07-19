@@ -70,7 +70,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.10.1</version>
+                <version>3.14.0</version>
                 <configuration>
                     <annotationProcessorPaths>
                         <annotationProcessorPath>
@@ -219,7 +219,6 @@
     </properties>
 
     <repositories>
-        <!-- Snapshots -->
         <repository>
             <id>reposilite-repository</id>
             <url>https://maven.reposilite.com/snapshots</url>
