@@ -123,7 +123,7 @@
             <artifactId>mockito-junit-jupiter</artifactId>
             <groupId>org.mockito</groupId>
             <scope>test</scope>
-            <version>5.18.0</version>
+            <version>5.19.0</version>
         </dependency>
         <dependency>
             <artifactId>assertj-core</artifactId>
