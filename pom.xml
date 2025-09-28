@@ -98,7 +98,7 @@
         <dependency>
             <artifactId>rxjava</artifactId>
             <groupId>io.reactivex.rxjava3</groupId>
-            <version>3.1.11</version>
+            <version>3.1.12</version>
         </dependency>
         <dependency>
             <artifactId>gson</artifactId>
