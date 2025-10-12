@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile
 ARG JAVA_VERSION=21
-FROM maven:3.9.10-eclipse-temurin-${JAVA_VERSION} AS build
+FROM maven:3.9.11-eclipse-temurin-${JAVA_VERSION} AS build
 WORKDIR /app
 
 # Cache dependencies
