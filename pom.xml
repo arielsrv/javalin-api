@@ -185,7 +185,7 @@
             <artifactId>mockwebserver</artifactId>
             <groupId>com.squareup.okhttp3</groupId>
             <scope>test</scope>
-            <version>5.1.0</version>
+            <version>5.2.1</version>
         </dependency>
         <!-- OpenApi plugin -->
         <dependency>
@@ -214,8 +214,8 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <javalin.version>6.5.0</javalin.version>
-        <javalin.openapi.version>6.5.0</javalin.openapi.version>
+        <javalin.version>6.7.0</javalin.version>
+        <javalin.openapi.version>6.7.0</javalin.openapi.version>
     </properties>
 
     <repositories>

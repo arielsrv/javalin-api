@@ -15,7 +15,7 @@ FROM gcr.io/distroless/java${JAVA_VERSION}-debian12 AS runtime
 WORKDIR /app
 
 COPY --from=build /app/target/app.jar app.jar
-COPY src/main/resources/opentelemetry-javaagent_v2.17.0.jar opentelemetry-javaagent.jar
+COPY src/main/resources/opentelemetry-javaagent.jar opentelemetry-javaagent.jar
 COPY src/main/resources/config/*.properties /config/
 ENV JAVA_OPTS="$JAVA_OPTS -XX:-OmitStackTraceInFastThrow"
 ENV OTEL_RESOURCE_ATTRIBUTES="service.name=javalin-api" \
