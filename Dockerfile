@@ -9,16 +9,18 @@ RUN mvn dependency:go-offline
 
 # Copy source and build
 COPY src ./src
-RUN mvn clean package -Dmaven.test.skip=true
+RUN mvn clean package -Dmaven.test.skip=true -DfinalName=app
 
-FROM gcr.io/distroless/java${JAVA_VERSION}-debian12 AS runtime
+# Runtime
+FROM eclipse-temurin:${JAVA_VERSION}-jre AS runtime
 WORKDIR /app
 
 COPY --from=build /app/target/app.jar app.jar
 COPY src/main/resources/opentelemetry-javaagent.jar opentelemetry-javaagent.jar
 COPY src/main/resources/config/*.properties /config/
-ENV JAVA_OPTS="$JAVA_OPTS -XX:-OmitStackTraceInFastThrow"
-ENV OTEL_RESOURCE_ATTRIBUTES="service.name=javalin-api" \
+
+ENV JAVA_OPTS="-XX:-OmitStackTraceInFastThrow" \
+    OTEL_RESOURCE_ATTRIBUTES="service.name=javalin-api" \
     OTEL_TRACES_EXPORTER=otlp \
     OTEL_METRICS_EXPORTER=none \
     OTEL_LOGS_EXPORTER=none \
@@ -26,4 +28,3 @@ ENV OTEL_RESOURCE_ATTRIBUTES="service.name=javalin-api" \
     OTEL_EXPORTER_OTLP_PROTOCOL=grpc
 
 ENTRYPOINT ["java", "-javaagent:/app/opentelemetry-javaagent.jar", "-jar", "app.jar"]
-
