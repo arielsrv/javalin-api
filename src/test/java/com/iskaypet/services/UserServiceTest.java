@@ -58,8 +58,8 @@ class UserServiceTest {
 		PostResponse post2 = new PostResponse();
 		post2.id = 20L;
 		post2.title = "Post 2";
-		when(postClient.getPosts(1L)).thenReturn(Observable.just(Arrays.asList(post1)));
-		when(postClient.getPosts(2L)).thenReturn(Observable.just(Arrays.asList(post2)));
+		when(postClient.getPosts(1L)).thenReturn(Observable.just(List.of(post1)));
+		when(postClient.getPosts(2L)).thenReturn(Observable.just(List.of(post2)));
 
 		TodoResponse todo1 = new TodoResponse();
 		todo1.id = 100L;
@@ -69,8 +69,8 @@ class UserServiceTest {
 		todo2.id = 200L;
 		todo2.title = "Todo 2";
 		todo2.body = "Body 2";
-		when(todoClient.getComments(1L)).thenReturn(Observable.just(Arrays.asList(todo1)));
-		when(todoClient.getComments(2L)).thenReturn(Observable.just(Arrays.asList(todo2)));
+		when(todoClient.getComments(1L)).thenReturn(Observable.just(List.of(todo1)));
+		when(todoClient.getComments(2L)).thenReturn(Observable.just(List.of(todo2)));
 
 		List<UserDTO> result = userService.getUsers().blockingFirst();
 

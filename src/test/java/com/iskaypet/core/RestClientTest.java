@@ -109,8 +109,7 @@ class RestClientTest {
 	}
 
 	@Test
-	void getObservable_success() throws Exception {
-		// Simular respuesta exitosa
+	void getObservable_success() {
 		ObjectMapper objectMapper = new ObjectMapper();
 		RestClient rc = new RestClient(objectMapper) {
 			@Override
