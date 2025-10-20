@@ -156,7 +156,7 @@
         <dependency>
             <artifactId>logback-classic</artifactId>
             <groupId>ch.qos.logback</groupId>
-            <version>1.5.19</version>
+            <version>1.5.20</version>
         </dependency>
         <dependency>
             <artifactId>logstash-logback-encoder</artifactId>
