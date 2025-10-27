@@ -161,7 +161,7 @@
         <dependency>
             <artifactId>logstash-logback-encoder</artifactId>
             <groupId>net.logstash.logback</groupId>
-            <version>8.1</version>
+            <version>9.0</version>
         </dependency>
         <dependency>
             <artifactId>javalin-micrometer</artifactId>
