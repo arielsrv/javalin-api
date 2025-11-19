@@ -207,7 +207,7 @@
             <artifactId>mockwebserver</artifactId>
             <groupId>com.squareup.okhttp3</groupId>
             <scope>test</scope>
-            <version>5.3.0</version>
+            <version>5.3.1</version>
         </dependency>
         <!-- OpenApi plugin -->
         <dependency>
