@@ -33,6 +33,7 @@ public class UserService {
 		return this.userClient.getUsers().flatMap(userResponses ->
 			Observable.fromIterable(userResponses)
 				.flatMap(userResponse ->
+					// Zips posts and todos into user DTO
 					Observable.zip(
 						this.postClient.getPosts(userResponse.id),
 						this.todoClient.getComments(userResponse.id),
