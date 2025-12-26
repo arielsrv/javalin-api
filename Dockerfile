@@ -1,15 +1,19 @@
-# syntax=docker/dockerfile
+# syntax=docker/dockerfile:1
 ARG JAVA_VERSION=21
-FROM maven:3.9.11-eclipse-temurin-${JAVA_VERSION} AS build
+FROM maven:3.9.12-eclipse-temurin-${JAVA_VERSION} AS build
 WORKDIR /app
 
-# Cache dependencies
+# Copy pom first for better layer caching
 COPY pom.xml .
-RUN mvn dependency:go-offline
 
-# Copy source and build
+# Download dependencies with BuildKit cache mount
+RUN --mount=type=cache,target=/root/.m2/repository \
+    mvn dependency:go-offline -B
+
+# Copy source and build with cached dependencies
 COPY src ./src
-RUN mvn clean package -Dmaven.test.skip=true -DfinalName=app
+RUN --mount=type=cache,target=/root/.m2/repository \
+    mvn clean package -Dmaven.test.skip=true -DfinalName=app -B
 
 # Runtime
 FROM eclipse-temurin:${JAVA_VERSION}-jre AS runtime
