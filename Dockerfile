@@ -6,13 +6,12 @@ WORKDIR /app
 # Copy pom first for better layer caching
 COPY pom.xml .
 
-# Download dependencies with BuildKit cache mount
-RUN --mount=type=cache,target=/root/.m2/repository \
-    mvn dependency:go-offline -B
+# Download dependencies - this layer gets cached by GHA
+RUN mvn dependency:go-offline -B
 
-# Copy source and build with cached dependencies
+# Copy source and build (uses cache mount for faster local builds)
 COPY src ./src
-RUN --mount=type=cache,target=/root/.m2/repository \
+RUN --mount=type=cache,id=maven-repo,target=/root/.m2/repository \
     mvn clean package -Dmaven.test.skip=true -DfinalName=app -B
 
 # Runtime
