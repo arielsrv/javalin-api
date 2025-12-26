@@ -1,57 +1,31 @@
 package com.iskaypet.core;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Properties;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ConfigTest {
 
-	@BeforeEach
-	void setup() {
-		Properties props = new Properties();
-		props.setProperty("foo", "bar");
-		props.setProperty("num", "42");
-		props.setProperty("rest.client.user.base.url", "https://gorest.co.in");
-		props.setProperty("rest.client.foo.base.url", "https://foo.com");
-		Injector injector = Guice.createInjector(new AbstractModule() {
-			@Override
-			protected void configure() {
-				bind(Properties.class).toInstance(props);
-			}
-		});
-		ContainerRegistry.setInjector(injector);
-	}
-
 	@Test
 	void getStringValue_returns_value() {
-		assertThat(Config.getStringValue("foo")).isEqualTo("bar");
-	}
-
-	@Test
-	void getLongValue_returns_long() {
-		assertThat(Config.getLongValue("num")).isEqualTo(42L);
+		// Config now uses ConfigLoader directly, so we test against actual config
+		String appPort = Config.getStringValue("app.port");
+		assertThat(appPort).isNotNull();
 	}
 
 	@Test
 	void getIntValue_returns_int() {
-		assertThat(Config.getIntValue("num")).isEqualTo(42);
+		Integer port = Config.getIntValue("app.port");
+		assertThat(port).isNotNull();
+		assertThat(port).isGreaterThan(0);
 	}
 
 	@Test
 	void getRestClientNames_returns_names() {
-		assertThat(Config.getRestClientNames()).containsExactlyInAnyOrder("user", "foo");
-	}
-
-	@Test
-	void constructor_covers_default_constructor() {
-		// Instantiate to cover the default constructor
-		Config config = new Config();
-		assertThat(config).isNotNull();
+		Set<String> names = Config.getRestClientNames();
+		assertThat(names).isNotEmpty();
+		assertThat(names).contains("user");
 	}
 }

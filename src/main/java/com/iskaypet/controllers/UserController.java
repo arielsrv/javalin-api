@@ -1,7 +1,5 @@
 package com.iskaypet.controllers;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import com.iskaypet.core.ApiController;
 import com.iskaypet.dto.UserDTO;
 import com.iskaypet.services.UserService;
@@ -12,13 +10,19 @@ import io.javalin.openapi.OpenApiContent;
 import io.javalin.openapi.OpenApiResponse;
 import io.reactivex.rxjava3.core.Observable;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.List;
 
 @Singleton
 public class UserController extends ApiController {
 
+	private final UserService userService;
+
 	@Inject
-	UserService userService;
+	public UserController(UserService userService) {
+		this.userService = userService;
+	}
 
 	@OpenApi(
 		summary = "Get all users",
@@ -36,7 +40,7 @@ public class UserController extends ApiController {
 			@OpenApiResponse(status = "500", description = "Internal server error")
 		}
 	)
-	public Observable<List<UserDTO>> getUsers(Context context) {
+	public Observable<List<UserDTO>> getUsers(Context ignoredContext) {
 		return this.userService.getUsers();
 	}
 }

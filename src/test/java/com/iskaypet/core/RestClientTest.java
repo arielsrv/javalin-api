@@ -72,7 +72,7 @@ class RestClientTest {
 	void serializes_and_deserializes_list() throws Exception {
 		List<UserFake> users = List.of(new UserFake());
 		String json = objectMapper.writeValueAsString(users);
-		List result = objectMapper.readValue(json, List.class);
+		Object result = objectMapper.readValue(json, List.class);
 		assertThat(result).isInstanceOf(List.class);
 	}
 

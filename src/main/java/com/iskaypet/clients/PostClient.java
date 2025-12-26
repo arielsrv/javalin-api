@@ -1,12 +1,12 @@
 package com.iskaypet.clients;
 
-import com.google.inject.Singleton;
 import com.iskaypet.clients.responses.PostResponse;
 import com.iskaypet.core.RestClient;
 import io.reactivex.rxjava3.core.Observable;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
 import java.util.Arrays;
 import java.util.List;
 

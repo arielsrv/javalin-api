@@ -78,23 +78,23 @@ class UserServiceTest {
 		assertThat(alice.name).isEqualTo("Alice");
 		assertThat(alice.email).isEqualTo("alice@example.com");
 		assertThat(alice.posts).hasSize(1);
-		assertThat(alice.posts.get(0).id).isEqualTo(10L);
-		assertThat(alice.posts.get(0).title).isEqualTo("Post 1");
+		assertThat(alice.posts.getFirst().id).isEqualTo(10L);
+		assertThat(alice.posts.getFirst().title).isEqualTo("Post 1");
 		assertThat(alice.todos).hasSize(1);
-		assertThat(alice.todos.get(0).id).isEqualTo(100L);
-		assertThat(alice.todos.get(0).title).isEqualTo("Todo 1");
-		assertThat(alice.todos.get(0).body).isEqualTo("Body 1");
+		assertThat(alice.todos.getFirst().id).isEqualTo(100L);
+		assertThat(alice.todos.getFirst().title).isEqualTo("Todo 1");
+		assertThat(alice.todos.getFirst().body).isEqualTo("Body 1");
 
 		assertThat(bob.userId).isEqualTo(2L);
 		assertThat(bob.name).isEqualTo("Bob");
 		assertThat(bob.email).isEqualTo("bob@example.com");
 		assertThat(bob.posts).hasSize(1);
-		assertThat(bob.posts.get(0).id).isEqualTo(20L);
-		assertThat(bob.posts.get(0).title).isEqualTo("Post 2");
+		assertThat(bob.posts.getFirst().id).isEqualTo(20L);
+		assertThat(bob.posts.getFirst().title).isEqualTo("Post 2");
 		assertThat(bob.todos).hasSize(1);
-		assertThat(bob.todos.get(0).id).isEqualTo(200L);
-		assertThat(bob.todos.get(0).title).isEqualTo("Todo 2");
-		assertThat(bob.todos.get(0).body).isEqualTo("Body 2");
+		assertThat(bob.todos.getFirst().id).isEqualTo(200L);
+		assertThat(bob.todos.getFirst().title).isEqualTo("Todo 2");
+		assertThat(bob.todos.getFirst().body).isEqualTo("Body 2");
 	}
 
 	// Puedes agregar más tests para casos de error, listas vacías, etc.

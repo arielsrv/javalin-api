@@ -65,7 +65,7 @@ class CustomJacksonMapperTest {
 		CustomJacksonMapper mapper = new CustomJacksonMapper(om);
 		List<User> users = List.of(new User());
 		String json = mapper.toJsonString(users, List.class);
-		List result = mapper.fromJsonString(json, List.class);
+		Object result = mapper.fromJsonString(json, List.class);
 		assertThat(result).isInstanceOf(List.class);
 	}
 

@@ -1,8 +1,7 @@
 package com.iskaypet.core;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.iskaypet.modules.AppModule;
+import com.iskaypet.modules.AppComponent;
+import com.iskaypet.modules.DaggerAppComponent;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
@@ -21,8 +20,8 @@ class ServerTest {
 
 	@BeforeEach
 	void setup() {
-		Injector injector = Guice.createInjector(new AppModule());
-		ContainerRegistry.setInjector(injector);
+		AppComponent component = DaggerAppComponent.create();
+		ContainerRegistry.setComponent(component);
 	}
 
 	@Test
