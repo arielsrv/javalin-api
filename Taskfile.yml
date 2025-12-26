@@ -21,6 +21,20 @@ vars:
 
 tasks:
 
+  otel:update:
+    desc: Download latest OpenTelemetry Java Agent
+    vars:
+      OTEL_AGENT_PATH: '{{.SRC_DIR}}/main/resources/opentelemetry-javaagent.jar'
+      OTEL_RELEASES_URL: 'https://api.github.com/repos/open-telemetry/opentelemetry-java-instrumentation/releases/latest'
+    cmds:
+      - |
+        echo "Fetching latest OpenTelemetry Java Agent version..."
+        DOWNLOAD_URL=$(curl -s {{.OTEL_RELEASES_URL}} | grep -o 'https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/[^"]*opentelemetry-javaagent.jar' | head -1)
+        VERSION=$(echo $DOWNLOAD_URL | grep -o 'v[0-9.]*')
+        echo "Downloading OpenTelemetry Java Agent $VERSION..."
+        curl -L -o {{.OTEL_AGENT_PATH}} "$DOWNLOAD_URL"
+        echo "Downloaded to {{.OTEL_AGENT_PATH}}"
+
   update:
     silent: true
     cmds:
