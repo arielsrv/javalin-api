@@ -11,7 +11,6 @@ metadata:
   labels:
     app: javalin-api
   name: ingress
-  namespace: iskaypet
 spec:
   ingressClassName: nginx
   rules:
