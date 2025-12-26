@@ -4,17 +4,18 @@ import com.iskaypet.clients.responses.TodoResponse;
 import com.iskaypet.core.Response;
 import com.iskaypet.core.RestClient;
 import io.reactivex.rxjava3.core.Observable;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class TodoClientTest {
 
 	@Mock
@@ -22,11 +23,6 @@ class TodoClientTest {
 
 	@InjectMocks
 	TodoClient todoClient;
-
-	@BeforeEach
-	void setUp() {
-		MockitoAnnotations.openMocks(this);
-	}
 
 	@Test
 	void getComments_returnsListOfTodoResponse() {

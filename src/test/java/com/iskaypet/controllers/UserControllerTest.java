@@ -4,11 +4,11 @@ import com.iskaypet.dto.UserDTO;
 import com.iskaypet.services.UserService;
 import io.javalin.http.Context;
 import io.reactivex.rxjava3.core.Observable;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +16,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class UserControllerTest {
 
 	@Mock
@@ -24,11 +25,6 @@ class UserControllerTest {
 	Context context;
 	@InjectMocks
 	UserController userController;
-
-	@BeforeEach
-	void setUp() {
-		MockitoAnnotations.openMocks(this);
-	}
 
 	@Test
 	void getUsers_returnsUserDTOList() {

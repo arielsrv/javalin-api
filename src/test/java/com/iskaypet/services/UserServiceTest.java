@@ -8,11 +8,11 @@ import com.iskaypet.clients.responses.TodoResponse;
 import com.iskaypet.clients.responses.UserResponse;
 import com.iskaypet.dto.UserDTO;
 import io.reactivex.rxjava3.core.Observable;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +20,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class UserServiceTest {
 
 	@Mock
@@ -33,11 +34,6 @@ class UserServiceTest {
 
 	@InjectMocks
 	UserService userService;
-
-	@BeforeEach
-	void setUp() {
-		MockitoAnnotations.openMocks(this);
-	}
 
 	@Test
 	void getUsers_mapsUserResponsesToUserDTOs_withPostsAndTodos() {
