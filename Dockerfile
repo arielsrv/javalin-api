@@ -6,12 +6,12 @@ WORKDIR /app
 # Copy pom first for better layer caching
 COPY pom.xml .
 
-# Download dependencies - this layer gets cached by GHA
-RUN mvn dependency:go-offline -B
+# Download ALL dependencies and plugins - this layer gets cached
+RUN mvn dependency:go-offline dependency:resolve-plugins -B
 
 # Copy source and build
 COPY src ./src
-RUN mvn package -Dmaven.test.skip=true -DfinalName=app -B -o
+RUN mvn package -Dmaven.test.skip=true -DfinalName=app -B
 
 # Runtime
 FROM eclipse-temurin:${JAVA_VERSION}-jre AS runtime
