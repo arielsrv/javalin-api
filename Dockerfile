@@ -6,12 +6,15 @@ WORKDIR /app
 # Copy pom first for better layer caching
 COPY pom.xml .
 
-# Download ALL dependencies and plugins - this layer gets cached
-RUN mvn dependency:go-offline dependency:resolve-plugins -B
+# Download ALL dependencies and plugins
+# Cache mount works locally and in GHA with proper buildx setup
+RUN --mount=type=cache,id=maven,target=/root/.m2/repository \
+    mvn dependency:go-offline dependency:resolve-plugins -B
 
 # Copy source and build
 COPY src ./src
-RUN mvn package -Dmaven.test.skip=true -DfinalName=app -B
+RUN --mount=type=cache,id=maven,target=/root/.m2/repository \
+    mvn package -Dmaven.test.skip=true -DfinalName=app -B
 
 # Runtime
 FROM eclipse-temurin:${JAVA_VERSION}-jre AS runtime
