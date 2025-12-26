@@ -47,4 +47,11 @@ class ConfigTest {
 	void getRestClientNames_returns_names() {
 		assertThat(Config.getRestClientNames()).containsExactlyInAnyOrder("user", "foo");
 	}
+
+	@Test
+	void constructor_covers_default_constructor() {
+		// Instantiate to cover the default constructor
+		Config config = new Config();
+		assertThat(config).isNotNull();
+	}
 }

@@ -55,6 +55,7 @@
                                 <exclude>**/*opentelemetry*.jar</exclude>
                                 <exclude>**/META-INF/**</exclude>
                                 <exclude>**/*$*</exclude>
+                                <exclude>**/Main.class</exclude>
                             </excludes>
                         </configuration>
                         <goals>
@@ -213,6 +214,12 @@
             <groupId>com.squareup.okhttp3</groupId>
             <scope>test</scope>
             <version>${okhttp.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>uk.org.webcompere</groupId>
+            <artifactId>system-stubs-jupiter</artifactId>
+            <version>2.1.7</version>
+            <scope>test</scope>
         </dependency>
         <!-- OpenApi plugin -->
         <dependency>

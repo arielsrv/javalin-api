@@ -69,6 +69,21 @@ class CustomJacksonMapperTest {
 		assertThat(result).isInstanceOf(List.class);
 	}
 
+	@Test
+	void throws_on_serialization_error() {
+		ObjectMapper om = new ObjectMapper();
+		// Crear un objeto que causa error de serialización
+		om.configure(com.fasterxml.jackson.databind.SerializationFeature.FAIL_ON_EMPTY_BEANS, true);
+		CustomJacksonMapper mapper = new CustomJacksonMapper(om);
+
+		Object problematicObject = new Object() {
+			// Objeto anónimo sin propiedades que fallará con FAIL_ON_EMPTY_BEANS
+		};
+
+		assertThatThrownBy(() -> mapper.toJsonString(problematicObject, Object.class))
+			.isInstanceOf(RuntimeException.class);
+	}
+
 	static class User {
 
 		public Long userId;

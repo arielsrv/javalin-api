@@ -37,4 +37,11 @@ class ContainerRegistryTest {
         Sample s = ContainerRegistry.get(Sample.class);
         assertThat(s).isNotNull();
     }
+
+    @Test
+    void constructor_can_be_instantiated() {
+        // Test to cover default constructor
+        ContainerRegistry registry = new ContainerRegistry();
+        assertThat(registry).isNotNull();
+    }
 }
