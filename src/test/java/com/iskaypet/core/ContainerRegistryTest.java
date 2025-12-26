@@ -1,7 +1,7 @@
 package com.iskaypet.core;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import com.iskaypet.modules.AppComponent;
+import com.iskaypet.modules.DaggerAppComponent;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -9,9 +9,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ContainerRegistryTest {
 
-	private static void resetInjector() {
+	private static void resetComponent() {
 		try {
-			java.lang.reflect.Field f = ContainerRegistry.class.getDeclaredField("injector");
+			java.lang.reflect.Field f = ContainerRegistry.class.getDeclaredField("component");
 			f.setAccessible(true);
 			f.set(null, null);
 		} catch (Exception e) {
@@ -20,29 +20,26 @@ class ContainerRegistryTest {
 	}
 
 	@Test
-	void get_throws_if_injector_not_set() {
-		resetInjector();
-		assertThatThrownBy(() -> ContainerRegistry.get(Sample.class))
+	void getComponent_throws_if_component_not_set() {
+		resetComponent();
+		assertThatThrownBy(ContainerRegistry::getComponent)
 			.isInstanceOf(IllegalStateException.class)
-			.hasMessageContaining("Injector not set");
+			.hasMessageContaining("Component not set");
 	}
 
 	@Test
-	void get_returns_instance_from_injector() {
-		resetInjector();
-		Injector injector = Guice.createInjector(binder -> binder.bind(Sample.class).toInstance(new Sample()));
-		ContainerRegistry.setInjector(injector);
-		Sample s = ContainerRegistry.get(Sample.class);
-		assertThat(s).isNotNull();
+	void getComponent_returns_component_when_set() {
+		resetComponent();
+		AppComponent component = DaggerAppComponent.create();
+		ContainerRegistry.setComponent(component);
+		AppComponent result = ContainerRegistry.getComponent();
+		assertThat(result).isNotNull();
+		assertThat(result).isSameAs(component);
 	}
 
 	@Test
 	void constructor_can_be_instantiated() {
-		// Test to cover default constructor
 		ContainerRegistry registry = new ContainerRegistry();
 		assertThat(registry).isNotNull();
-	}
-
-	static class Sample {
 	}
 }

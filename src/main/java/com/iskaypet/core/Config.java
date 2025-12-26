@@ -5,8 +5,10 @@ import java.util.Set;
 
 public class Config {
 
+	private static final Properties properties = ConfigLoader.load();
+
 	private static Properties getProperties() {
-		return ContainerRegistry.get(Properties.class);
+		return properties;
 	}
 
 	public static String getStringValue(String key) {

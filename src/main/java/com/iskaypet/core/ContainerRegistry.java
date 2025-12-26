@@ -1,19 +1,19 @@
 package com.iskaypet.core;
 
-import com.google.inject.Injector;
+import com.iskaypet.modules.AppComponent;
 
 public class ContainerRegistry {
 
-	private static Injector injector;
+	private static AppComponent component;
 
-	public static void setInjector(Injector injector) {
-		ContainerRegistry.injector = injector;
+	public static void setComponent(AppComponent component) {
+		ContainerRegistry.component = component;
 	}
 
-	public static <T> T get(Class<T> clazz) {
-		if (injector == null) {
-			throw new IllegalStateException("Injector not set");
+	public static AppComponent getComponent() {
+		if (component == null) {
+			throw new IllegalStateException("Component not set");
 		}
-		return injector.getInstance(clazz);
+		return component;
 	}
 }

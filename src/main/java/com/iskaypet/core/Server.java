@@ -46,7 +46,7 @@ public record Server(Javalin javalin) {
 		new DiskSpaceMetrics(new File(System.getProperty("user.dir"))).bindTo(
 			prometheusMeterRegistry);
 
-		ObjectMapper objectMapper = ContainerRegistry.get(ObjectMapper.class);
+		ObjectMapper objectMapper = new com.iskaypet.providers.ObjectMapperProvider().get();
 
 		return create(config -> {
 			config.useVirtualThreads = true;
