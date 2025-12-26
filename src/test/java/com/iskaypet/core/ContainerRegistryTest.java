@@ -36,10 +36,4 @@ class ContainerRegistryTest {
 		assertThat(result).isNotNull();
 		assertThat(result).isSameAs(component);
 	}
-
-	@Test
-	void constructor_can_be_instantiated() {
-		ContainerRegistry registry = new ContainerRegistry();
-		assertThat(registry).isNotNull();
-	}
 }

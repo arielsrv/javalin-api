@@ -40,7 +40,7 @@ public class UserController extends ApiController {
 			@OpenApiResponse(status = "500", description = "Internal server error")
 		}
 	)
-	public Observable<List<UserDTO>> getUsers(Context context) {
+	public Observable<List<UserDTO>> getUsers(Context ignoredContext) {
 		return this.userService.getUsers();
 	}
 }

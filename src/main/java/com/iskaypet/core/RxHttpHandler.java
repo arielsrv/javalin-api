@@ -9,7 +9,11 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
-public class RxHttpHandler {
+public final class RxHttpHandler {
+
+	private RxHttpHandler() {
+		// Utility class
+	}
 
 	public static <T> Handler intercept(Function<Context, Observable<T>> func) {
 		return ctx -> {

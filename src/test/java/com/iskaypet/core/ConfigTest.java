@@ -28,10 +28,4 @@ class ConfigTest {
 		assertThat(names).isNotEmpty();
 		assertThat(names).contains("user");
 	}
-
-	@Test
-	void constructor_covers_default_constructor() {
-		Config config = new Config();
-		assertThat(config).isNotNull();
-	}
 }

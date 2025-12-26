@@ -3,9 +3,13 @@ package com.iskaypet.core;
 import java.util.Properties;
 import java.util.Set;
 
-public class Config {
+public final class Config {
 
 	private static final Properties properties = ConfigLoader.load();
+
+	private Config() {
+		// Utility class
+	}
 
 	private static Properties getProperties() {
 		return properties;

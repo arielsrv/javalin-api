@@ -2,9 +2,13 @@ package com.iskaypet.core;
 
 import com.iskaypet.modules.AppComponent;
 
-public class ContainerRegistry {
+public final class ContainerRegistry {
 
 	private static AppComponent component;
+
+	private ContainerRegistry() {
+		// Utility class
+	}
 
 	public static AppComponent getComponent() {
 		if (component == null) {

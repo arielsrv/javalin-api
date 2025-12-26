@@ -56,11 +56,4 @@ class RxHttpHandlerTest {
 		handler.apply(null).test().assertValue("ok");
 		assertThat(called).isTrue();
 	}
-
-	@Test
-	void constructor_can_be_instantiated() {
-		// Test to cover default constructor
-		RxHttpHandler handler = new RxHttpHandler();
-		assertThat(handler).isNotNull();
-	}
 }
