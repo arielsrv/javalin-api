@@ -13,16 +13,11 @@ public class Main {
 	 * Creates server; registers handler; starts server on configured port
 	 */
 	public static void main(String[] args) {
-		// Create injector
 		ContainerRegistry.setInjector(Guice.createInjector(new AppModule()));
 
-		// Create server
 		Server server = Server.create();
-
-		// Register handlers
 		server.get("/users", ctx -> ContainerRegistry.get(UserController.class).getUsers(ctx));
 
-		// Start server
 		server.start(Config.getIntValue("app.port"));
 	}
 }
