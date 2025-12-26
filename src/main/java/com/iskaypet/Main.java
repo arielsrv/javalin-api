@@ -16,6 +16,7 @@ public class Main {
 
 		Server server = Server.create();
 		server.get("/users", ctx -> ContainerRegistry.get(UserController.class).getUsers(ctx));
+
 		server.start(Config.getIntValue("app.port"));
 	}
 }

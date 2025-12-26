@@ -17,5 +17,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --build-arg=JAVA_VERSION=21 --tag my-image-name:$(date +%s)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          build-args: JAVA_VERSION=21
+          push: false
+          tags: my-image-name:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
