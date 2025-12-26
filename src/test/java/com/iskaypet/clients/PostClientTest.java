@@ -13,6 +13,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,9 +36,7 @@ class PostClientTest {
 		postsArr[1].id = 20L;
 		postsArr[1].title = "Post 2";
 		Response<PostResponse[]> response = new Response<>(200, postsArr);
-		when(restClient.getObservable(org.mockito.ArgumentMatchers.anyString(),
-			org.mockito.ArgumentMatchers.<Class<PostResponse[]>>any())).thenReturn(
-			Observable.just(response));
+		when(restClient.getObservable(anyString(), eq(PostResponse[].class))).thenReturn(Observable.just(response));
 
 		List<PostResponse> result = postClient.getPosts(1L).blockingFirst();
 
