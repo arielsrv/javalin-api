@@ -113,6 +113,11 @@
             <version>${javalin.version}</version>
         </dependency>
         <dependency>
+            <groupId>io.opentelemetry.instrumentation</groupId>
+            <artifactId>opentelemetry-instrumentation-annotations</artifactId>
+            <version>2.23.0</version>
+        </dependency>
+        <dependency>
             <artifactId>guice</artifactId>
             <groupId>com.google.inject</groupId>
             <version>7.0.0</version>

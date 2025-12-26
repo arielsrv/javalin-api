@@ -10,6 +10,7 @@ import com.iskaypet.clients.responses.TodoResponse;
 import com.iskaypet.dto.PostDTO;
 import com.iskaypet.dto.TodoDTO;
 import com.iskaypet.dto.UserDTO;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.reactivex.rxjava3.core.Observable;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class UserService {
 	@Inject
 	TodoClient todoClient;
 
+	@WithSpan
 	public Observable<List<UserDTO>> getUsers() {
 		return this.userClient.getUsers().flatMap(userResponses ->
 			Observable.fromIterable(userResponses)
