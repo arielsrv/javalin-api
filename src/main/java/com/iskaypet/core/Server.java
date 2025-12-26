@@ -56,7 +56,7 @@ public record Server(Javalin javalin) {
 
 			config.registerPlugin(new OpenApiPlugin(pluginConfig -> {
 				pluginConfig.withDefinitionConfiguration((version, definition) -> {
-					definition.withOpenApiInfo(info -> {
+					definition.withInfo(info -> {
 						info.title("Javalin API");
 						info.version("1.0.0");
 						info.description("Documentación OpenAPI generada automáticamente");
