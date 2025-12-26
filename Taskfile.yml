@@ -42,6 +42,13 @@ tasks:
       ENV: localstack
       AWS_ACCESS_KEY_ID: test
       AWS_SECRET_ACCESS_KEY: test
+      OTEL_SERVICE_NAME: '{{.APP_NAME}}'
+      OTEL_RESOURCE_ATTRIBUTES: 'service.name={{.APP_NAME}}'
+      OTEL_TRACES_EXPORTER: otlp
+      OTEL_METRICS_EXPORTER: none
+      OTEL_LOGS_EXPORTER: none
+      OTEL_EXPORTER_OTLP_ENDPOINT: 'http://tempo.monitoring.svc.cluster.local:4317'
+      OTEL_EXPORTER_OTLP_PROTOCOL: grpc
     cmds:
       - docker stop {{.APP_NAME}} || true && docker rm {{.APP_NAME}} || true
       - echo http://{{.HOST}}:{{.PORT}}/ping
@@ -51,6 +58,13 @@ tasks:
           -e ENV={{.ENV}} \
           -e AWS_ACCESS_KEY_ID={{.AWS_ACCESS_KEY_ID}} \
           -e AWS_SECRET_ACCESS_KEY={{.AWS_SECRET_ACCESS_KEY}} \
+          -e OTEL_SERVICE_NAME={{.OTEL_SERVICE_NAME}} \
+          -e OTEL_RESOURCE_ATTRIBUTES={{.OTEL_RESOURCE_ATTRIBUTES}} \
+          -e OTEL_TRACES_EXPORTER={{.OTEL_TRACES_EXPORTER}} \
+          -e OTEL_METRICS_EXPORTER={{.OTEL_METRICS_EXPORTER}} \
+          -e OTEL_LOGS_EXPORTER={{.OTEL_LOGS_EXPORTER}} \
+          -e OTEL_EXPORTER_OTLP_ENDPOINT={{.OTEL_EXPORTER_OTLP_ENDPOINT}} \
+          -e OTEL_EXPORTER_OTLP_PROTOCOL={{.OTEL_EXPORTER_OTLP_PROTOCOL}} \
           {{.DOCKER_IMAGE}}
 
   docker:stop:
