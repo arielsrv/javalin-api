@@ -9,10 +9,9 @@ COPY pom.xml .
 # Download dependencies - this layer gets cached by GHA
 RUN mvn dependency:go-offline -B
 
-# Copy source and build (uses cache mount for faster local builds)
+# Copy source and build
 COPY src ./src
-RUN --mount=type=cache,id=maven-repo,target=/root/.m2/repository \
-    mvn clean package -Dmaven.test.skip=true -DfinalName=app -B
+RUN mvn package -Dmaven.test.skip=true -DfinalName=app -B -o
 
 # Runtime
 FROM eclipse-temurin:${JAVA_VERSION}-jre AS runtime
