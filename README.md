@@ -189,4 +189,4 @@ mvn test
 
 ## License
 
-MIT or your company license. 
+MIT or your company license.
