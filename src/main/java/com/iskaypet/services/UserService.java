@@ -13,7 +13,6 @@ import com.iskaypet.dto.UserDTO;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.reactivex.rxjava3.core.Observable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Singleton
@@ -33,39 +32,41 @@ public class UserService {
 		return this.userClient.getUsers().flatMap(userResponses ->
 			Observable.fromIterable(userResponses)
 				.flatMap(userResponse ->
-					Observable.zip(
-						this.postClient.getPosts(userResponse.id),
-						this.todoClient.getComments(userResponse.id),
-						(postsResponse, todosResponse) -> {
-							UserDTO userDTO = new UserDTO();
-							userDTO.userId = userResponse.id;
-							userDTO.email = userResponse.email;
-							userDTO.name = userResponse.name;
-							userDTO.posts = new ArrayList<>();
-							userDTO.todos = new ArrayList<>();
-
-							for (PostResponse postResponse : postsResponse) {
-								PostDTO postDTO = new PostDTO();
-								postDTO.id = postResponse.id;
-								postDTO.title = postResponse.title;
-								userDTO.posts.add(postDTO);
-							}
-
-							for (TodoResponse todoResponse : todosResponse) {
-								TodoDTO todoDTO = new TodoDTO();
-								todoDTO.id = todoResponse.id;
-								todoDTO.title = todoResponse.title;
-								todoDTO.body = todoResponse.body;
-								todoDTO.dueOn = todoResponse.dueOn;
-								userDTO.todos.add(todoDTO);
-							}
-
-							return userDTO;
-						}
-					)
+						Observable.zip(
+							this.postClient.getPosts(userResponse.id),
+							this.todoClient.getComments(userResponse.id),
+							(postsResponse, todosResponse) -> mapToUserDTO(userResponse, postsResponse, todosResponse)
+						),
+					10 // maxConcurrency: procesa hasta 10 usuarios en paralelo
 				)
 				.toList()
 				.toObservable()
 		);
+	}
+
+	private UserDTO mapToUserDTO(
+		com.iskaypet.clients.responses.UserResponse userResponse,
+		List<PostResponse> postsResponse,
+		List<TodoResponse> todosResponse
+	) {
+		UserDTO userDTO = new UserDTO();
+		userDTO.userId = userResponse.id;
+		userDTO.email = userResponse.email;
+		userDTO.name = userResponse.name;
+		userDTO.posts = postsResponse.stream().map(p -> {
+			PostDTO dto = new PostDTO();
+			dto.id = p.id;
+			dto.title = p.title;
+			return dto;
+		}).toList();
+		userDTO.todos = todosResponse.stream().map(t -> {
+			TodoDTO dto = new TodoDTO();
+			dto.id = t.id;
+			dto.title = t.title;
+			dto.body = t.body;
+			dto.dueOn = t.dueOn;
+			return dto;
+		}).toList();
+		return userDTO;
 	}
 }
