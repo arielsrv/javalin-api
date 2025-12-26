@@ -43,6 +43,11 @@
             </plugin>
             <plugin>
                 <artifactId>jacoco-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>opentelemetry-javaagent.jar</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -52,7 +57,9 @@
                     <execution>
                         <configuration>
                             <excludes>
-                                <exclude>**/*opentelemetry*.jar</exclude>
+                                <exclude>**/opentelemetry-javaagent.jar</exclude>
+                                <exclude>opentelemetry-javaagent.jar</exclude>
+                                <exclude>**/*opentelemetry*/**</exclude>
                                 <exclude>**/META-INF/**</exclude>
                                 <exclude>**/*$*</exclude>
                                 <exclude>**/Main.class</exclude>
