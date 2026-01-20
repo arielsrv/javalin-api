@@ -14,16 +14,30 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.List;
 
+/**
+ * Controller for managing user-related endpoints.
+ */
 @Singleton
 public class UserController extends ApiController {
 
 	private final UserService userService;
 
+	/**
+	 * Creates a new UserController with the specified UserService.
+	 *
+	 * @param userService the service to handle user logic
+	 */
 	@Inject
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
 
+	/**
+	 * Handles the GET /users request.
+	 *
+	 * @param ignoredContext the Javalin context
+	 * @return an Observable of the list of UserDTOs
+	 */
 	@OpenApi(
 		summary = "Get all users",
 		operationId = "getUsers",

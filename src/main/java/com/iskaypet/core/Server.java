@@ -25,6 +25,11 @@ import java.io.File;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+/**
+ * Wrapper for the Javalin server, providing convenience methods for configuration and routing.
+ *
+ * @param javalin the underlying Javalin instance
+ */
 public record Server(Javalin javalin) {
 
 	static final Logger logger = LoggerFactory.getLogger(Server.class);
@@ -35,6 +40,11 @@ public record Server(Javalin javalin) {
 		micrometerPluginConfig -> micrometerPluginConfig.registry = prometheusMeterRegistry);
 
 
+	/**
+	 * Creates a new Server instance with default configuration (OpenAPI, Swagger, ReDoc, Prometheus).
+	 *
+	 * @return a new Server instance
+	 */
 	@SuppressWarnings("resource")
 	public static Server create() {
 		new ClassLoaderMetrics().bindTo(prometheusMeterRegistry);
@@ -75,14 +85,32 @@ public record Server(Javalin javalin) {
 		});
 	}
 
+	/**
+	 * Creates a new Server instance with the specified configuration.
+	 *
+	 * @param config a consumer to configure Javalin
+	 * @return a new Server instance
+	 */
 	public static Server create(Consumer<JavalinConfig> config) {
 		return new Server(Javalin.create(config));
 	}
 
+	/**
+	 * Registers a GET route that returns an RxJava Observable.
+	 *
+	 * @param path    the route path
+	 * @param handler the reactive handler
+	 * @param <T>     the type of the result
+	 */
 	public <T> void get(String path, Function<Context, Observable<T>> handler) {
 		this.javalin.get(path, RxHttpHandler.intercept(handler));
 	}
 
+	/**
+	 * Starts the server on the specified port.
+	 *
+	 * @param port the port number
+	 */
 	public void start(int port) {
 		this.javalin.get("/metrics",
 			ctx -> ctx.contentType("text/plain; version=0.0.4; charset=utf-8")

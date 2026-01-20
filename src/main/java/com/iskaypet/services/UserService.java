@@ -15,6 +15,9 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.List;
 
+/**
+ * Service for managing users and aggregating data from multiple clients.
+ */
 @Singleton
 public class UserService {
 
@@ -22,6 +25,13 @@ public class UserService {
 	private final PostClient postClient;
 	private final TodoClient todoClient;
 
+	/**
+	 * Creates a new UserService with the specified clients.
+	 *
+	 * @param userClient the client for users
+	 * @param postClient the client for posts
+	 * @param todoClient the client for todos
+	 */
 	@Inject
 	public UserService(UserClient userClient, PostClient postClient, TodoClient todoClient) {
 		this.userClient = userClient;
@@ -29,6 +39,11 @@ public class UserService {
 		this.todoClient = todoClient;
 	}
 
+	/**
+	 * Gets all users with their posts and todos.
+	 *
+	 * @return an Observable of the list of UserDTOs
+	 */
 	@WithSpan
 	public Observable<List<UserDTO>> getUsers() {
 		return this.userClient.getUsers().flatMap(userResponses ->

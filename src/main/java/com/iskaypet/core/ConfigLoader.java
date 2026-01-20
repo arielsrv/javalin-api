@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Loader for application configuration properties based on the environment.
+ */
 public final class ConfigLoader {
 
 	private static final String DEFAULT_ENV = "local";
@@ -13,6 +16,11 @@ public final class ConfigLoader {
 		// Utility class
 	}
 
+	/**
+	 * Loads configuration properties based on the 'ENV' environment variable.
+	 *
+	 * @return the loaded Properties
+	 */
 	public static Properties load() {
 		String env = System.getenv("ENV");
 		if (env == null || env.isBlank()) {

@@ -11,12 +11,22 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
+/**
+ * Utility class to bridge RxJava Observables with Javalin's HTTP handlers.
+ */
 public final class RxHttpHandler {
 
 	private RxHttpHandler() {
 		// Utility class
 	}
 
+	/**
+	 * Intercepts an RxJava-based handler and adapts it to Javalin's async handling.
+	 *
+	 * @param func the reactive handler function
+	 * @param <T>  the type of the result
+	 * @return a Javalin Handler
+	 */
 	public static <T> Handler intercept(Function<Context, Observable<T>> func) {
 		return ctx -> {
 			CompletableFuture<Void> future = new CompletableFuture<>();

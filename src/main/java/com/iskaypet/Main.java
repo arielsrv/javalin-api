@@ -6,10 +6,15 @@ import com.iskaypet.core.Server;
 import com.iskaypet.modules.AppComponent;
 import com.iskaypet.modules.DaggerAppComponent;
 
+/**
+ * Main application entry point.
+ */
 public class Main {
 
 	/**
-	 * Creates server; registers handler; starts server on configured port
+	 * Creates server; registers handler; starts server on configured port.
+	 *
+	 * @param args command line arguments
 	 */
 	public static void main(String[] args) {
 		AppComponent component = DaggerAppComponent.create();
