@@ -1,19 +1,37 @@
 package com.iskaypet.core;
 
-import com.google.inject.Injector;
+import com.iskaypet.modules.AppComponent;
 
-public class ContainerRegistry {
+/**
+ * Registry for the Dagger application component.
+ */
+public final class ContainerRegistry {
 
-	private static Injector injector;
+	private static AppComponent component;
 
-	public static void setInjector(Injector injector) {
-		ContainerRegistry.injector = injector;
+	private ContainerRegistry() {
+		// Utility class
 	}
 
-	public static <T> T get(Class<T> clazz) {
-		if (injector == null) {
-			throw new IllegalStateException("Injector not set");
+	/**
+	 * Gets the registered application component.
+	 *
+	 * @return the application component
+	 * @throws IllegalStateException if the component has not been set
+	 */
+	public static AppComponent getComponent() {
+		if (component == null) {
+			throw new IllegalStateException("Component not set");
 		}
-		return injector.getInstance(clazz);
+		return component;
+	}
+
+	/**
+	 * Sets the application component.
+	 *
+	 * @param component the application component to register
+	 */
+	public static void setComponent(AppComponent component) {
+		ContainerRegistry.component = component;
 	}
 }

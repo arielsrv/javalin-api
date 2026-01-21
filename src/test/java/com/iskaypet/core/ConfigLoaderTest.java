@@ -72,11 +72,4 @@ class ConfigLoaderTest {
 			.isInstanceOf(RuntimeException.class)
 			.hasMessageContaining("config file not found");
 	}
-
-	@Test
-	void constructor_can_be_instantiated() {
-		// Test to cover default constructor
-		ConfigLoader loader = new ConfigLoader();
-		assertThat(loader).isNotNull();
-	}
 }

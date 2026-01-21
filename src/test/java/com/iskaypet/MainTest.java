@@ -1,10 +1,9 @@
 package com.iskaypet;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 import com.iskaypet.core.ContainerRegistry;
 import com.iskaypet.core.Server;
-import com.iskaypet.modules.AppModule;
+import com.iskaypet.modules.AppComponent;
+import com.iskaypet.modules.DaggerAppComponent;
 import io.javalin.Javalin;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,8 +17,8 @@ class MainTest {
 
 	@BeforeEach
 	void setup() {
-		Injector injector = Guice.createInjector(new AppModule());
-		ContainerRegistry.setInjector(injector);
+		AppComponent component = DaggerAppComponent.create();
+		ContainerRegistry.setComponent(component);
 	}
 
 	@Test

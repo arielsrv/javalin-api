@@ -14,9 +14,17 @@ import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import jakarta.inject.Provider;
 import jakarta.inject.Singleton;
 
+/**
+ * Provider for the Jackson ObjectMapper.
+ */
 @Singleton
 public class ObjectMapperProvider implements Provider<ObjectMapper> {
 
+	/**
+	 * Configures and returns a Jackson ObjectMapper.
+	 *
+	 * @return a configured ObjectMapper
+	 */
 	@Override
 	public ObjectMapper get() {
 		ObjectMapper objectMapper = new ObjectMapper();
