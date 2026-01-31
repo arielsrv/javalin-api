@@ -165,4 +165,30 @@ class ServerTest {
 			}
 		}
 	}
+
+	@Test
+	void record_methods_coverage() {
+		Javalin javalin1 = mock(Javalin.class);
+		Javalin javalin2 = mock(Javalin.class);
+		Server server1 = new Server(javalin1);
+		Server server2 = new Server(javalin1);
+		Server server3 = new Server(javalin2);
+
+		assertThat(server1).isEqualTo(server2);
+		assertThat(server1).isNotEqualTo(server3);
+		assertThat(server1.hashCode()).isEqualTo(server2.hashCode());
+		assertThat(server1.toString()).contains("Server");
+		assertThat(server1.javalin()).isSameAs(javalin1);
+	}
+
+	@Test
+	void create_methods_coverage() {
+		Server server1 = Server.create();
+		assertThat(server1).isNotNull();
+		server1.javalin().stop();
+
+		Server server2 = Server.create(config -> config.showJavalinBanner = false);
+		assertThat(server2).isNotNull();
+		server2.javalin().stop();
+	}
 }
