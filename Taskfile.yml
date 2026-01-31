@@ -12,7 +12,7 @@ vars:
   PORT: 8081
 
   # kubernetes
-  KUBERNETES_APP_NAMESPACE: iskaypet
+  KUBERNETES_APP_NAMESPACE: arielsrv
   KUBERNETES_MANIFESTS_DIR: '{{.SRC_DIR}}/main/resources/kubernetes'
   KUBERNETES_APP_DEPLOYMENT_NAME: deployment.v1.apps/{{.APP_NAME}}--rolling-update
   KUBERNETES_OUTPUT_DIR: '{{.BUILD_DIR}}/kubernetes'
