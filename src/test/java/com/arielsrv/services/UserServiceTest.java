@@ -97,5 +97,5 @@ class UserServiceTest {
 		assertThat(bob.todos.get(0).body).isEqualTo("Body 2");
 	}
 
-	// Puedes agregar más tests para casos de error, listas vacías, etc.
+	// More tests can be added for error cases, empty lists, etc.
 }
