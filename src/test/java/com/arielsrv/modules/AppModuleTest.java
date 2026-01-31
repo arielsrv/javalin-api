@@ -102,9 +102,9 @@ class AppModuleTest {
 
 			Injector injector = Guice.createInjector(new AppModule());
 			assertThat(injector).isNotNull();
-			// El cliente "user" debe estar vinculado
+			// The "user" client must be bound
 			assertThat(injector.getInstance(Key.get(RestClient.class, Names.named("user")))).isNotNull();
-			// El cliente "invalid" NO debe estar vinculado
+			// The "invalid" client must NOT be bound
 			assertThatThrownBy(() -> injector.getInstance(Key.get(RestClient.class, Names.named("invalid"))))
 				.isInstanceOf(com.google.inject.ConfigurationException.class);
 		}

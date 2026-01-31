@@ -24,7 +24,7 @@ class MainTest {
 
 	@Test
 	void main_smoke_test() throws Exception {
-		// Verificar que la clase se carga y el punto de entrada existe
+		// Verify that the class is loaded and the entry point exists
 		Class<?> mainClass = Class.forName("com.arielsrv.Main");
 		Method mainMethod = mainClass.getDeclaredMethod("main", String[].class);
 		assertThat(mainMethod).isNotNull();
@@ -33,12 +33,12 @@ class MainTest {
 
 	@Test
 	void main_flow_creates_server_and_registers_routes() {
-		// Simular el flujo de Main.main() sin arrancar el servidor real
+		// Simulate the Main.main() flow without starting the actual server
 		Server server = Server.create();
 		assertThat(server).isNotNull();
 		assertThat(server.javalin()).isNotNull();
 
-		// Verificar que podemos registrar endpoints como lo hace main
+		// Verify that we can register endpoints as main does
 		Javalin mockJavalin = mock(Javalin.class);
 		Server mockServer = new Server(mockJavalin);
 		mockServer.get("/users", ctx -> io.reactivex.rxjava3.core.Observable.empty());

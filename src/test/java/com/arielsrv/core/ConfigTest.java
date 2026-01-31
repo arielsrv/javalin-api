@@ -19,7 +19,7 @@ class ConfigTest {
 		props.setProperty("num", "42");
 		props.setProperty("rest.client.user.base.url", "https://gorest.co.in");
 		props.setProperty("rest.client.foo.base.url", "https://foo.com");
-		props.setProperty("rest.client.invalid", "value"); // Cubre T && F
+		props.setProperty("rest.client.invalid", "value"); // Covers T && F
 		Injector injector = Guice.createInjector(new AbstractModule() {
 			@Override
 			protected void configure() {

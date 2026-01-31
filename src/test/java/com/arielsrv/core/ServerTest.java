@@ -90,10 +90,10 @@ class ServerTest {
 
 	@Test
 	void create_initializes_prometheus_metrics() {
-		// Verificar que create() configura las métricas de Prometheus
+		// Verify that create() configures Prometheus metrics
 		Server server = Server.create();
 		assertThat(server).isNotNull();
-		// Las métricas se registran como side effect, verificamos que no hay errores
+		// Metrics are registered as side effect, we verify no errors occur
 		assertThat(server.javalin()).isNotNull();
 	}
 

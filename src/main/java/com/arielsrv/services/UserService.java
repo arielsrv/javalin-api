@@ -37,7 +37,7 @@ public class UserService {
 							this.todoClient.getComments(userResponse.id),
 							(postsResponse, todosResponse) -> mapToUserDTO(userResponse, postsResponse, todosResponse)
 						),
-					10 // maxConcurrency: procesa hasta 10 usuarios en paralelo
+					10 // maxConcurrency: processes up to 10 users in parallel
 				)
 				.toList()
 				.toObservable()

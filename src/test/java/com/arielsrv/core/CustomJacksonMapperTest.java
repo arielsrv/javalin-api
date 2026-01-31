@@ -72,12 +72,12 @@ class CustomJacksonMapperTest {
 	@Test
 	void throws_on_serialization_error() {
 		ObjectMapper om = new ObjectMapper();
-		// Crear un objeto que causa error de serialización
+		// Create an object that causes a serialization error
 		om.configure(com.fasterxml.jackson.databind.SerializationFeature.FAIL_ON_EMPTY_BEANS, true);
 		CustomJacksonMapper mapper = new CustomJacksonMapper(om);
 
 		Object problematicObject = new Object() {
-			// Objeto anónimo sin propiedades que fallará con FAIL_ON_EMPTY_BEANS
+			// Anonymous object without properties that will fail with FAIL_ON_EMPTY_BEANS
 		};
 
 		assertThatThrownBy(() -> mapper.toJsonString(problematicObject, Object.class))

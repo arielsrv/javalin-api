@@ -59,7 +59,7 @@ public record Server(Javalin javalin) {
 					definition.withInfo(info -> {
 						info.title("Javalin API");
 						info.version("1.0.0");
-						info.description("Documentación OpenAPI generada automáticamente");
+						info.description("Automatically generated OpenAPI documentation");
 					});
 				});
 				pluginConfig.withDocumentationPath("/openapi");
