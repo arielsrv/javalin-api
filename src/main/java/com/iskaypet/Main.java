@@ -1,11 +1,11 @@
-package com.iskaypet;
+package com.arielsrv;
 
 import com.google.inject.Guice;
-import com.iskaypet.controllers.UserController;
-import com.iskaypet.core.Config;
-import com.iskaypet.core.ContainerRegistry;
-import com.iskaypet.core.Server;
-import com.iskaypet.modules.AppModule;
+import com.arielsrv.controllers.UserController;
+import com.arielsrv.core.Config;
+import com.arielsrv.core.ContainerRegistry;
+import com.arielsrv.core.Server;
+import com.arielsrv.modules.AppModule;
 
 public class Main {
 

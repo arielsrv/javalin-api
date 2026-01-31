@@ -1,8 +1,8 @@
-package com.iskaypet.clients;
+package com.arielsrv.clients;
 
 import com.google.inject.Singleton;
-import com.iskaypet.clients.responses.PostResponse;
-import com.iskaypet.core.RestClient;
+import com.arielsrv.clients.responses.PostResponse;
+import com.arielsrv.core.RestClient;
 import io.reactivex.rxjava3.core.Observable;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;

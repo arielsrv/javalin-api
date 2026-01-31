@@ -1,15 +1,15 @@
-package com.iskaypet.services;
+package com.arielsrv.services;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.iskaypet.clients.PostClient;
-import com.iskaypet.clients.TodoClient;
-import com.iskaypet.clients.UserClient;
-import com.iskaypet.clients.responses.PostResponse;
-import com.iskaypet.clients.responses.TodoResponse;
-import com.iskaypet.dto.PostDTO;
-import com.iskaypet.dto.TodoDTO;
-import com.iskaypet.dto.UserDTO;
+import com.arielsrv.clients.PostClient;
+import com.arielsrv.clients.TodoClient;
+import com.arielsrv.clients.UserClient;
+import com.arielsrv.clients.responses.PostResponse;
+import com.arielsrv.clients.responses.TodoResponse;
+import com.arielsrv.dto.PostDTO;
+import com.arielsrv.dto.TodoDTO;
+import com.arielsrv.dto.UserDTO;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.reactivex.rxjava3.core.Observable;
 
@@ -45,7 +45,7 @@ public class UserService {
 	}
 
 	private UserDTO mapToUserDTO(
-		com.iskaypet.clients.responses.UserResponse userResponse,
+		com.arielsrv.clients.responses.UserResponse userResponse,
 		List<PostResponse> postsResponse,
 		List<TodoResponse> todosResponse
 	) {

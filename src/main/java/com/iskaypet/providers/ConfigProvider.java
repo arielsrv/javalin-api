@@ -1,6 +1,6 @@
-package com.iskaypet.providers;
+package com.arielsrv.providers;
 
-import com.iskaypet.core.ConfigLoader;
+import com.arielsrv.core.ConfigLoader;
 import jakarta.inject.Provider;
 import jakarta.inject.Singleton;
 

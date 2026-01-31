@@ -1,4 +1,4 @@
-package com.iskaypet.core;
+package com.arielsrv.core;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.Javalin;

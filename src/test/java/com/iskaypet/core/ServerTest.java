@@ -1,8 +1,8 @@
-package com.iskaypet.core;
+package com.arielsrv.core;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.iskaypet.modules.AppModule;
+import com.arielsrv.modules.AppModule;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;

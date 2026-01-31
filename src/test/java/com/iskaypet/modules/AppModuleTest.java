@@ -1,11 +1,11 @@
-package com.iskaypet.modules;
+package com.arielsrv.modules;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.name.Names;
-import com.iskaypet.core.RestClient;
+import com.arielsrv.core.RestClient;
 import org.junit.jupiter.api.Test;
 
 import java.util.Properties;

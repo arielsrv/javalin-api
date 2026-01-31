@@ -1,12 +1,12 @@
-package com.iskaypet.services;
+package com.arielsrv.services;
 
-import com.iskaypet.clients.PostClient;
-import com.iskaypet.clients.TodoClient;
-import com.iskaypet.clients.UserClient;
-import com.iskaypet.clients.responses.PostResponse;
-import com.iskaypet.clients.responses.TodoResponse;
-import com.iskaypet.clients.responses.UserResponse;
-import com.iskaypet.dto.UserDTO;
+import com.arielsrv.clients.PostClient;
+import com.arielsrv.clients.TodoClient;
+import com.arielsrv.clients.UserClient;
+import com.arielsrv.clients.responses.PostResponse;
+import com.arielsrv.clients.responses.TodoResponse;
+import com.arielsrv.clients.responses.UserResponse;
+import com.arielsrv.dto.UserDTO;
 import io.reactivex.rxjava3.core.Observable;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

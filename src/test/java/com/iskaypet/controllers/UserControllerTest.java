@@ -1,7 +1,7 @@
-package com.iskaypet.controllers;
+package com.arielsrv.controllers;
 
-import com.iskaypet.dto.UserDTO;
-import com.iskaypet.services.UserService;
+import com.arielsrv.dto.UserDTO;
+import com.arielsrv.services.UserService;
 import io.javalin.http.Context;
 import io.reactivex.rxjava3.core.Observable;
 import org.junit.jupiter.api.Test;

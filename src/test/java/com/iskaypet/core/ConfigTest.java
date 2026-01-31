@@ -1,4 +1,4 @@
-package com.iskaypet.core;
+package com.arielsrv.core;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;

@@ -1,4 +1,4 @@
-package com.iskaypet.dto;
+package com.arielsrv.dto;
 
 public class PostDTO {
 

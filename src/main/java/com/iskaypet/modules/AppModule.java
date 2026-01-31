@@ -1,12 +1,12 @@
-package com.iskaypet.modules;
+package com.arielsrv.modules;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
-import com.iskaypet.core.ConfigLoader;
-import com.iskaypet.core.RestClient;
-import com.iskaypet.providers.ConfigProvider;
-import com.iskaypet.providers.ObjectMapperProvider;
+import com.arielsrv.core.ConfigLoader;
+import com.arielsrv.core.RestClient;
+import com.arielsrv.providers.ConfigProvider;
+import com.arielsrv.providers.ObjectMapperProvider;
 import jakarta.inject.Singleton;
 
 import java.util.Properties;

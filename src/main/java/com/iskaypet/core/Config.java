@@ -1,4 +1,4 @@
-package com.iskaypet.core;
+package com.arielsrv.core;
 
 import java.util.Properties;
 import java.util.Set;

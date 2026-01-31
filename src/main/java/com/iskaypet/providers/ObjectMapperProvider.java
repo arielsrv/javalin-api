@@ -1,4 +1,4 @@
-package com.iskaypet.providers;
+package com.arielsrv.providers;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;

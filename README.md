@@ -142,7 +142,7 @@ rest.client.{name}.base.url=https://example.com
 To obtain a `RestClient` for a specific service:
 
 ```java
-import com.iskaypet.core.RestClientFactory;
+import com.arielsrv.core.RestClientFactory;
 
 RestClientFactory factory = ... // injected by Guice
 RestClient userClient = factory.get("user");

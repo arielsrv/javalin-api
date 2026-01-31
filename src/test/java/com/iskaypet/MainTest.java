@@ -1,10 +1,10 @@
-package com.iskaypet;
+package com.arielsrv;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.iskaypet.core.ContainerRegistry;
-import com.iskaypet.core.Server;
-import com.iskaypet.modules.AppModule;
+import com.arielsrv.core.ContainerRegistry;
+import com.arielsrv.core.Server;
+import com.arielsrv.modules.AppModule;
 import io.javalin.Javalin;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ class MainTest {
 	@Test
 	void main_smoke_test() throws Exception {
 		// Verificar que la clase se carga y el punto de entrada existe
-		Class<?> mainClass = Class.forName("com.iskaypet.Main");
+		Class<?> mainClass = Class.forName("com.arielsrv.Main");
 		Method mainMethod = mainClass.getDeclaredMethod("main", String[].class);
 		assertThat(mainMethod).isNotNull();
 		assertThat(mainMethod.getParameterCount()).isEqualTo(1);

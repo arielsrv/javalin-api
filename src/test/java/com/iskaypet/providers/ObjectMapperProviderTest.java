@@ -1,4 +1,4 @@
-package com.iskaypet.providers;
+package com.arielsrv.providers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;

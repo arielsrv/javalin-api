@@ -1,4 +1,4 @@
-package com.iskaypet.core;
+package com.arielsrv.core;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
