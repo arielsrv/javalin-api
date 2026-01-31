@@ -17,7 +17,7 @@ RUN --mount=type=cache,id=maven,target=/root/.m2/repository \
     mvn package -Dmaven.test.skip=true -DfinalName=app -B
 
 # Runtime
-FROM eclipse-temurin:${JAVA_VERSION}-jre AS runtime
+FROM eclipse-temurin:${JAVA_VERSION}-jre-alpine AS runtime
 WORKDIR /app
 
 COPY --from=build /app/target/app.jar app.jar
