@@ -270,7 +270,7 @@
         <rxjava.version>3.1.12</rxjava.version>
         <gson.version>2.13.2</gson.version>
         <junit.version>6.0.3</junit.version>
-        <mockito.version>5.22.0</mockito.version>
+        <mockito.version>5.23.0</mockito.version>
         <assertj.version>3.27.7</assertj.version>
         <logback.version>1.5.32</logback.version>
         <logstash.version>9.0</logstash.version>
