@@ -49,14 +49,14 @@ public record Server(Javalin javalin) {
 		ObjectMapper objectMapper = ContainerRegistry.get(ObjectMapper.class);
 
 		return create(config -> {
-			config.useVirtualThreads = true;
-			config.showJavalinBanner = false;
+			config.concurrency.useVirtualThreads = true;
+			config.startup.showJavalinBanner = false;
 			config.registerPlugin(micrometerPlugin);
 			config.jsonMapper(new CustomJacksonMapper(objectMapper));
 
 			config.registerPlugin(new OpenApiPlugin(pluginConfig -> {
 				pluginConfig.withDefinitionConfiguration((version, definition) -> {
-					definition.withInfo(info -> {
+					definition.info(info -> {
 						info.title("Javalin API");
 						info.version("1.0.0");
 						info.description("Automatically generated OpenAPI documentation");
@@ -66,13 +66,13 @@ public record Server(Javalin javalin) {
 			}));
 
 			config.registerPlugin(new SwaggerPlugin(pluginConfig -> {
-				pluginConfig.setUiPath("/swagger");
-				pluginConfig.setDocumentationPath("/openapi");
+				pluginConfig.uiPath = "/swagger";
+				pluginConfig.documentationPath = "/openapi";
 			}));
 
 			config.registerPlugin(new ReDocPlugin(pluginConfig -> {
-				pluginConfig.setUiPath("/redoc");
-				pluginConfig.setDocumentationPath("/openapi");
+				pluginConfig.uiPath = "/redoc";
+				pluginConfig.documentationPath = "/openapi";
 			}));
 		});
 	}
@@ -82,15 +82,15 @@ public record Server(Javalin javalin) {
 	}
 
 	public <T> void get(String path, Function<Context, Observable<T>> handler) {
-		this.javalin.get(path, RxHttpHandler.intercept(handler));
+		this.javalin.unsafe.routes.get(path, RxHttpHandler.intercept(handler));
 	}
 
 	public void start(int port) {
-		this.javalin.get("/metrics",
+		this.javalin.unsafe.routes.get("/metrics",
 			ctx -> ctx.contentType("text/plain; version=0.0.4; charset=utf-8")
 				.result(prometheusMeterRegistry.scrape()));
 
-		this.javalin.get("/ping",
+		this.javalin.unsafe.routes.get("/ping",
 			ctx -> ctx.contentType("text/plain; version=0.0.4; charset=utf-8")
 				.result("pong"));
 

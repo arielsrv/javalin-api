@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 ARG JAVA_VERSION=25
-FROM maven:3.9.12-eclipse-temurin-${JAVA_VERSION} AS build
+FROM maven:3.9.15-eclipse-temurin-${JAVA_VERSION} AS build
 WORKDIR /app
 
 # Copy pom first for better layer caching

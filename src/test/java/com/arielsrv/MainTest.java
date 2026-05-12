@@ -38,10 +38,9 @@ class MainTest {
 		assertThat(server).isNotNull();
 		assertThat(server.javalin()).isNotNull();
 
-		// Verify that we can register endpoints as main does
-		Javalin mockJavalin = mock(Javalin.class);
-		Server mockServer = new Server(mockJavalin);
-		mockServer.get("/users", ctx -> io.reactivex.rxjava3.core.Observable.empty());
-		verify(mockJavalin).get(eq("/users"), any());
+		// Verify that we can register endpoints as main does - in Javalin 7 routes go via unsafe.routes
+		server.get("/users", ctx -> io.reactivex.rxjava3.core.Observable.empty());
+		assertThat(server.javalin().unsafe.internalRouter
+			.hasHttpHandlerEntry(io.javalin.http.HandlerType.GET, "/users")).isTrue();
 	}
 }
