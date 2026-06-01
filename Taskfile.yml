@@ -3,7 +3,7 @@ version: '3'
 
 vars:
   # app
-  JAVA_VERSION: 21
+  JAVA_VERSION: 25
   APP_NAME: javalin-api
   SRC_DIR: src
   BUILD_DIR: target
@@ -49,7 +49,7 @@ tasks:
     vars:
       DOCKERFILE: Dockerfile
     cmds:
-      - docker buildx build --secret id=netrc,src={{.HOME}}/.netrc -t {{.DOCKER_IMAGE}} . -f {{.DOCKERFILE}} --build-arg=JAVA_VERSION={{.JAVA_VERSION}}
+      - docker buildx build -t {{.DOCKER_IMAGE}} . -f {{.DOCKERFILE}} --build-arg=JAVA_VERSION={{.JAVA_VERSION}} --load
 
   docker:run:
     vars:
