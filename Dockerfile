@@ -3,18 +3,20 @@ ARG JAVA_VERSION=25
 FROM maven:3.9.16-eclipse-temurin-${JAVA_VERSION} AS build
 WORKDIR /app
 
-# Copy pom first for better layer caching
+# Copy pom and wrapper first for better layer caching
 COPY pom.xml .
+COPY .mvn .mvn
+COPY mvnw mvnw.cmd ./
 
 # Download ALL dependencies and plugins
 # Cache mount works locally and in GHA with proper buildx setup
 RUN --mount=type=cache,id=maven,target=/root/.m2/repository \
-    mvn dependency:go-offline dependency:resolve-plugins -B
+    ./mvnw dependency:go-offline dependency:resolve-plugins -B
 
 # Copy source and build
 COPY src ./src
 RUN --mount=type=cache,id=maven,target=/root/.m2/repository \
-    mvn package -Dmaven.test.skip=true -DfinalName=app -B
+    ./mvnw package -Dmaven.test.skip=true -DfinalName=app -B
 
 # Runtime
 FROM eclipse-temurin:${JAVA_VERSION}-jre-alpine AS runtime
