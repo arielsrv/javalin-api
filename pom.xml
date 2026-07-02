@@ -286,7 +286,7 @@
         <logstash.version>9.0</logstash.version>
         <micrometer.version>1.17.0</micrometer.version>
         <jackson.version>2.21.3</jackson.version>
-        <jackson.annotations.version>2.21</jackson.annotations.version>
+        <jackson.annotations.version>2.22</jackson.annotations.version>
         <okhttp.version>5.4.0</okhttp.version>
     </properties>
 
