@@ -205,4 +205,4 @@ pom.xml                  # Maven dependencies
 
 ## 📜 License
 
-Released under the **MIT License**.
+Released under the **MIT License** — see [`LICENSE`](LICENSE) for details.
