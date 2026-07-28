@@ -2,10 +2,11 @@ package com.arielsrv.clients;
 
 import com.arielsrv.clients.responses.TodoResponse;
 import com.arielsrv.core.RestClient;
-import com.google.inject.Singleton;
+import io.avaje.inject.External;
 import io.reactivex.rxjava3.core.Observable;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +17,7 @@ public class TodoClient {
 	private final RestClient restClient;
 
 	@Inject
-	public TodoClient(@Named("todo") RestClient restClient) {
+	public TodoClient(@External @Named("todo") RestClient restClient) {
 		this.restClient = restClient;
 	}
 

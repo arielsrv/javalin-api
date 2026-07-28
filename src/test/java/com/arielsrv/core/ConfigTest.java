@@ -1,14 +1,14 @@
 package com.arielsrv.core;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import io.avaje.inject.BeanScope;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class ConfigTest {
 
@@ -20,13 +20,9 @@ class ConfigTest {
 		props.setProperty("rest.client.user.base.url", "https://gorest.co.in");
 		props.setProperty("rest.client.foo.base.url", "https://foo.com");
 		props.setProperty("rest.client.invalid", "value"); // Covers T && F
-		Injector injector = Guice.createInjector(new AbstractModule() {
-			@Override
-			protected void configure() {
-				bind(Properties.class).toInstance(props);
-			}
-		});
-		ContainerRegistry.setInjector(injector);
+		BeanScope scope = mock(BeanScope.class);
+		when(scope.get(Properties.class)).thenReturn(props);
+		ContainerRegistry.setBeanScope(scope);
 	}
 
 	@Test

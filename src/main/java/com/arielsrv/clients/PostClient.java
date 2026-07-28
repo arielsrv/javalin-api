@@ -2,10 +2,11 @@ package com.arielsrv.clients;
 
 import com.arielsrv.clients.responses.PostResponse;
 import com.arielsrv.core.RestClient;
-import com.google.inject.Singleton;
+import io.avaje.inject.External;
 import io.reactivex.rxjava3.core.Observable;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +17,7 @@ public class PostClient {
 	private final RestClient restClient;
 
 	@Inject
-	public PostClient(@Named("post") RestClient restClient) {
+	public PostClient(@External @Named("post") RestClient restClient) {
 		this.restClient = restClient;
 	}
 

@@ -3,22 +3,26 @@ package com.arielsrv.controllers;
 import com.arielsrv.core.ApiController;
 import com.arielsrv.dto.UserDTO;
 import com.arielsrv.services.UserService;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import io.javalin.http.Context;
 import io.javalin.openapi.HttpMethod;
 import io.javalin.openapi.OpenApi;
 import io.javalin.openapi.OpenApiContent;
 import io.javalin.openapi.OpenApiResponse;
 import io.reactivex.rxjava3.core.Observable;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 import java.util.List;
 
 @Singleton
 public class UserController extends ApiController {
 
+	private final UserService userService;
+
 	@Inject
-	UserService userService;
+	public UserController(UserService userService) {
+		this.userService = userService;
+	}
 
 	@OpenApi(
 		summary = "Get all users",

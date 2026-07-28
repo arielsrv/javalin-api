@@ -12,10 +12,10 @@ import com.arielsrv.dto.CommentDTO;
 import com.arielsrv.dto.PostDTO;
 import com.arielsrv.dto.TodoDTO;
 import com.arielsrv.dto.UserDTO;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.reactivex.rxjava3.core.Observable;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 import java.util.List;
 
@@ -24,17 +24,23 @@ import static com.arielsrv.core.RxOperators.parallelMapEach;
 @Singleton
 public class UserService {
 
-	@Inject
-	UserClient userClient;
+	private final UserClient userClient;
+	private final PostClient postClient;
+	private final TodoClient todoClient;
+	private final CommentClient commentClient;
 
 	@Inject
-	PostClient postClient;
-
-	@Inject
-	TodoClient todoClient;
-
-	@Inject
-	CommentClient commentClient;
+	public UserService(
+		UserClient userClient,
+		PostClient postClient,
+		TodoClient todoClient,
+		CommentClient commentClient
+	) {
+		this.userClient = userClient;
+		this.postClient = postClient;
+		this.todoClient = todoClient;
+		this.commentClient = commentClient;
+	}
 
 	@WithSpan
 	public Observable<List<UserDTO>> getUsers() {

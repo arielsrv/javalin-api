@@ -1,19 +1,19 @@
 package com.arielsrv.core;
 
-import com.google.inject.Injector;
+import io.avaje.inject.BeanScope;
 
 public class ContainerRegistry {
 
-	private static Injector injector;
+	private static BeanScope beanScope;
 
-	public static void setInjector(Injector injector) {
-		ContainerRegistry.injector = injector;
+	public static void setBeanScope(BeanScope beanScope) {
+		ContainerRegistry.beanScope = beanScope;
 	}
 
 	public static <T> T get(Class<T> clazz) {
-		if (injector == null) {
-			throw new IllegalStateException("Injector not set");
+		if (beanScope == null) {
+			throw new IllegalStateException("BeanScope not set");
 		}
-		return injector.getInstance(clazz);
+		return beanScope.get(clazz);
 	}
 }

@@ -1,17 +1,18 @@
 package com.arielsrv.core;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import io.avaje.inject.BeanScope;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class ContainerRegistryTest {
 
-	private static void resetInjector() {
+	private static void resetBeanScope() {
 		try {
-			java.lang.reflect.Field f = ContainerRegistry.class.getDeclaredField("injector");
+			java.lang.reflect.Field f = ContainerRegistry.class.getDeclaredField("beanScope");
 			f.setAccessible(true);
 			f.set(null, null);
 		} catch (Exception e) {
@@ -20,20 +21,21 @@ class ContainerRegistryTest {
 	}
 
 	@Test
-	void get_throws_if_injector_not_set() {
-		resetInjector();
+	void get_throws_if_bean_scope_not_set() {
+		resetBeanScope();
 		assertThatThrownBy(() -> ContainerRegistry.get(Sample.class))
 			.isInstanceOf(IllegalStateException.class)
-			.hasMessageContaining("Injector not set");
+			.hasMessageContaining("BeanScope not set");
 	}
 
 	@Test
-	void get_returns_instance_from_injector() {
-		resetInjector();
-		Injector injector = Guice.createInjector(binder -> binder.bind(Sample.class).toInstance(new Sample()));
-		ContainerRegistry.setInjector(injector);
-		Sample s = ContainerRegistry.get(Sample.class);
-		assertThat(s).isNotNull();
+	void get_returns_instance_from_bean_scope() {
+		resetBeanScope();
+		Sample sample = new Sample();
+		BeanScope scope = mock(BeanScope.class);
+		when(scope.get(Sample.class)).thenReturn(sample);
+		ContainerRegistry.setBeanScope(scope);
+		assertThat(ContainerRegistry.get(Sample.class)).isSameAs(sample);
 	}
 
 	@Test
