@@ -18,6 +18,7 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.reactivex.rxjava3.core.Observable;
 
 import java.util.List;
+import java.util.function.Function;
 
 @Singleton
 public class UserService {
@@ -37,20 +38,13 @@ public class UserService {
 	@WithSpan
 	public Observable<List<UserDTO>> getUsers() {
 		return this.userClient.getUsers().flatMap(userResponses ->
-			Observable.fromIterable(userResponses)
-				.concatMapEager(userResponse ->
-						Observable.zip(
-							postsWithComments(userResponse.id),
-							this.todoClient.getTodos(userResponse.id),
-							(posts, todosResponse) -> mapToUserDTO(userResponse, posts, todosResponse)
-						),
-					10, // maxConcurrency: hasta 10 usuarios en paralelo
-					1   // prefetch: cada zip emite un solo item
+			parallelMap(userResponses, userResponse ->
+				Observable.zip(
+					postsWithComments(userResponse.id),
+					this.todoClient.getTodos(userResponse.id),
+					(posts, todosResponse) -> mapToUserDTO(userResponse, posts, todosResponse)
 				)
-				// concatMapEager (vs flatMap) suscribe los inner en paralelo pero
-				// emite en el orden de entrada, preservando el orden de la lista.
-				.toList()
-				.toObservable()
+			)
 		);
 	}
 
@@ -58,16 +52,24 @@ public class UserService {
 	// Anida un segundo nivel de fan-out (posts -> comments) manteniendo el orden.
 	private Observable<List<PostDTO>> postsWithComments(Long userId) {
 		return this.postClient.getPosts(userId).flatMap(postsResponse ->
-			Observable.fromIterable(postsResponse)
-				.concatMapEager(postResponse ->
-						this.commentClient.getComments(postResponse.id)
-							.map(commentsResponse -> mapToPostDTO(postResponse, commentsResponse)),
-					10, // maxConcurrency: hasta 10 posts (comments) en paralelo por usuario
-					1
-				)
-				.toList()
-				.toObservable()
+			parallelMap(postsResponse, postResponse ->
+				this.commentClient.getComments(postResponse.id)
+					.map(commentsResponse -> mapToPostDTO(postResponse, commentsResponse))
+			)
 		);
+	}
+
+	// Mapea cada item de la lista a una llamada async y las suscribe TODAS en
+	// paralelo (concurrencia = cantidad de items: 10 usuarios -> 10, 20 comments
+	// -> 20). concatMapEager sin maxConcurrency preserva el orden de entrada.
+	private static <T, R> Observable<List<R>> parallelMap(
+		List<T> items,
+		Function<T, Observable<R>> mapper
+	) {
+		return Observable.fromIterable(items)
+			.concatMapEager(mapper::apply)
+			.toList()
+			.toObservable();
 	}
 
 	private UserDTO mapToUserDTO(
