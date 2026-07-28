@@ -7,11 +7,11 @@ generatorOptions:
 resources:
   - config.yaml
   - deployment.yaml
-  - hpa.yaml
+  #- hpa.yaml
   - ingress.yaml
   - middleware.yaml
   - namespace.yaml
-  - pdb.yaml
+  #- pdb.yaml
   - service.yaml
 labels:
   - includeSelectors: true

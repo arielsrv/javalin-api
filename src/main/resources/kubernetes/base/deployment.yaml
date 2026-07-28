@@ -25,7 +25,7 @@ spec:
               name: otel-metrics
           name: javalin-api
           image: javalin-api:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           envFrom:
             - configMapRef:
                 name: config

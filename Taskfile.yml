@@ -49,6 +49,11 @@ tasks:
     vars:
       DOCKERFILE: Dockerfile
     cmds:
+      # --no-cache fuerza recompilar el código actual: sin esto, buildx reutiliza
+      # la capa cacheada de `mvnw package` aunque src/ haya cambiado y termina
+      # promoviendo a k8s una imagen con código viejo. Los `RUN --mount=type=cache`
+      # del Dockerfile (repo .m2) NO se borran con --no-cache, así que las
+      # dependencias siguen cacheadas y solo se recompila la fuente.
       - docker buildx build -t {{.DOCKER_IMAGE}} . -f {{.DOCKERFILE}} --build-arg=JAVA_VERSION={{.JAVA_VERSION}} --load
 
   docker:run:

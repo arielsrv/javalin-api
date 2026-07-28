@@ -19,14 +19,15 @@ RUN --mount=type=cache,id=maven,target=/root/.m2/repository \
     ./mvnw package -Dmaven.test.skip=true -DfinalName=app -B
 
 # Runtime
-FROM eclipse-temurin:${JAVA_VERSION}-jre-alpine AS runtime
+FROM gcr.io/distroless/java25-debian13:nonroot AS runtime
 WORKDIR /app
 
 COPY --from=build /app/target/app.jar app.jar
 COPY src/main/resources/opentelemetry-javaagent.jar opentelemetry-javaagent.jar
 COPY src/main/resources/config/*.properties /config/
 
-ENV JAVA_OPTS="-XX:-OmitStackTraceInFastThrow" \
+# JDK_JAVA_OPTIONS lo lee la JVM directamente (distroless no tiene shell para expandir JAVA_OPTS)
+ENV JDK_JAVA_OPTIONS="-XX:-OmitStackTraceInFastThrow" \
     OTEL_SERVICE_NAME="javalin-api" \
     OTEL_RESOURCE_ATTRIBUTES="service.name=javalin-api" \
     OTEL_TRACES_EXPORTER="otlp" \
