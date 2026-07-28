@@ -2,11 +2,5 @@ package com.arielsrv.clients.responses;
 
 import java.time.ZonedDateTime;
 
-public class TodoResponse {
-
-	public Long id;
-	public String title;
-	public String body;
-	//@JsonProperty("due_on")
-	public ZonedDateTime dueOn;
+public record TodoResponse(Long id, String title, String body, ZonedDateTime dueOn) {
 }

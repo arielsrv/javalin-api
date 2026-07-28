@@ -53,8 +53,8 @@ public class UserService {
 		return this.userClient.getUsers().flatMap(userResponses ->
 			parallelMap(userResponses, userResponse ->
 				Observable.zip(
-					postsWithComments(userResponse.id),
-					this.todoClient.getTodos(userResponse.id),
+					postsWithComments(userResponse.id()),
+					this.todoClient.getTodos(userResponse.id()),
 					(posts, todosResponse) -> mapToUserDTO(userResponse, posts, todosResponse)
 				)
 			)
@@ -66,7 +66,7 @@ public class UserService {
 	private Observable<List<PostDTO>> postsWithComments(Long userId) {
 		return this.postClient.getPosts(userId).flatMap(postsResponse ->
 			parallelMap(postsResponse, postResponse ->
-				this.commentClient.getComments(postResponse.id)
+				this.commentClient.getComments(postResponse.id())
 					.map(commentsResponse -> mapToPostDTO(postResponse, commentsResponse))
 			)
 		);
@@ -77,34 +77,29 @@ public class UserService {
 		List<PostDTO> posts,
 		List<TodoResponse> todosResponse
 	) {
-		UserDTO userDTO = new UserDTO();
-		userDTO.userId = userResponse.id;
-		userDTO.email = userResponse.email;
-		userDTO.name = userResponse.name;
-		userDTO.posts = posts;
-		userDTO.todos = todosResponse.stream().map(todoResponse -> {
-			TodoDTO dto = new TodoDTO();
-			dto.id = todoResponse.id;
-			dto.title = todoResponse.title;
-			dto.body = todoResponse.body;
-			dto.dueOn = todoResponse.dueOn;
-			return dto;
-		}).toList();
-		return userDTO;
+		List<TodoDTO> todos = todosResponse.stream()
+			.map(todoResponse -> new TodoDTO(
+				todoResponse.id(),
+				todoResponse.title(),
+				todoResponse.body(),
+				todoResponse.dueOn()))
+			.toList();
+		return new UserDTO(
+			userResponse.id(),
+			userResponse.name(),
+			userResponse.email(),
+			posts,
+			todos);
 	}
 
 	private PostDTO mapToPostDTO(PostResponse postResponse, List<CommentResponse> commentsResponse) {
-		PostDTO dto = new PostDTO();
-		dto.id = postResponse.id;
-		dto.title = postResponse.title;
-		dto.comments = commentsResponse.stream().map(commentResponse -> {
-			CommentDTO commentDTO = new CommentDTO();
-			commentDTO.id = commentResponse.id;
-			commentDTO.name = commentResponse.name;
-			commentDTO.email = commentResponse.email;
-			commentDTO.body = commentResponse.body;
-			return commentDTO;
-		}).toList();
-		return dto;
+		List<CommentDTO> comments = commentsResponse.stream()
+			.map(commentResponse -> new CommentDTO(
+				commentResponse.id(),
+				commentResponse.name(),
+				commentResponse.email(),
+				commentResponse.body()))
+			.toList();
+		return new PostDTO(postResponse.id(), postResponse.title(), comments);
 	}
 }

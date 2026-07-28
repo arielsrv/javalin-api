@@ -2,10 +2,5 @@ package com.arielsrv.dto;
 
 import java.util.List;
 
-public class UserDTO {
-	public Long userId;
-	public String name;
-	public String email;
-	public List<PostDTO> posts;
-	public List<TodoDTO> todos;
+public record UserDTO(Long userId, String name, String email, List<PostDTO> posts, List<TodoDTO> todos) {
 }

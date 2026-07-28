@@ -2,10 +2,5 @@ package com.arielsrv.dto;
 
 import java.time.ZonedDateTime;
 
-public class TodoDTO {
-
-	public Long id;
-	public String title;
-	public String body;
-	public ZonedDateTime dueOn;
+public record TodoDTO(Long id, String title, String body, ZonedDateTime dueOn) {
 }

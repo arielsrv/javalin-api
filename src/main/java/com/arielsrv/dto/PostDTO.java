@@ -2,9 +2,5 @@ package com.arielsrv.dto;
 
 import java.util.List;
 
-public class PostDTO {
-
-	public Long id;
-	public String title;
-	public List<CommentDTO> comments;
+public record PostDTO(Long id, String title, List<CommentDTO> comments) {
 }
