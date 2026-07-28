@@ -34,6 +34,19 @@ class RxHttpHandlerTest {
 	}
 
 	@Test
+	void intercept_error_with_null_message_does_not_hang() throws Exception {
+		// getMessage() == null (ej: NPE upstream). Antes del fix, Map.of("error", null)
+		// tiraba NPE dentro del onError, el future quedaba sin completar y la request
+		// colgaba. Ahora debe responder 500 con el nombre de la excepcion, sin tirar.
+		Context ctx = mock(Context.class);
+		Observable<String> obs = Observable.error(new NullPointerException());
+		Handler handler = RxHttpHandler.intercept(c -> obs);
+		handler.handle(ctx);
+		verify(ctx).status(any());
+		verify(ctx).json(argThat(map -> map.toString().contains("NullPointerException")));
+	}
+
+	@Test
 	void intercept_not_found() throws Exception {
 		Context ctx = mock(Context.class);
 		Observable<String> obs = Observable.empty();
