@@ -35,6 +35,19 @@ public class UserService {
 	@Inject
 	CommentClient commentClient;
 
+	// Mapea cada item de la lista a una llamada async y las suscribe TODAS en
+	// paralelo (concurrencia = cantidad de items: 10 usuarios -> 10, 20 comments
+	// -> 20). concatMapEager sin maxConcurrency preserva el orden de entrada.
+	private static <T, R> Observable<List<R>> parallelMap(
+		List<T> items,
+		Function<T, Observable<R>> mapper
+	) {
+		return Observable.fromIterable(items)
+			.concatMapEager(mapper::apply)
+			.toList()
+			.toObservable();
+	}
+
 	@WithSpan
 	public Observable<List<UserDTO>> getUsers() {
 		return this.userClient.getUsers().flatMap(userResponses ->
@@ -57,19 +70,6 @@ public class UserService {
 					.map(commentsResponse -> mapToPostDTO(postResponse, commentsResponse))
 			)
 		);
-	}
-
-	// Mapea cada item de la lista a una llamada async y las suscribe TODAS en
-	// paralelo (concurrencia = cantidad de items: 10 usuarios -> 10, 20 comments
-	// -> 20). concatMapEager sin maxConcurrency preserva el orden de entrada.
-	private static <T, R> Observable<List<R>> parallelMap(
-		List<T> items,
-		Function<T, Observable<R>> mapper
-	) {
-		return Observable.fromIterable(items)
-			.concatMapEager(mapper::apply)
-			.toList()
-			.toObservable();
 	}
 
 	private UserDTO mapToUserDTO(
