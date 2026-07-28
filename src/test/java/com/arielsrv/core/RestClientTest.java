@@ -2,9 +2,7 @@ package com.arielsrv.core;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import io.reactivex.rxjava3.core.Observable;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -29,13 +27,11 @@ class RestClientTest {
 	void setup() throws IOException {
 		objectMapper = new ObjectMapper();
 		objectMapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
-		objectMapper.registerModule(new ParameterNamesModule());
-		objectMapper.registerModule(new Jdk8Module());
 		objectMapper.registerModule(new JavaTimeModule());
 		mockWebServer = new MockWebServer();
 		mockWebServer.start();
 		String baseUrl = mockWebServer.url("/").toString();
-		restClient = RestClient.createRestClient(baseUrl);
+		restClient = RestClient.createRestClient(baseUrl, objectMapper);
 	}
 
 	@AfterEach
@@ -111,7 +107,7 @@ class RestClientTest {
 	@Test
 	void getObservable_success() {
 		ObjectMapper objectMapper = new ObjectMapper();
-		RestClient rc = new RestClient(objectMapper) {
+		RestClient rc = new RestClient(null, objectMapper) {
 			@Override
 			public <T> Observable<Response<T>> getObservable(String apiUrl, Class<T> clazz) {
 				T data;

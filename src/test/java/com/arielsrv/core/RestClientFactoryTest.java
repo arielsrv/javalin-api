@@ -1,5 +1,7 @@
 package com.arielsrv.core;
 
+import com.arielsrv.providers.ObjectMapperProvider;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -20,10 +22,11 @@ class RestClientFactoryTest {
 		injector = Guice.createInjector(new AbstractModule() {
 			@Override
 			protected void configure() {
+				ObjectMapper objectMapper = new ObjectMapperProvider().get();
 				bind(RestClient.class).annotatedWith(Names.named("user"))
-					.toInstance(RestClient.createRestClient("https://gorest.co.in"));
+					.toInstance(RestClient.createRestClient("https://gorest.co.in", objectMapper));
 				bind(RestClient.class).annotatedWith(Names.named("foo"))
-					.toInstance(RestClient.createRestClient("https://foo.com"));
+					.toInstance(RestClient.createRestClient("https://foo.com", objectMapper));
 			}
 		});
 		factory = new RestClientFactory(injector);

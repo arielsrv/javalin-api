@@ -15,7 +15,10 @@ public class AppModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
-		bind(ObjectMapper.class).toProvider(ObjectMapperProvider.class).in(Singleton.class);
+		// Un unico ObjectMapper compartido: lo usa Javalin para serializar respuestas
+		// y todos los RestClient para deserializar lo que vuelve de las APIs externas.
+		ObjectMapper objectMapper = new ObjectMapperProvider().get();
+		bind(ObjectMapper.class).toInstance(objectMapper);
 		bind(Properties.class).toProvider(ConfigProvider.class).in(Singleton.class);
 
 		Properties config = ConfigLoader.load();
@@ -28,7 +31,7 @@ public class AppModule extends AbstractModule {
 				String baseUrl = config.getProperty(key);
 				bind(RestClient.class)
 					.annotatedWith(Names.named(name))
-					.toInstance(RestClient.createRestClient(baseUrl));
+					.toInstance(RestClient.createRestClient(baseUrl, objectMapper));
 			});
 	}
 }

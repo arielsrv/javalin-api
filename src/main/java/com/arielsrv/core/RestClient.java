@@ -1,11 +1,6 @@
 package com.arielsrv.core;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import io.opentelemetry.api.GlobalOpenTelemetry;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.SpanKind;
@@ -25,24 +20,15 @@ public class RestClient {
 
 	private final HttpClient client = HttpClient.newHttpClient();
 	private final ObjectMapper objectMapper;
-	private String baseUrl;
+	private final String baseUrl;
 
-	private RestClient(String baseUrl) {
-		objectMapper = new ObjectMapper();
-		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		objectMapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
-		objectMapper.registerModule(new ParameterNamesModule());
-		objectMapper.registerModule(new Jdk8Module());
-		objectMapper.registerModule(new JavaTimeModule());
+	public RestClient(String baseUrl, ObjectMapper objectMapper) {
 		this.baseUrl = baseUrl;
-	}
-
-	public RestClient(ObjectMapper objectMapper) {
 		this.objectMapper = objectMapper;
 	}
 
-	public static RestClient createRestClient(String baseUrl) {
-		return new RestClient(baseUrl);
+	public static RestClient createRestClient(String baseUrl, ObjectMapper objectMapper) {
+		return new RestClient(baseUrl, objectMapper);
 	}
 
 	public <T> Observable<Response<T>> getObservable(String apiUrl, Class<T> clazz) {

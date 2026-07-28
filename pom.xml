@@ -238,16 +238,6 @@
             <version>${jackson.version}</version>
         </dependency>
         <dependency>
-            <artifactId>jackson-datatype-jdk8</artifactId>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <artifactId>jackson-module-parameter-names</artifactId>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
             <artifactId>mockwebserver</artifactId>
             <groupId>com.squareup.okhttp3</groupId>
             <scope>test</scope>

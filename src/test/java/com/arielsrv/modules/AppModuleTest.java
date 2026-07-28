@@ -2,6 +2,7 @@ package com.arielsrv.modules;
 
 import com.arielsrv.core.ConfigLoader;
 import com.arielsrv.core.RestClient;
+import com.arielsrv.providers.ObjectMapperProvider;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -39,7 +40,7 @@ class AppModuleTest {
 						String baseUrl = props.getProperty(key);
 						bind(RestClient.class)
 							.annotatedWith(Names.named(name))
-							.toInstance(RestClient.createRestClient(baseUrl));
+							.toInstance(RestClient.createRestClient(baseUrl, new ObjectMapperProvider().get()));
 					});
 			}
 		};
@@ -73,7 +74,7 @@ class AppModuleTest {
 						String baseUrl = props.getProperty(key);
 						bind(RestClient.class)
 							.annotatedWith(Names.named(name))
-							.toInstance(RestClient.createRestClient(baseUrl));
+							.toInstance(RestClient.createRestClient(baseUrl, new ObjectMapperProvider().get()));
 					});
 			}
 		};
