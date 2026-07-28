@@ -80,12 +80,12 @@ public class UserService {
 		userDTO.email = userResponse.email;
 		userDTO.name = userResponse.name;
 		userDTO.posts = posts;
-		userDTO.todos = todosResponse.stream().map(t -> {
+		userDTO.todos = todosResponse.stream().map(todoResponse -> {
 			TodoDTO dto = new TodoDTO();
-			dto.id = t.id;
-			dto.title = t.title;
-			dto.body = t.body;
-			dto.dueOn = t.dueOn;
+			dto.id = todoResponse.id;
+			dto.title = todoResponse.title;
+			dto.body = todoResponse.body;
+			dto.dueOn = todoResponse.dueOn;
 			return dto;
 		}).toList();
 		return userDTO;
@@ -95,12 +95,12 @@ public class UserService {
 		PostDTO dto = new PostDTO();
 		dto.id = postResponse.id;
 		dto.title = postResponse.title;
-		dto.comments = commentsResponse.stream().map(c -> {
+		dto.comments = commentsResponse.stream().map(commentResponse -> {
 			CommentDTO commentDTO = new CommentDTO();
-			commentDTO.id = c.id;
-			commentDTO.name = c.name;
-			commentDTO.email = c.email;
-			commentDTO.body = c.body;
+			commentDTO.id = commentResponse.id;
+			commentDTO.name = commentResponse.name;
+			commentDTO.email = commentResponse.email;
+			commentDTO.body = commentResponse.body;
 			return commentDTO;
 		}).toList();
 		return dto;
