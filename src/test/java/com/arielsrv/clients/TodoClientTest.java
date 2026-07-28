@@ -26,15 +26,10 @@ class TodoClientTest {
 
 	@Test
 	void getComments_returnsListOfTodoResponse() {
-		TodoResponse[] arr = new TodoResponse[2];
-		arr[0] = new TodoResponse();
-		arr[0].id = 100L;
-		arr[0].title = "Todo 1";
-		arr[0].body = "Body 1";
-		arr[1] = new TodoResponse();
-		arr[1].id = 200L;
-		arr[1].title = "Todo 2";
-		arr[1].body = "Body 2";
+		TodoResponse[] arr = {
+			new TodoResponse(100L, "Todo 1", "Body 1", null),
+			new TodoResponse(200L, "Todo 2", "Body 2", null)
+		};
 		Response<TodoResponse[]> response = new Response<>(200, arr);
 		when(restClient.getObservable(org.mockito.ArgumentMatchers.anyString(),
 			org.mockito.ArgumentMatchers.<Class<TodoResponse[]>>any())).thenReturn(
@@ -43,11 +38,11 @@ class TodoClientTest {
 		List<TodoResponse> result = todoClient.getTodos(1L).blockingFirst();
 
 		assertThat(result).hasSize(2);
-		assertThat(result.get(0).id).isEqualTo(100L);
-		assertThat(result.get(0).title).isEqualTo("Todo 1");
-		assertThat(result.get(0).body).isEqualTo("Body 1");
-		assertThat(result.get(1).id).isEqualTo(200L);
-		assertThat(result.get(1).title).isEqualTo("Todo 2");
-		assertThat(result.get(1).body).isEqualTo("Body 2");
+		assertThat(result.get(0).id()).isEqualTo(100L);
+		assertThat(result.get(0).title()).isEqualTo("Todo 1");
+		assertThat(result.get(0).body()).isEqualTo("Body 1");
+		assertThat(result.get(1).id()).isEqualTo(200L);
+		assertThat(result.get(1).title()).isEqualTo("Todo 2");
+		assertThat(result.get(1).body()).isEqualTo("Body 2");
 	}
 }

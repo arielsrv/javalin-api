@@ -26,17 +26,10 @@ class CommentClientTest {
 
 	@Test
 	void getComments_returnsListOfCommentResponse() {
-		CommentResponse[] arr = new CommentResponse[2];
-		arr[0] = new CommentResponse();
-		arr[0].id = 100L;
-		arr[0].name = "Alice";
-		arr[0].email = "alice@example.com";
-		arr[0].body = "Comment 1";
-		arr[1] = new CommentResponse();
-		arr[1].id = 200L;
-		arr[1].name = "Bob";
-		arr[1].email = "bob@example.com";
-		arr[1].body = "Comment 2";
+		CommentResponse[] arr = {
+			new CommentResponse(100L, "Alice", "alice@example.com", "Comment 1"),
+			new CommentResponse(200L, "Bob", "bob@example.com", "Comment 2")
+		};
 		Response<CommentResponse[]> response = new Response<>(200, arr);
 		when(restClient.getObservable(org.mockito.ArgumentMatchers.anyString(),
 			org.mockito.ArgumentMatchers.<Class<CommentResponse[]>>any())).thenReturn(
@@ -45,13 +38,13 @@ class CommentClientTest {
 		List<CommentResponse> result = commentClient.getComments(286457L).blockingFirst();
 
 		assertThat(result).hasSize(2);
-		assertThat(result.get(0).id).isEqualTo(100L);
-		assertThat(result.get(0).name).isEqualTo("Alice");
-		assertThat(result.get(0).email).isEqualTo("alice@example.com");
-		assertThat(result.get(0).body).isEqualTo("Comment 1");
-		assertThat(result.get(1).id).isEqualTo(200L);
-		assertThat(result.get(1).name).isEqualTo("Bob");
-		assertThat(result.get(1).email).isEqualTo("bob@example.com");
-		assertThat(result.get(1).body).isEqualTo("Comment 2");
+		assertThat(result.get(0).id()).isEqualTo(100L);
+		assertThat(result.get(0).name()).isEqualTo("Alice");
+		assertThat(result.get(0).email()).isEqualTo("alice@example.com");
+		assertThat(result.get(0).body()).isEqualTo("Comment 1");
+		assertThat(result.get(1).id()).isEqualTo(200L);
+		assertThat(result.get(1).name()).isEqualTo("Bob");
+		assertThat(result.get(1).email()).isEqualTo("bob@example.com");
+		assertThat(result.get(1).body()).isEqualTo("Comment 2");
 	}
 }

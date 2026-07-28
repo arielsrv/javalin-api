@@ -26,15 +26,10 @@ class UserClientTest {
 
 	@Test
 	void getUsers_returnsListOfUserResponse() {
-		UserResponse[] usersArr = new UserResponse[2];
-		usersArr[0] = new UserResponse();
-		usersArr[0].id = 1L;
-		usersArr[0].name = "Alice";
-		usersArr[0].email = "alice@example.com";
-		usersArr[1] = new UserResponse();
-		usersArr[1].id = 2L;
-		usersArr[1].name = "Bob";
-		usersArr[1].email = "bob@example.com";
+		UserResponse[] usersArr = {
+			new UserResponse(1L, "Alice", "alice@example.com"),
+			new UserResponse(2L, "Bob", "bob@example.com")
+		};
 		Response<UserResponse[]> response = new Response<>(200, usersArr);
 		when(restClient.getObservable(org.mockito.ArgumentMatchers.anyString(),
 			org.mockito.ArgumentMatchers.<Class<UserResponse[]>>any())).thenReturn(
@@ -43,11 +38,11 @@ class UserClientTest {
 		List<UserResponse> result = userClient.getUsers().blockingFirst();
 
 		assertThat(result).hasSize(2);
-		assertThat(result.getFirst().id).isEqualTo(1L);
-		assertThat(result.get(0).name).isEqualTo("Alice");
-		assertThat(result.get(0).email).isEqualTo("alice@example.com");
-		assertThat(result.get(1).id).isEqualTo(2L);
-		assertThat(result.get(1).name).isEqualTo("Bob");
-		assertThat(result.get(1).email).isEqualTo("bob@example.com");
+		assertThat(result.getFirst().id()).isEqualTo(1L);
+		assertThat(result.get(0).name()).isEqualTo("Alice");
+		assertThat(result.get(0).email()).isEqualTo("alice@example.com");
+		assertThat(result.get(1).id()).isEqualTo(2L);
+		assertThat(result.get(1).name()).isEqualTo("Bob");
+		assertThat(result.get(1).email()).isEqualTo("bob@example.com");
 	}
 }

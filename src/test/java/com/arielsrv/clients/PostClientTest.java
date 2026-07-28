@@ -26,13 +26,10 @@ class PostClientTest {
 
 	@Test
 	void getPosts_returnsListOfPostResponse() {
-		PostResponse[] postsArr = new PostResponse[2];
-		postsArr[0] = new PostResponse();
-		postsArr[0].id = 10L;
-		postsArr[0].title = "Post 1";
-		postsArr[1] = new PostResponse();
-		postsArr[1].id = 20L;
-		postsArr[1].title = "Post 2";
+		PostResponse[] postsArr = {
+			new PostResponse(10L, "Post 1"),
+			new PostResponse(20L, "Post 2")
+		};
 		Response<PostResponse[]> response = new Response<>(200, postsArr);
 		when(restClient.getObservable(org.mockito.ArgumentMatchers.anyString(),
 			org.mockito.ArgumentMatchers.<Class<PostResponse[]>>any())).thenReturn(
@@ -41,9 +38,9 @@ class PostClientTest {
 		List<PostResponse> result = postClient.getPosts(1L).blockingFirst();
 
 		assertThat(result).hasSize(2);
-		assertThat(result.get(0).id).isEqualTo(10L);
-		assertThat(result.get(0).title).isEqualTo("Post 1");
-		assertThat(result.get(1).id).isEqualTo(20L);
-		assertThat(result.get(1).title).isEqualTo("Post 2");
+		assertThat(result.get(0).id()).isEqualTo(10L);
+		assertThat(result.get(0).title()).isEqualTo("Post 1");
+		assertThat(result.get(1).id()).isEqualTo(20L);
+		assertThat(result.get(1).title()).isEqualTo("Post 2");
 	}
 }
