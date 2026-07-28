@@ -18,7 +18,7 @@ public class ObjectMapperProvider implements Provider<ObjectMapper> {
 		return JsonMapper.builder()
 			.addModule(new JavaTimeModule())
 			.propertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE)
-			.serializationInclusion(JsonInclude.Include.NON_NULL)
+			.defaultPropertyInclusion(JsonInclude.Value.ALL_NON_NULL)
 			.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
 			.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
 			.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
