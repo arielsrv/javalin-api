@@ -30,9 +30,14 @@ ENV JAVA_OPTS="-XX:-OmitStackTraceInFastThrow" \
     OTEL_SERVICE_NAME="javalin-api" \
     OTEL_RESOURCE_ATTRIBUTES="service.name=javalin-api" \
     OTEL_TRACES_EXPORTER="otlp" \
-    OTEL_METRICS_EXPORTER="none" \
+    OTEL_METRICS_EXPORTER="prometheus" \
+    OTEL_METRICS_EXEMPLAR_FILTER="always_off" \
+    OTEL_EXPORTER_PROMETHEUS_HOST="0.0.0.0" \
+    OTEL_EXPORTER_PROMETHEUS_PORT="9464" \
     OTEL_LOGS_EXPORTER="none" \
-    OTEL_EXPORTER_OTLP_ENDPOINT="http://tempo.monitoring.svc.cluster.local:4317" \
+    OTEL_EXPORTER_OTLP_ENDPOINT="http://alloy.monitoring:4317" \
     OTEL_EXPORTER_OTLP_PROTOCOL="grpc"
+
+EXPOSE 8081 9464
 
 ENTRYPOINT ["java", "-javaagent:/app/opentelemetry-javaagent.jar", "-jar", "app.jar"]

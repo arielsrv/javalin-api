@@ -59,15 +59,18 @@ tasks:
       OTEL_SERVICE_NAME: '{{.APP_NAME}}'
       OTEL_RESOURCE_ATTRIBUTES: 'service.name={{.APP_NAME}}'
       OTEL_TRACES_EXPORTER: otlp
-      OTEL_METRICS_EXPORTER: none
+      OTEL_METRICS_EXPORTER: prometheus
+      OTEL_METRICS_EXEMPLAR_FILTER: always_off
+      OTEL_EXPORTER_PROMETHEUS_HOST: '0.0.0.0'
+      OTEL_EXPORTER_PROMETHEUS_PORT: 9464
       OTEL_LOGS_EXPORTER: none
-      OTEL_EXPORTER_OTLP_ENDPOINT: 'http://tempo.monitoring.svc.cluster.local:4317'
+      OTEL_EXPORTER_OTLP_ENDPOINT: 'http://alloy.monitoring:4317'
       OTEL_EXPORTER_OTLP_PROTOCOL: grpc
     cmds:
       - docker stop {{.APP_NAME}} || true && docker rm {{.APP_NAME}} || true
       - echo http://{{.HOST}}:{{.PORT}}/ping
       - |
-        docker run -p {{.PORT}}:{{.PORT}} --name {{.APP_NAME}} \
+        docker run -p {{.PORT}}:{{.PORT}} -p 9464:9464 --name {{.APP_NAME}} \
           -e APP_NAME={{.APP_NAME}} \
           -e ENV={{.ENV}} \
           -e AWS_ACCESS_KEY_ID={{.AWS_ACCESS_KEY_ID}} \
@@ -76,6 +79,9 @@ tasks:
           -e OTEL_RESOURCE_ATTRIBUTES={{.OTEL_RESOURCE_ATTRIBUTES}} \
           -e OTEL_TRACES_EXPORTER={{.OTEL_TRACES_EXPORTER}} \
           -e OTEL_METRICS_EXPORTER={{.OTEL_METRICS_EXPORTER}} \
+          -e OTEL_METRICS_EXEMPLAR_FILTER={{.OTEL_METRICS_EXEMPLAR_FILTER}} \
+          -e OTEL_EXPORTER_PROMETHEUS_HOST={{.OTEL_EXPORTER_PROMETHEUS_HOST}} \
+          -e OTEL_EXPORTER_PROMETHEUS_PORT={{.OTEL_EXPORTER_PROMETHEUS_PORT}} \
           -e OTEL_LOGS_EXPORTER={{.OTEL_LOGS_EXPORTER}} \
           -e OTEL_EXPORTER_OTLP_ENDPOINT={{.OTEL_EXPORTER_OTLP_ENDPOINT}} \
           -e OTEL_EXPORTER_OTLP_PROTOCOL={{.OTEL_EXPORTER_OTLP_PROTOCOL}} \

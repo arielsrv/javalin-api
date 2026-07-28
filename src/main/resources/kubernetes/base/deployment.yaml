@@ -11,7 +11,7 @@ spec:
   template:
     metadata:
       annotations:
-        prometheus.io/port: http
+        prometheus.io/port: "9464"
         prometheus.io/scrape: "true"
         prometheus.io/path: "/metrics"
       labels:
@@ -21,6 +21,8 @@ spec:
         - ports:
             - containerPort: 8081
               name: http
+            - containerPort: 9464
+              name: otel-metrics
           name: javalin-api
           image: javalin-api:latest
           imagePullPolicy: IfNotPresent
