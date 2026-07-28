@@ -31,14 +31,17 @@ public class UserService {
 	public Observable<List<UserDTO>> getUsers() {
 		return this.userClient.getUsers().flatMap(userResponses ->
 			Observable.fromIterable(userResponses)
-				.flatMap(userResponse ->
+				.concatMapEager(userResponse ->
 						Observable.zip(
 							this.postClient.getPosts(userResponse.id),
 							this.todoClient.getComments(userResponse.id),
 							(postsResponse, todosResponse) -> mapToUserDTO(userResponse, postsResponse, todosResponse)
 						),
-					10 // maxConcurrency: processes up to 10 users in parallel
+					10, // maxConcurrency: hasta 10 usuarios en paralelo
+					1   // prefetch: cada zip emite un solo item
 				)
+				// concatMapEager (vs flatMap) suscribe los inner en paralelo pero
+				// emite en el orden de entrada, preservando el orden de la lista.
 				.toList()
 				.toObservable()
 		);

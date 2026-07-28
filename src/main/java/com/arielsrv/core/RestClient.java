@@ -39,7 +39,11 @@ public class RestClient {
 
 	public <T> Observable<Response<T>> getObservable(String apiUrl, Class<T> clazz) {
 		String uri = "%s%s".formatted(this.baseUrl, apiUrl);
-		return Observable.fromFuture(
+		// fromCompletionStage es no-bloqueante: registra un callback sobre el
+		// CompletableFuture de sendAsync en vez de bloquear el hilo con future.get()
+		// (como hacía fromFuture). Esto permite que flatMap(maxConcurrency) en los
+		// servicios dispare las llamadas HTTP realmente en paralelo.
+		return Observable.fromCompletionStage(
 			this.client.sendAsync(HttpRequest.newBuilder().uri(URI.create(uri)).GET().build(),
 				HttpResponse.BodyHandlers.ofString()).thenApply(response -> {
 				try {
