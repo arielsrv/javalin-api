@@ -2,9 +2,13 @@ package com.arielsrv.core;
 
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
+import io.javalin.http.HttpStatus;
 import io.reactivex.rxjava3.core.Observable;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 
@@ -44,6 +48,30 @@ class RxHttpHandlerTest {
 		handler.handle(ctx);
 		verify(ctx).status(any());
 		verify(ctx).json(argThat(map -> map.toString().contains("NullPointerException")));
+	}
+
+	@Test
+	void intercept_timeout_returns_504() throws Exception {
+		// Upstream que nunca emite + timeout corto -> debe cortar con 504 (no 500 ni
+		// colgarse). El nombre de TimeoutException aparece en el body (su getMessage
+		// es null, resuelto por messageOf).
+		Context ctx = mock(Context.class);
+		Handler handler = RxHttpHandler.intercept(c -> Observable.never(), Duration.ofMillis(50));
+		handler.handle(ctx);
+		verify(ctx, timeout(2000)).status(HttpStatus.GATEWAY_TIMEOUT);
+		verify(ctx, timeout(2000)).json(argThat(map -> map.toString().contains("TimeoutException")));
+	}
+
+	@Test
+	void intercept_disposes_upstream_when_request_ends() throws Exception {
+		// Al terminar la request (aca via timeout), la suscripcion al upstream en vuelo
+		// debe cancelarse: doOnDispose se dispara. Garantiza que no queda trabajo colgado.
+		Context ctx = mock(Context.class);
+		CountDownLatch disposed = new CountDownLatch(1);
+		Observable<String> obs = Observable.<String>never().doOnDispose(disposed::countDown);
+		Handler handler = RxHttpHandler.intercept(c -> obs, Duration.ofMillis(50));
+		handler.handle(ctx);
+		assertThat(disposed.await(2, TimeUnit.SECONDS)).isTrue();
 	}
 
 	@Test

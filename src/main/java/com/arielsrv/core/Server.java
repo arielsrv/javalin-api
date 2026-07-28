@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.time.Duration;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -82,7 +83,13 @@ public record Server(Javalin javalin) {
 	}
 
 	public <T> void get(String path, Function<Context, Observable<T>> handler) {
-		this.javalin.unsafe.routes.get(path, RxHttpHandler.intercept(handler));
+		this.javalin.unsafe.routes.get(path, RxHttpHandler.intercept(handler, requestTimeout()));
+	}
+
+	// Techo por request configurable via http.request.timeout.seconds; si falta, 30s.
+	private static Duration requestTimeout() {
+		String value = Config.getStringValue("http.request.timeout.seconds");
+		return value != null ? Duration.ofSeconds(Long.parseLong(value)) : RxHttpHandler.DEFAULT_TIMEOUT;
 	}
 
 	public void start(int port) {
