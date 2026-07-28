@@ -11,6 +11,10 @@ vars:
   HOST: 127.0.0.1
   PORT: 8081
 
+  # deps
+  # Ignora pre-releases (milestones/RC/alpha/beta) al buscar actualizaciones.
+  VERSIONS_IGNORE: '.*-M\d+,.*-(rc|RC)\d+,.*-(alpha|beta).*'
+
   # kubernetes
   KUBERNETES_APP_NAMESPACE: arielsrv
   KUBERNETES_MANIFESTS_DIR: '{{.SRC_DIR}}/main/resources/kubernetes'
@@ -35,10 +39,17 @@ tasks:
         curl -L -o {{.OTEL_AGENT_PATH}} "$DOWNLOAD_URL"
         echo "Downloaded to {{.OTEL_AGENT_PATH}}"
 
-  update:
+  deps:updates:
+    desc: Show available dependency & plugin updates (skips pre-releases)
     silent: true
     cmds:
-      - mvn versions:display-dependency-updates
+      - mvn versions:display-property-updates versions:display-dependency-updates versions:display-plugin-updates -Dmaven.version.ignore='{{.VERSIONS_IGNORE}}'
+
+  deps:check:
+    desc: Scan dependencies for known vulnerabilities (OWASP NVD). Set NVD_API_KEY to avoid rate limiting.
+    silent: true
+    cmds:
+      - mvn org.owasp:dependency-check-maven:check -DnvdApiKey="${NVD_API_KEY}"
 
   build:
     silent: true

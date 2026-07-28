@@ -166,6 +166,20 @@ JUnit 5 + Mockito + AssertJ, with reactive assertions via RxJava's `TestObserver
 ./mvnw test
 ```
 
+## 🔒 Dependencies & security
+
+Keep the dependency tree current and audited via `Taskfile` shortcuts:
+
+| Task | Action |
+|---|---|
+| `task deps:updates` | List available dependency & plugin updates (pre-releases filtered out) |
+| `task deps:check` | Scan for known vulnerabilities with OWASP dependency-check (NVD) |
+
+```sh
+task deps:updates                    # what can be upgraded?
+NVD_API_KEY=<key> task deps:check    # any known CVEs? (key avoids NVD rate limiting)
+```
+
 ## 🚢 Kubernetes
 
 Deploy the whole stack with one command:
