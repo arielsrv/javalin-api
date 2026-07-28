@@ -5,9 +5,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Java Version](https://img.shields.io/badge/Java-25-blue.svg)](https://openjdk.org/projects/jdk/25/)
 
-This project is a high-performance Java REST API built with [Javalin](https://javalin.io/). It leverages modern Java 25 features, dependency injection with Guice, and RxJava 3 for reactive programming.
+This project is a high-performance Java REST API built with [Javalin](https://javalin.io/). It leverages modern Java 25
+features, dependency injection with Guice, and RxJava 3 for reactive programming.
 
-Designed for cloud-native environments, it includes observability via OpenTelemetry, Prometheus metrics, and first-class Kubernetes support.
+Designed for cloud-native environments, it includes observability via OpenTelemetry, Prometheus metrics, and first-class
+Kubernetes support.
 
 ## 🚀 Features
 
@@ -73,6 +75,7 @@ task k:run
 ```
 
 This task performs:
+
 1. Docker image build.
 2. Manifest generation with Kustomize.
 3. Namespace and Secret creation (including TLS with `mkcert`).
@@ -80,6 +83,7 @@ This task performs:
 5. Rollout status verification.
 
 ### Key Kubernetes Tasks
+
 - `task k:tls`: Generates and applies TLS secrets for Ingress.
 - `task k:apply`: Applies manifests and restarts deployment.
 - `task k:ping`: Pings the service through the Ingress.
@@ -89,14 +93,15 @@ This task performs:
 Configuration is environment-based, loading files from `src/main/resources/config/config.{env}.properties`.
 
 Key properties:
+
 - `app.port`: API port (default 8081).
 - `app.host`: Binding host.
 - `rest.client.{name}.base.url`: Dynamic REST client configuration.
 
 ## 📊 Observability
 
-The application includes the **OpenTelemetry Java Agent** for distributed tracing.
-Configuration is managed via environment variables (see `Dockerfile` or `Taskfile.yml` for defaults):
+The application includes the **OpenTelemetry Java Agent** for distributed tracing. Configuration is managed via
+environment variables (see `Dockerfile` or `Taskfile.yml` for defaults):
 
 - `OTEL_EXPORTER_OTLP_ENDPOINT`: Target collector (default: Tempo).
 - `OTEL_SERVICE_NAME`: `javalin-api`.

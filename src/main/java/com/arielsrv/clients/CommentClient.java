@@ -1,8 +1,8 @@
 package com.arielsrv.clients;
 
-import com.google.inject.Singleton;
 import com.arielsrv.clients.responses.CommentResponse;
 import com.arielsrv.core.RestClient;
+import com.google.inject.Singleton;
 import io.reactivex.rxjava3.core.Observable;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;

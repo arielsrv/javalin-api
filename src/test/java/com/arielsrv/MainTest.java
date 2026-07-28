@@ -1,18 +1,16 @@
 package com.arielsrv;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 import com.arielsrv.core.ContainerRegistry;
 import com.arielsrv.core.Server;
 import com.arielsrv.modules.AppModule;
-import io.javalin.Javalin;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
 
 class MainTest {
 

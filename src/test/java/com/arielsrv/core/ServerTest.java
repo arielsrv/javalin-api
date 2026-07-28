@@ -1,8 +1,8 @@
 package com.arielsrv.core;
 
+import com.arielsrv.modules.AppModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.arielsrv.modules.AppModule;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import io.javalin.http.HandlerType;
@@ -40,7 +40,8 @@ class ServerTest {
 
 	@Test
 	void get_registers_endpoint() {
-		Server server = Server.create(cfg -> {});
+		Server server = Server.create(cfg -> {
+		});
 		server.get("/test", ctx -> null);
 		assertThat(server.javalin().unsafe.internalRouter.hasHttpHandlerEntry(HandlerType.GET, "/test")).isTrue();
 	}
@@ -77,7 +78,8 @@ class ServerTest {
 
 	@Test
 	void get_with_observable_handler() {
-		Server server = Server.create(cfg -> {});
+		Server server = Server.create(cfg -> {
+		});
 		server.get("/observable-test", ctx -> Observable.just("test"));
 		assertThat(server.javalin().unsafe.internalRouter.hasHttpHandlerEntry(HandlerType.GET, "/observable-test")).isTrue();
 	}

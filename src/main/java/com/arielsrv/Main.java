@@ -1,11 +1,11 @@
 package com.arielsrv;
 
-import com.google.inject.Guice;
 import com.arielsrv.controllers.UserController;
 import com.arielsrv.core.Config;
 import com.arielsrv.core.ContainerRegistry;
 import com.arielsrv.core.Server;
 import com.arielsrv.modules.AppModule;
+import com.google.inject.Guice;
 
 public class Main {
 

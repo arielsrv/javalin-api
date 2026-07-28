@@ -1,7 +1,5 @@
 package com.arielsrv.services;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import com.arielsrv.clients.CommentClient;
 import com.arielsrv.clients.PostClient;
 import com.arielsrv.clients.TodoClient;
@@ -14,6 +12,8 @@ import com.arielsrv.dto.CommentDTO;
 import com.arielsrv.dto.PostDTO;
 import com.arielsrv.dto.TodoDTO;
 import com.arielsrv.dto.UserDTO;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.reactivex.rxjava3.core.Observable;
 
