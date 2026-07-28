@@ -171,3 +171,4 @@ tasks:
       # --retry-delay 1: 1s entre intentos. --retry-all-errors por si el fallo es
       # a nivel conexión (connection refused) y no un 5xx.
       - curl -i --retry 5 --retry-delay 1 --retry-all-errors -X GET 'https://{{.KUBERNETES_INGRESS}}/ping' ; echo
+      - curl -i --retry 5 --retry-delay 1 --retry-all-errors -X GET 'https://{{.KUBERNETES_INGRESS}}/users' ; echo
