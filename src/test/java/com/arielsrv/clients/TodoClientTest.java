@@ -40,7 +40,7 @@ class TodoClientTest {
 			org.mockito.ArgumentMatchers.<Class<TodoResponse[]>>any())).thenReturn(
 			Observable.just(response));
 
-		List<TodoResponse> result = todoClient.getComments(1L).blockingFirst();
+		List<TodoResponse> result = todoClient.getTodos(1L).blockingFirst();
 
 		assertThat(result).hasSize(2);
 		assertThat(result.get(0).id).isEqualTo(100L);

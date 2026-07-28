@@ -65,8 +65,8 @@ class UserServiceTest {
 		todo2.id = 200L;
 		todo2.title = "Todo 2";
 		todo2.body = "Body 2";
-		when(todoClient.getComments(1L)).thenReturn(Observable.just(List.of(todo1)));
-		when(todoClient.getComments(2L)).thenReturn(Observable.just(List.of(todo2)));
+		when(todoClient.getTodos(1L)).thenReturn(Observable.just(List.of(todo1)));
+		when(todoClient.getTodos(2L)).thenReturn(Observable.just(List.of(todo2)));
 
 		List<UserDTO> result = userService.getUsers().blockingFirst();
 

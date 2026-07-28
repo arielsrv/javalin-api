@@ -20,7 +20,7 @@ public class TodoClient {
 		this.restClient = restClient;
 	}
 
-	public Observable<List<TodoResponse>> getComments(Long userId) {
+	public Observable<List<TodoResponse>> getTodos(Long userId) {
 		String apiUrl = "/public/v2/users/%s/todos".formatted(userId);
 		return this.restClient.getObservable(apiUrl, TodoResponse[].class)
 			.map(response -> Arrays.asList(response.data()));

@@ -34,7 +34,7 @@ public class UserService {
 				.concatMapEager(userResponse ->
 						Observable.zip(
 							this.postClient.getPosts(userResponse.id),
-							this.todoClient.getComments(userResponse.id),
+							this.todoClient.getTodos(userResponse.id),
 							(postsResponse, todosResponse) -> mapToUserDTO(userResponse, postsResponse, todosResponse)
 						),
 					10, // maxConcurrency: hasta 10 usuarios en paralelo
