@@ -19,7 +19,7 @@ RUN --mount=type=cache,id=maven,target=/root/.m2/repository \
     ./mvnw package -Dmaven.test.skip=true -DfinalName=app -B
 
 # Runtime
-FROM gcr.io/distroless/java25-debian13:debug AS runtime
+FROM gcr.io/distroless/java25-debian13:nonroot AS runtime
 WORKDIR /app
 
 COPY --from=build /app/target/app.jar app.jar

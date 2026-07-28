@@ -165,4 +165,9 @@ tasks:
   k:ping:
     desc: k8s ingress ping
     cmds:
-      - curl -i -X GET 'https://{{.KUBERNETES_INGRESS}}/ping' ; echo
+      # --retry 5: reintenta hasta 5 veces ante errores transitorios (curl trata
+      # 502/503/504 como transitorios). Cubre la ventana del rolling update donde
+      # Traefik todavía rutea al pod viejo que ya cerró el socket.
+      # --retry-delay 1: 1s entre intentos. --retry-all-errors por si el fallo es
+      # a nivel conexión (connection refused) y no un 5xx.
+      - curl -i --retry 5 --retry-delay 1 --retry-all-errors -X GET 'https://{{.KUBERNETES_INGRESS}}/ping' ; echo
