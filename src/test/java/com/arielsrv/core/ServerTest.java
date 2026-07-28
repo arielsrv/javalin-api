@@ -127,8 +127,8 @@ class ServerTest {
 		Server server = createSpyServer();
 		server.start(8086);
 
-		var handler = server.javalin().unsafe.internalRouter
-			.findFirstHttpHandlerEntry(HandlerType.GET, "/metrics")
+		var handler = Objects.requireNonNull(server.javalin().unsafe.internalRouter
+			.findFirstHttpHandlerEntry(HandlerType.GET, "/metrics"))
 			.endpoint.handler;
 
 		Context ctx = mock(Context.class);

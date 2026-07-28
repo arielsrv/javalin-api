@@ -38,10 +38,10 @@ class CommentClientTest {
 		List<CommentResponse> result = commentClient.getComments(286457L).blockingFirst();
 
 		assertThat(result).hasSize(2);
-		assertThat(result.get(0).id()).isEqualTo(100L);
-		assertThat(result.get(0).name()).isEqualTo("Alice");
-		assertThat(result.get(0).email()).isEqualTo("alice@example.com");
-		assertThat(result.get(0).body()).isEqualTo("Comment 1");
+		assertThat(result.getFirst().id()).isEqualTo(100L);
+		assertThat(result.getFirst().name()).isEqualTo("Alice");
+		assertThat(result.getFirst().email()).isEqualTo("alice@example.com");
+		assertThat(result.getFirst().body()).isEqualTo("Comment 1");
 		assertThat(result.get(1).id()).isEqualTo(200L);
 		assertThat(result.get(1).name()).isEqualTo("Bob");
 		assertThat(result.get(1).email()).isEqualTo("bob@example.com");

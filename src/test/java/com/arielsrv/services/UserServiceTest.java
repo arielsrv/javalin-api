@@ -73,31 +73,31 @@ class UserServiceTest {
 		assertThat(alice.name()).isEqualTo("Alice");
 		assertThat(alice.email()).isEqualTo("alice@example.com");
 		assertThat(alice.posts()).hasSize(1);
-		assertThat(alice.posts().get(0).id()).isEqualTo(10L);
-		assertThat(alice.posts().get(0).title()).isEqualTo("Post 1");
-		assertThat(alice.posts().get(0).comments()).hasSize(1);
-		assertThat(alice.posts().get(0).comments().get(0).id()).isEqualTo(1000L);
-		assertThat(alice.posts().get(0).comments().get(0).name()).isEqualTo("Carol");
-		assertThat(alice.posts().get(0).comments().get(0).email()).isEqualTo("carol@example.com");
-		assertThat(alice.posts().get(0).comments().get(0).body()).isEqualTo("Comment on post 10");
+		assertThat(alice.posts().getFirst().id()).isEqualTo(10L);
+		assertThat(alice.posts().getFirst().title()).isEqualTo("Post 1");
+		assertThat(alice.posts().getFirst().comments()).hasSize(1);
+		assertThat(alice.posts().getFirst().comments().getFirst().id()).isEqualTo(1000L);
+		assertThat(alice.posts().getFirst().comments().getFirst().name()).isEqualTo("Carol");
+		assertThat(alice.posts().getFirst().comments().getFirst().email()).isEqualTo("carol@example.com");
+		assertThat(alice.posts().getFirst().comments().getFirst().body()).isEqualTo("Comment on post 10");
 		assertThat(alice.todos()).hasSize(1);
-		assertThat(alice.todos().get(0).id()).isEqualTo(100L);
-		assertThat(alice.todos().get(0).title()).isEqualTo("Todo 1");
-		assertThat(alice.todos().get(0).body()).isEqualTo("Body 1");
+		assertThat(alice.todos().getFirst().id()).isEqualTo(100L);
+		assertThat(alice.todos().getFirst().title()).isEqualTo("Todo 1");
+		assertThat(alice.todos().getFirst().body()).isEqualTo("Body 1");
 
 		assertThat(bob.userId()).isEqualTo(2L);
 		assertThat(bob.name()).isEqualTo("Bob");
 		assertThat(bob.email()).isEqualTo("bob@example.com");
 		assertThat(bob.posts()).hasSize(1);
-		assertThat(bob.posts().get(0).id()).isEqualTo(20L);
-		assertThat(bob.posts().get(0).title()).isEqualTo("Post 2");
-		assertThat(bob.posts().get(0).comments()).hasSize(1);
-		assertThat(bob.posts().get(0).comments().get(0).id()).isEqualTo(2000L);
-		assertThat(bob.posts().get(0).comments().get(0).body()).isEqualTo("Comment on post 20");
+		assertThat(bob.posts().getFirst().id()).isEqualTo(20L);
+		assertThat(bob.posts().getFirst().title()).isEqualTo("Post 2");
+		assertThat(bob.posts().getFirst().comments()).hasSize(1);
+		assertThat(bob.posts().getFirst().comments().getFirst().id()).isEqualTo(2000L);
+		assertThat(bob.posts().getFirst().comments().getFirst().body()).isEqualTo("Comment on post 20");
 		assertThat(bob.todos()).hasSize(1);
-		assertThat(bob.todos().get(0).id()).isEqualTo(200L);
-		assertThat(bob.todos().get(0).title()).isEqualTo("Todo 2");
-		assertThat(bob.todos().get(0).body()).isEqualTo("Body 2");
+		assertThat(bob.todos().getFirst().id()).isEqualTo(200L);
+		assertThat(bob.todos().getFirst().title()).isEqualTo("Todo 2");
+		assertThat(bob.todos().getFirst().body()).isEqualTo("Body 2");
 	}
 
 	// More tests can be added for error cases, empty lists, etc.

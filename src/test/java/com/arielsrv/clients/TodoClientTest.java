@@ -38,9 +38,9 @@ class TodoClientTest {
 		List<TodoResponse> result = todoClient.getTodos(1L).blockingFirst();
 
 		assertThat(result).hasSize(2);
-		assertThat(result.get(0).id()).isEqualTo(100L);
-		assertThat(result.get(0).title()).isEqualTo("Todo 1");
-		assertThat(result.get(0).body()).isEqualTo("Body 1");
+		assertThat(result.getFirst().id()).isEqualTo(100L);
+		assertThat(result.getFirst().title()).isEqualTo("Todo 1");
+		assertThat(result.getFirst().body()).isEqualTo("Body 1");
 		assertThat(result.get(1).id()).isEqualTo(200L);
 		assertThat(result.get(1).title()).isEqualTo("Todo 2");
 		assertThat(result.get(1).body()).isEqualTo("Body 2");

@@ -18,7 +18,8 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.reactivex.rxjava3.core.Observable;
 
 import java.util.List;
-import java.util.function.Function;
+
+import static com.arielsrv.core.RxOperators.parallelMapEach;
 
 @Singleton
 public class UserService {
@@ -35,41 +36,24 @@ public class UserService {
 	@Inject
 	CommentClient commentClient;
 
-	// Mapea cada item de la lista a una llamada async y las suscribe TODAS en
-	// paralelo (concurrencia = cantidad de items: 10 usuarios -> 10, 20 comments
-	// -> 20). concatMapEager sin maxConcurrency preserva el orden de entrada.
-	private static <T, R> Observable<List<R>> parallelMap(
-		List<T> items,
-		Function<T, Observable<R>> mapper
-	) {
-		return Observable.fromIterable(items)
-			.concatMapEager(mapper::apply)
-			.toList()
-			.toObservable();
-	}
-
 	@WithSpan
 	public Observable<List<UserDTO>> getUsers() {
-		return this.userClient.getUsers().flatMap(userResponses ->
-			parallelMap(userResponses, userResponse ->
+		return this.userClient.getUsers()
+			.compose(parallelMapEach(userResponse ->
 				Observable.zip(
 					postsWithComments(userResponse.id()),
 					this.todoClient.getTodos(userResponse.id()),
 					(posts, todosResponse) -> mapToUserDTO(userResponse, posts, todosResponse)
-				)
-			)
-		);
+				)));
 	}
 
 	// Por cada post del usuario busca sus comments en paralelo y arma el PostDTO.
 	// Anida un segundo nivel de fan-out (posts -> comments) manteniendo el orden.
 	private Observable<List<PostDTO>> postsWithComments(Long userId) {
-		return this.postClient.getPosts(userId).flatMap(postsResponse ->
-			parallelMap(postsResponse, postResponse ->
+		return this.postClient.getPosts(userId)
+			.compose(parallelMapEach(postResponse ->
 				this.commentClient.getComments(postResponse.id())
-					.map(commentsResponse -> mapToPostDTO(postResponse, commentsResponse))
-			)
-		);
+					.map(commentsResponse -> mapToPostDTO(postResponse, commentsResponse))));
 	}
 
 	private UserDTO mapToUserDTO(
