@@ -2,6 +2,7 @@ package com.arielsrv.core;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Locale;
 import java.util.Properties;
 
 public class ConfigLoader {
@@ -24,6 +25,20 @@ public class ConfigLoader {
 		} catch (IOException e) {
 			throw new RuntimeException("error loading config: " + path, e);
 		}
+		overrideFromEnv(props);
 		return props;
+	}
+
+	// 12-factor: cualquier env var con el nombre de la key en MAYUS y puntos -> guiones
+	// bajos pisa el valor del .properties (ej: rest.client.user.base.url ->
+	// REST_CLIENT_USER_BASE_URL). Permite override en runtime y en tests de integracion.
+	private static void overrideFromEnv(Properties props) {
+		for (String key : props.stringPropertyNames()) {
+			String envKey = key.toUpperCase(Locale.ROOT).replace('.', '_');
+			String envVal = System.getenv(envKey);
+			if (envVal != null && !envVal.isBlank()) {
+				props.setProperty(key, envVal);
+			}
+		}
 	}
 }

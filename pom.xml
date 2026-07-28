@@ -122,6 +122,19 @@
                 </configuration>
                 <version>3.5.6</version>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.5.6</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
         </plugins>
     </build>
@@ -246,6 +259,12 @@
             <version>2.1.8</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers-junit-jupiter</artifactId>
+            <version>${testcontainers.version}</version>
+            <scope>test</scope>
+        </dependency>
         <!-- OpenApi plugin -->
         <dependency>
             <groupId>io.javalin.community.openapi</groupId>
@@ -288,6 +307,7 @@
         <jackson.version>2.22.1</jackson.version>
         <jackson.annotations.version>2.22</jackson.annotations.version>
         <okhttp.version>5.4.0</okhttp.version>
+        <testcontainers.version>2.0.5</testcontainers.version>
     </properties>
 
     <repositories>
