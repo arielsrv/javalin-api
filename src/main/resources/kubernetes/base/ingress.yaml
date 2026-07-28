@@ -2,9 +2,6 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    # Traefik colapsa el doble guion del namePrefix (javalin-api--cors) a uno solo
-    # al registrar el Middleware, por eso la referencia usa "javalin-api-cors".
-    traefik.ingress.kubernetes.io/router.middlewares: arielsrv-javalin-api-cors@kubernetescrd
   labels:
     app: javalin-api
   name: ingress
