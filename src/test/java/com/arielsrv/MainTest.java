@@ -2,9 +2,7 @@ package com.arielsrv;
 
 import com.arielsrv.core.ContainerRegistry;
 import com.arielsrv.core.Server;
-import com.arielsrv.modules.AppModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import com.arielsrv.modules.AppBootstrap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,8 +14,7 @@ class MainTest {
 
 	@BeforeEach
 	void setup() {
-		Injector injector = Guice.createInjector(new AppModule());
-		ContainerRegistry.setInjector(injector);
+		ContainerRegistry.setBeanScope(AppBootstrap.createBeanScope());
 	}
 
 	@Test

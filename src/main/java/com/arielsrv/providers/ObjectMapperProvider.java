@@ -8,9 +8,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.inject.Provider;
-import jakarta.inject.Singleton;
 
-@Singleton
 public class ObjectMapperProvider implements Provider<ObjectMapper> {
 
 	@Override

@@ -170,10 +170,10 @@ JUnit 5 + Mockito + AssertJ, with reactive assertions via RxJava's `TestObserver
 
 Keep the dependency tree current and audited via `Taskfile` shortcuts:
 
-| Task | Action |
-|---|---|
+| Task                | Action                                                                 |
+|---------------------|------------------------------------------------------------------------|
 | `task deps:updates` | List available dependency & plugin updates (pre-releases filtered out) |
-| `task deps:check` | Scan for known vulnerabilities with OWASP dependency-check (NVD) |
+| `task deps:check`   | Scan for known vulnerabilities with OWASP dependency-check (NVD)       |
 
 ```sh
 task deps:updates                    # what can be upgraded?

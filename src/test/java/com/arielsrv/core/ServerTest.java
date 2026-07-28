@@ -1,8 +1,6 @@
 package com.arielsrv.core;
 
-import com.arielsrv.modules.AppModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import com.arielsrv.modules.AppBootstrap;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import io.javalin.http.HandlerType;
@@ -20,8 +18,7 @@ class ServerTest {
 
 	@BeforeEach
 	void setup() {
-		Injector injector = Guice.createInjector(new AppModule());
-		ContainerRegistry.setInjector(injector);
+		ContainerRegistry.setBeanScope(AppBootstrap.createBeanScope());
 	}
 
 	@Test

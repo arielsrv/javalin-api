@@ -1,20 +1,20 @@
 package com.arielsrv.core;
 
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.google.inject.Key;
-import com.google.inject.name.Names;
+import io.avaje.inject.BeanScope;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
+@Singleton
 public class RestClientFactory {
 
-	private final Injector injector;
+	private final BeanScope beanScope;
 
 	@Inject
-	public RestClientFactory(Injector injector) {
-		this.injector = injector;
+	public RestClientFactory(BeanScope beanScope) {
+		this.beanScope = beanScope;
 	}
 
 	public RestClient get(String name) {
-		return injector.getInstance(Key.get(RestClient.class, Names.named(name)));
+		return beanScope.get(RestClient.class, name);
 	}
 }
