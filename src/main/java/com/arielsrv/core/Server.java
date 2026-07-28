@@ -82,14 +82,14 @@ public record Server(Javalin javalin) {
 		return new Server(Javalin.create(config));
 	}
 
-	public <T> void get(String path, Function<Context, Observable<T>> handler) {
-		this.javalin.unsafe.routes.get(path, RxHttpHandler.intercept(handler, requestTimeout()));
-	}
-
 	// Techo por request configurable via http.request.timeout.seconds; si falta, 30s.
 	private static Duration requestTimeout() {
 		String value = Config.getStringValue("http.request.timeout.seconds");
 		return value != null ? Duration.ofSeconds(Long.parseLong(value)) : RxHttpHandler.DEFAULT_TIMEOUT;
+	}
+
+	public <T> void get(String path, Function<Context, Observable<T>> handler) {
+		this.javalin.unsafe.routes.get(path, RxHttpHandler.intercept(handler, requestTimeout()));
 	}
 
 	public void start(int port) {
