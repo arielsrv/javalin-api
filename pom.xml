@@ -316,7 +316,7 @@
     <properties>
         <maven.compiler.release>25</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <javalin.version>7.2.2</javalin.version>
+        <javalin.version>7.2.3</javalin.version>
         <javalin.openapi.version>7.2.2</javalin.openapi.version>
         <opentelemetry.version>2.30.0</opentelemetry.version>
         <avaje.inject.version>12.6</avaje.inject.version>
