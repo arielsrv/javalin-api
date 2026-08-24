@@ -327,7 +327,7 @@
         <assertj.version>3.27.7</assertj.version>
         <logback.version>1.6.3</logback.version>
         <logstash.version>9.0</logstash.version>
-        <micrometer.version>1.17.0</micrometer.version>
+        <micrometer.version>1.17.1</micrometer.version>
         <jackson.version>2.22.1</jackson.version>
         <jackson.annotations.version>2.22</jackson.annotations.version>
         <okhttp.version>5.4.0</okhttp.version>
