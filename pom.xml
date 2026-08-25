@@ -318,7 +318,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javalin.version>7.2.3</javalin.version>
         <javalin.openapi.version>7.2.3</javalin.openapi.version>
-        <opentelemetry.version>2.30.0</opentelemetry.version>
+        <opentelemetry.version>2.31.1</opentelemetry.version>
         <avaje.inject.version>12.6</avaje.inject.version>
         <rxjava.version>3.1.12</rxjava.version>
         <gson.version>2.14.0</gson.version>
@@ -327,8 +327,8 @@
         <assertj.version>3.27.7</assertj.version>
         <logback.version>1.6.3</logback.version>
         <logstash.version>9.0</logstash.version>
-        <micrometer.version>1.17.0</micrometer.version>
-        <jackson.version>2.22.1</jackson.version>
+        <micrometer.version>1.17.1</micrometer.version>
+        <jackson.version>2.22.2</jackson.version>
         <jackson.annotations.version>2.22</jackson.annotations.version>
         <okhttp.version>5.4.0</okhttp.version>
         <testcontainers.version>2.0.5</testcontainers.version>
