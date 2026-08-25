@@ -16,7 +16,7 @@ vars:
   VERSIONS_IGNORE: '.*-M\d+,.*-(rc|RC)\d+,.*-(alpha|beta).*'
 
   # kubernetes
-  KUBERNETES_APP_NAMESPACE: arielsrv
+  KUBERNETES_APP_NAMESPACE: default
   KUBERNETES_MANIFESTS_DIR: '{{.SRC_DIR}}/main/resources/kubernetes'
   KUBERNETES_APP_DEPLOYMENT_NAME: deployment.v1.apps/{{.APP_NAME}}--rolling-update
   KUBERNETES_OUTPUT_DIR: '{{.BUILD_DIR}}/kubernetes'
